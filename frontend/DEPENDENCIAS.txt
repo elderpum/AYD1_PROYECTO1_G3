@@ -1,0 +1,14 @@
+------------- MATERIAL UI ---------------------------------
+npm install @mui/material @emotion/react @emotion/styled
+
+------------- react-router-dom ----------------------------
+npm i react-router-dom
+
+------------- styled-components ---------------------------
+npm i styled-components
+
+------------- raect-icons ---------------------------------
+npm i react-icons
+
+------------- bootstrap -----------------------------------
+npm i bootstrap
