@@ -67,7 +67,6 @@ export function RegistroEstudiante() {
             <ContainerAlternativo>
                 <div className='d-flex flex-column align-items-center justify-content-center'>
                     <img src={logo} alt='logo'/>
-                    <button type="button" class="btn btn-success mrgn">Iniciar Sesion</button>
                 </div>
             </ContainerAlternativo>
             <ContainerRegistro>
@@ -193,8 +192,9 @@ export function RegistroEstudiante() {
                     </Grid>
                     <Grid item xs={12}>
                         <div className='container-fluid d-flex flex-row-reverse bd-highlight'>
-                            <button type="button" class="btn btn-info mrgn_left" onClick={registrarse}> Registrarse</button>
+                            <button type="button" class="btn btn-success mrgn_left" onClick={registrarse}> Registrarse</button>
                             <button type="button" class="btn btn-danger mrgn_left">Soy Una Organizacion</button>
+                            <button type="button" class="btn btn-info mrgn_left">Iniciar Sesion</button>
                         </div>
                     </Grid>
                 </Grid>
