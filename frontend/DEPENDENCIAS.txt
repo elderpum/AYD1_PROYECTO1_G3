@@ -1,6 +1,13 @@
 ------------- MATERIAL UI ---------------------------------
 npm install @mui/material @emotion/react @emotion/styled
 
+------------- MUI icons -----------------------------------
+npm install @mui/material @mui/icons-material
+
+------------- MUI dates -----------------------------------
+npm install @mui/x-date-pickers
+npm install dayjs
+
 ------------- react-router-dom ----------------------------
 npm i react-router-dom
 
@@ -12,3 +19,4 @@ npm i react-icons
 
 ------------- bootstrap -----------------------------------
 npm i bootstrap
+
