@@ -33,7 +33,7 @@ export function RegistroEstudiante() {
     const [eduacion, setEducacion] = useState('');
     const [departamento, setDepartamento] = useState('');
     const [telefono, setTelefono] = useState('');
-    const [isChecked, setIsChecked] = useState('');
+    //const [isChecked, setIsChecked] = useState('');
 
     const handleChangeDate = (event) => {
         setGenero(event.target.value);
