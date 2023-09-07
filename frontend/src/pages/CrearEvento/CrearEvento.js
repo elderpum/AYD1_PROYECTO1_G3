@@ -30,176 +30,265 @@ export function CrearEvento() {
   const [duracion, setDuracion] = useState("");
   const [ubicacion, setUbicacion] = useState("");
   const [categoria, setCategoria] = useState([]);
-  const [costo, setCosto] = useState([]);
+  const [costo, setCosto] = useState("");
   const [imagen, setImagen] = useState("");
   const [formatoEvento, setFormatoEvento] = useState("");
   const [materialesEdu, setMaterialesEdu] = useState("");
 
-  const crearEvento = () => {
-    console.log(titulo);
-    console.log(descripcion);
-    console.log(fecha);
-    console.log(hora);
-  };
+  async function convertToBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+
+      reader.onload = (event) => {
+        const base64Image = event.target.result;
+        resolve(base64Image);
+      };
+
+      reader.onerror = (error) => {
+        reject(error);
+      };
+
+      reader.readAsDataURL(file);
+    });
+  }
+
+  async function crearEvento() {
+    console.log("titulo ", titulo);
+    console.log("descripcion ", descripcion);
+    console.log("fecha ", fecha);
+    console.log("hora ", hora);
+    console.log("duracion ", duracion);
+    console.log("ubicacion ", ubicacion);
+    console.log("categoria ", categoria);
+    console.log("costo ", costo);
+    console.log("formatoEvento ", formatoEvento);
+    console.log("materialesEdu ", materialesEdu);
+    const base64Image = await convertToBase64(imagen);
+
+    console.log("imagen ", base64Image);
+    let i = 0;
+    for (const m of materialesEdu) {
+      const base64File = await convertToBase64(m);
+      console.log(`${i}: `, base64File);
+      i++;
+    }
+  }
 
   return (
     <Container>
       <ContainerContent component="form">
         <Grid
           container
-          direction="row"
+          direction="column"
           justifyContent="center"
           alignItems="center"
-          xs={7}
         >
-          <Grid item xs={4}>
-            <FormControl sx={{ m: 1, minWidth: 150 }} size="small">
-              <TextField
-                id="outlined-basic"
-                label="Título"
-                variant="outlined"
-                onChange={(newValue) => setTitulo(newValue.target.value)}
-              />
-            </FormControl>
+          <Grid item xs={2}>
+            <h1>Evento Nuevo</h1>
           </Grid>
-          <Grid item xs={4}>
-            <FormControl variant="standard" sx={{ m: 1, minWidth: 150 }} size="small">
-              <TextField
-                id="outlined-multiline-flexible"
-                label="Descripción"
-                multiline
-                maxRows={4}
-                variant="outlined"
-                onChange={(newValue) => setDescripcion(newValue.target.value)}
-              />
-            </FormControl>
-          </Grid>
-          <Grid item xs={4}>
-            <FormControl variant="standard" sx={{ m: 1, minWidth: 150 }} size="small">
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker
-                  label="Fecha"
-                  onChange={(newValue) =>
-                    setFecha(`${newValue.$D}/${newValue.$M + 1}/${newValue.$y}`)
-                  }
+          <Grid
+            container
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+            xs={7}
+          >
+            <Grid item xs={4}>
+              <FormControl sx={{ m: 1, minWidth: 150 }} size="small">
+                <TextField
+                  id="outlined-basic"
+                  label="Título"
+                  variant="outlined"
+                  onChange={(newValue) => setTitulo(newValue.target.value)}
                 />
-              </LocalizationProvider>
-            </FormControl>
-          </Grid>
-          <Grid item xs={4}>
-            <FormControl variant="standard" sx={{ m: 1, minWidth: 150 }} size="small">
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <TimePicker
-                  label="Hora"
-                  onChange={(newValue) =>
-                    setHora(`${newValue.$H}:${newValue.$m}`)
-                  }
+              </FormControl>
+            </Grid>
+            <Grid item xs={4}>
+              <FormControl
+                variant="standard"
+                sx={{ m: 1, minWidth: 150 }}
+                size="small"
+              >
+                <TextField
+                  id="outlined-multiline-flexible"
+                  label="Descripción"
+                  multiline
+                  maxRows={4}
+                  variant="outlined"
+                  onChange={(newValue) => setDescripcion(newValue.target.value)}
                 />
-              </LocalizationProvider>
-            </FormControl>
-          </Grid>
-          <Grid item xs={4}>
-            <FormControl variant="standard" sx={{ m: 1, minWidth: 150 }} size="small">
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <TimePicker
-                  label="Duracion (horas)"
-                  views={["minutes", "seconds"]}
-                  format="mm:ss"
-                />
-              </LocalizationProvider>
-            </FormControl>
-          </Grid>
-          <Grid item xs={4}>
-            <FormControl variant="standard" sx={{ m: 1, minWidth: 150 }} size="small">
-              <TextField
-                id="outlined-basic"
-                label="Ubicacion"
-                variant="outlined"
-                onChange={(newValue) => setTitulo(newValue.target.value)}
-              />
-            </FormControl>
-          </Grid>
-          <Grid item xs={8}>
-            <FormControl variant="standard" sx={{ m: 1, minWidth: 150 }} size="small">
-              <Autocomplete
-                multiple
-                id="tags-outlined"
-                options={categorias}
-                getOptionLabel={(option) => option}
-                defaultValue={[categorias[0], categorias[1]]}
-                filterSelectedOptions
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Categorías"
-                    placeholder="Materias"
+              </FormControl>
+            </Grid>
+            <Grid item xs={4}>
+              <FormControl
+                variant="standard"
+                sx={{ m: 1, minWidth: 150 }}
+                size="small"
+              >
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DatePicker
+                    label="Fecha"
+                    onChange={(newValue) =>
+                      setFecha(
+                        `${newValue.$D}/${newValue.$M + 1}/${newValue.$y}`
+                      )
+                    }
                   />
-                )}
-              />
-            </FormControl>
-          </Grid>
-          <Grid item xs={4}>
-            <FormControl sx={{ m: 1, minWidth: 150 }} size="small">
-              <InputLabel htmlFor="outlined-adornment-amount">Costo</InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-amount"
-                startAdornment={
-                  <InputAdornment position="start">Q</InputAdornment>
-                }
-                label="Costo"
-                type="number"
-              />
-            </FormControl>
-          </Grid>
-          <Grid item xs={4}>
-            <FormControl sx={{ m: 1, minWidth: 150 }} size="small">
-              <Button
-                component="label"
-                variant="contained"
-                startIcon={<CloudUploadIcon />}
-                href="#file-upload"
+                </LocalizationProvider>
+              </FormControl>
+            </Grid>
+            <Grid item xs={4}>
+              <FormControl
+                variant="standard"
+                sx={{ m: 1, minWidth: 150 }}
+                size="small"
               >
-                Imagen promocional
-                <input type="file" hidden />
-              </Button>
-            </FormControl>
-          </Grid>
-          <Grid item xs={4}>
-            <FormControl sx={{ m: 1, minWidth: 150 }} size="small">
-              <InputLabel id="demo-select-small-label">
-                Formato de evento
-              </InputLabel>
-              <Select
-                labelId="demo-select-small-label"
-                id="demo-select-small"
-                value={formatoEvento}
-                label="Formato de evento"
-                onChange={(newValue) => setFormatoEvento(newValue.target.value)}
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <TimePicker
+                    label="Hora"
+                    onChange={(newValue) =>
+                      setHora(`${newValue.$H}:${newValue.$m}`)
+                    }
+                  />
+                </LocalizationProvider>
+              </FormControl>
+            </Grid>
+            <Grid item xs={4}>
+              <FormControl
+                variant="standard"
+                sx={{ m: 1, minWidth: 150 }}
+                size="small"
               >
-                <MenuItem value={"presencial"}>Presencial</MenuItem>
-                <MenuItem value={"virtual"}>Virtual</MenuItem>
-                <MenuItem value={"hibrido"}>Híbrido</MenuItem>
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item xs={4}>
-            <FormControl sx={{ m: 1, minWidth: 150 }} size="small">
-              <Button
-                component="label"
-                variant="contained"
-                startIcon={<CloudUploadIcon />}
-                href="#file-upload"
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <TimePicker
+                    label="Duracion (horas)"
+                    views={["minutes", "seconds"]}
+                    format="mm:ss"
+                    onChange={(newValue) =>
+                      setDuracion(`${newValue.$m}:${newValue.$s}`)
+                    }
+                  />
+                </LocalizationProvider>
+              </FormControl>
+            </Grid>
+            <Grid item xs={4}>
+              <FormControl
+                variant="standard"
+                sx={{ m: 1, minWidth: 150 }}
+                size="small"
               >
-                Materiales adicionales
-                <input type="file" hidden />
-              </Button>
-            </FormControl>
-          </Grid>
+                <TextField
+                  id="outlined-basic"
+                  label="Ubicacion"
+                  variant="outlined"
+                  onChange={(newValue) => setUbicacion(newValue.target.value)}
+                />
+              </FormControl>
+            </Grid>
+            <Grid item xs={8}>
+              <FormControl
+                variant="standard"
+                sx={{ m: 1, minWidth: 150 }}
+                size="small"
+              >
+                <Autocomplete
+                  multiple
+                  id="tags-outlined"
+                  options={categorias}
+                  getOptionLabel={(option) => option}
+                  defaultValue={[categorias[0], categorias[1]]}
+                  filterSelectedOptions
+                  onChange={(event, newValue) => setCategoria(newValue)}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Categorías"
+                      placeholder="Materias"
+                    />
+                  )}
+                />
+              </FormControl>
+            </Grid>
+            <Grid item xs={4}>
+              <FormControl sx={{ m: 1, minWidth: 150 }} size="small">
+                <InputLabel htmlFor="outlined-adornment-amount">
+                  Costo
+                </InputLabel>
+                <OutlinedInput
+                  id="outlined-adornment-amount"
+                  onChange={(newValue) => setCosto(newValue.target.value)}
+                  startAdornment={
+                    <InputAdornment position="start">Q</InputAdornment>
+                  }
+                  label="Costo"
+                  type="number"
+                />
+              </FormControl>
+            </Grid>
+            <Grid item xs={4}>
+              <FormControl sx={{ m: 1, minWidth: 150 }} size="small">
+                <Button
+                  color="warning"
+                  component="label"
+                  variant="contained"
+                  startIcon={<CloudUploadIcon />}
+                  href="#file-upload"
+                >
+                  Imagen promocional
+                  <input
+                    type="file"
+                    hidden
+                    onChange={(event) => setImagen(event.target.files[0])}
+                  />
+                </Button>
+              </FormControl>
+            </Grid>
+            <Grid item xs={4}>
+              <FormControl sx={{ m: 1, minWidth: 150 }} size="small">
+                <InputLabel id="demo-select-small-label">
+                  Formato de evento
+                </InputLabel>
+                <Select
+                  labelId="demo-select-small-label"
+                  id="demo-select-small"
+                  value={formatoEvento}
+                  label="Formato de evento"
+                  onChange={(newValue) =>
+                    setFormatoEvento(newValue.target.value)
+                  }
+                >
+                  <MenuItem value={"presencial"}>Presencial</MenuItem>
+                  <MenuItem value={"virtual"}>Virtual</MenuItem>
+                  <MenuItem value={"hibrido"}>Híbrido</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={4}>
+              <FormControl sx={{ m: 1, minWidth: 150 }} size="small">
+                <Button
+                  component="label"
+                  variant="contained"
+                  startIcon={<CloudUploadIcon />}
+                  href="#file-upload"
+                >
+                  Materiales adicionales
+                  <input
+                    type="file"
+                    hidden
+                    multiple
+                    onChange={(event) =>
+                      setMaterialesEdu(Array.from(event.target.files))
+                    }
+                  />
+                </Button>
+              </FormControl>
+            </Grid>
 
-          <Grid item xs={4}>
-            <Button variant="contained" color="success" onClick={crearEvento}>
-              Success
-            </Button>
+            <Grid item xs={8}>
+              <Button variant="contained" color="success" onClick={crearEvento}>
+                Crear Evento
+              </Button>
+            </Grid>
           </Grid>
         </Grid>
       </ContainerContent>
@@ -221,7 +310,6 @@ const categorias = [
   "Diseño gráfico",
   "Deporte",
   "Ocio",
-  "Programación",
   "Matemática",
   "Física",
   "Contabilidad",
@@ -245,26 +333,14 @@ const Container = styled.div`
   );
 `;
 
-const VisuallyHiddenInput = styled("input")`
-  clip: rect(0 0 0 0);
-  clip-path: inset(50%);
-  height: 1px;
-  overflow: hidden;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  white-space: nowrap;
-  width: 1px;
-`;
-
 const ContainerContent = styled.div`
   display: flex;
   justify-content: center;
-  height: 70%;
-  min-height: 70%;
+  height: 80%;
+  min-height: 80%;
   width: 80%;
   min-width: 80%;
   background: white;
-  margin-top: 8rem;
+  margin-top: 6.5rem;
   border-radius: 0.5rem;
 `;
