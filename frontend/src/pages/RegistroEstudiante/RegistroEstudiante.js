@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 import logo from '../../assets/white_logo.png'
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
@@ -19,6 +20,7 @@ import FormGroup from '@mui/material/FormGroup';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { Link } from "react-router-dom"; // import de la libreria para el ruteo de la pagina
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './RegistroEstudiante.css'
@@ -33,7 +35,7 @@ export function RegistroEstudiante() {
     const [eduacion, setEducacion] = useState('');
     const [departamento, setDepartamento] = useState('');
     const [telefono, setTelefono] = useState('');
-    //const [isChecked, setIsChecked] = useState('');
+    const [isChecked, setIsChecked] = useState(false);
 
     const handleChangeDate = (event) => {
         setGenero(event.target.value);
@@ -43,7 +45,10 @@ export function RegistroEstudiante() {
         setEducacion(event.target.value);
     };
 
-
+    const handleChangeCheckbox = (event) => {
+        setIsChecked(event.target.checked);
+    };
+    
     const [showPassword, setShowPassword] = React.useState(null);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const handleMouseDownPassword = (event) => {
@@ -51,17 +56,44 @@ export function RegistroEstudiante() {
     };
 
     const registrarse = () => {
-        console.log("Nombre: ", nombre);
-        console.log("Apellido: ", apellido);
-        console.log("Correo: ", correo);
-        console.log("Fecha: ", fecha);
-        console.log("Contra: ", contra);
-        console.log("Genero: ", genero);
-        console.log("Educacion: ", eduacion);
-        console.log("Departamento: ", departamento);
-        console.log("Telefono: ", telefono);
+        if (isChecked) {
+            axios.post('http://localhost:5000/api/estudiantes/add', {
+                estudiante: {
+                    nombre: nombre,
+                    apellidos: apellido,
+                    email: correo,
+                    pass: contra,
+                    nacimiento: fecha,
+                    genero: genero,
+                    nivel_educacion: eduacion,
+                    Departamento: departamento,
+                    telefono: telefono,
+                    atc: true
+                }
+            }).then(function (response) {
+                console.log(response);
+            }).catch(function (error) {
+                console.log(error);
+            });
+            alert("Se ha registrado exitosamente.");
+        } else {
+            alert("ERROR: debe aceptar los terminos y condiciones para registrarse.");
+        }
     }
-
+    /*
+    const clearAll = () => {
+        setFecha('');
+        setNombre('');
+        setApellido('');
+        setCorreo('');
+        setContra('');
+        setGenero('');
+        setEducacion('');
+        setDepartamento('');
+        setTelefono('');
+        setIsChecked(false);
+    };
+    */
     return (
         <Container>
             <ContainerAlternativo>
@@ -131,8 +163,7 @@ export function RegistroEstudiante() {
                     </Grid>
                     <Grid item xs={6}>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <DatePicker 
-                                onChange={(newValue) => setFecha(newValue)}/>
+                            <DatePicker onChange={(newValue) => setFecha(newValue)}/>
                         </LocalizationProvider>
                     </Grid>
                     <Grid item xs={4}>
@@ -187,14 +218,18 @@ export function RegistroEstudiante() {
                     </Grid>
                     <Grid item xs={12}>
                         <FormGroup>
-                            <FormControlLabel required control={<Checkbox />} label="Acepto los términos y condiciones de uso." />
+                            <FormControlLabel required control={<Checkbox checked={isChecked} onChange={handleChangeCheckbox}/>} label="Acepto los términos y condiciones de uso." />
                         </FormGroup>
                     </Grid>
                     <Grid item xs={12}>
                         <div className='container-fluid d-flex flex-row-reverse bd-highlight'>
                             <button type="button" class="btn btn-success mrgn_left" onClick={registrarse}> Registrarse</button>
-                            <button type="button" class="btn btn-danger mrgn_left">Soy Una Organizacion</button>
-                            <button type="button" class="btn btn-info mrgn_left">Iniciar Sesion</button>
+                            <Link to="/">
+                                <button type="button" class="btn btn-danger mrgn_left">Soy Una Organizacion</button>
+                            </Link>
+                            <Link to="/">
+                                <button type="button" class="btn btn-info mrgn_left">Iniciar Sesion</button>
+                            </Link>
                         </div>
                     </Grid>
                 </Grid>

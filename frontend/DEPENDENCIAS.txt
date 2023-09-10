@@ -20,3 +20,5 @@ npm i react-icons
 ------------- bootstrap -----------------------------------
 npm i bootstrap
 
+------------- axios ---------------------------------------
+npm install axios
