@@ -4,6 +4,7 @@ import { InicioSesion } from './pages/InicioSesion/InicioSesion';
 import { RegistroEstudiante } from './pages/RegistroEstudiante/RegistroEstudiante';
 import { RegistroOrganizacion } from './pages/RegistroOrganizacion/RegistroOrganizacion';
 import { Administracion } from './pages/Admin/Admin';
+import { CrearEvento } from './pages/CrearEvento/CrearEvento';
 
 /*
   Les recomiendo leer la documentacion de la librería 'react-router-dom' para manejar las rutas,
@@ -23,6 +24,7 @@ function App() {
           <Route path="/admin" element={<Administracion />} />
           <Route path="/registroEstudiante" element={<RegistroEstudiante />} />
           <Route path="/registroOrganizacion" element={<RegistroOrganizacion />} />
+          <Route path="/crear-evento" element={<CrearEvento />} />
         </Routes>
       </BrowserRouter>
     </div>
