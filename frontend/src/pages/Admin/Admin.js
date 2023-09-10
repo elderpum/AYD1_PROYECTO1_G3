@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Logo from '../../assets/white_logo.png';
+import axios from "axios";
 
 import Button from '@mui/material/Button';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -23,18 +24,19 @@ import { styled } from 'styled-components';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Admin.css';
 
-function createData(nombre, apellido, correo, fecha, genero, educacion, bloqueado) {
+function createData(nombre, apellido, correo, fecha, genero, educacion, departamento, telefono, bloq) {
+    var bloqueado = 'No';
+    if (bloq) {
+        bloqueado = 'Si';
+    }
     return {
         nombre,
+        apellido,
         correo,
         bloqueado,
         campos: [
         {
-            campo: 'Apellido',
-            valor: apellido,
-        },
-        {
-            campo: 'Fecha',
+            campo: 'Fecha de Nacimiento',
             valor: fecha,
         },
         {
@@ -45,12 +47,61 @@ function createData(nombre, apellido, correo, fecha, genero, educacion, bloquead
             campo: 'Educacion',
             valor: educacion,
         },
+        {
+            campo: 'Departamento',
+            valor: departamento,
+        },
+        {
+            campo: 'Telefono',
+            valor: telefono,
+        },
+        ],
+    };
+}
+
+function createDataOrga(nombre, apellido, correo, fecha, genero, empresa, descripcion, direccion, telefono, bloq) {
+    var bloqueado = 'No';
+    if (bloq) {
+        bloqueado = 'Si';
+    }
+
+    return {
+        nombre,
+        apellido,
+        correo,
+        bloqueado,
+        campos: [
+        {
+            campo: 'Fecha de Nacimiento',
+            valor: fecha,
+        },
+        {
+            campo: 'Genero',
+            valor: genero,
+        },
+        {
+            campo: 'Empresa',
+            valor: empresa,
+        },
+        {
+            campo: 'Descripción de la Empresa',
+            valor: descripcion,
+        },
+        {
+            campo: 'Dirección de la Empresa',
+            valor: direccion,
+        },
+        {
+            campo: 'Telefono',
+            valor: telefono,
+        },
         ],
     };
 }
   
-  function Row(props) {
+function Row(props) {
     const { row } = props;
+    const { type } = props;
     const [open, setOpen] = React.useState(false);
 
     const desbloquear = (id) => {
@@ -60,7 +111,7 @@ function createData(nombre, apellido, correo, fecha, genero, educacion, bloquead
     const bloquear = (id) => {
         alert("bloquear usuario");
     };
-  
+    
     return (
       <React.Fragment>
         <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
@@ -75,6 +126,9 @@ function createData(nombre, apellido, correo, fecha, genero, educacion, bloquead
             </TableCell>
             <TableCell component="th" scope="row">
                 {row.nombre}
+            </TableCell>
+            <TableCell component="th" scope="row">
+                {row.apellido}
             </TableCell>
             <TableCell align="center">{row.correo}</TableCell>
             <TableCell align="center">{row.bloqueado}</TableCell>
@@ -93,19 +147,25 @@ function createData(nombre, apellido, correo, fecha, genero, educacion, bloquead
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
             <Collapse in={open} timeout="auto" unmountOnExit>
               <Box sx={{ margin: 1 }}>
-                <Typography variant="h6" gutterBottom component="div"  className='titulos'>
-                  Información
+                <Typography variant="h6" gutterBottom component="div"  >
+                  <h5 className='titulos'> Información General </h5>
                 </Typography>
                 <Table size="small" aria-label="purchases">
                   <TableBody>
                     {row.campos.map((campo_fila) => (
                       <TableRow key={campo_fila.campo}>
                         <TableCell component="th" scope="row" className='titulos'>
-                          {campo_fila.campo}
+                            <h7 className='titulos'>{campo_fila.campo}</h7>
                         </TableCell>
                         <TableCell>{campo_fila.valor}</TableCell>
                       </TableRow>
                     ))}
+                    <TableRow>
+                      <TableCell component="th" scope="row" className='titulos'>
+                          <h7 className='titulos'>Rol de Usuario</h7>
+                      </TableCell>
+                      <TableCell>{type}</TableCell>
+                    </TableRow>
                   </TableBody>
                 </Table>
               </Box>
@@ -114,8 +174,8 @@ function createData(nombre, apellido, correo, fecha, genero, educacion, bloquead
         </TableRow>
       </React.Fragment>
     );
-  }
-  
+}
+
 Row.propTypes = {
     row: PropTypes.shape({
         calories: PropTypes.number.isRequired,
@@ -133,22 +193,63 @@ Row.propTypes = {
         protein: PropTypes.number.isRequired,
     }).isRequired,
 };
-  
-const rows = [
-    createData('Mario Cesar', 'Moran Porras', 'mario@ingenieria.com', '12/25/0232', 'Masculino', 'Media', 'No'),
-    createData('Mario Cesar', 'Moran Porras', 'mario@ingenieria.com', '12/25/0232', 'Masculino', 'Media', 'No'),
-    createData('Mario Cesar', 'Moran Porras', 'mario@ingenieria.com', '12/25/0232', 'Masculino', 'Media', 'No'),
-    createData('Mario Cesar', 'Moran Porras', 'mario@ingenieria.com', '12/25/0232', 'Masculino', 'Media', 'No'),
-    createData('Mario Cesar', 'Moran Porras', 'mario@ingenieria.com', '12/25/0232', 'Masculino', 'Media', 'No'),
-    createData('Mario Cesar', 'Moran Porras', 'mario@ingenieria.com', '12/25/0232', 'Masculino', 'Media', 'No'),
-    createData('Mario Cesar', 'Moran Porras', 'mario@ingenieria.com', '12/25/0232', 'Masculino', 'Media', 'No'),
-    createData('Mario Cesar', 'Moran Porras', 'mario@ingenieria.com', '12/25/0232', 'Masculino', 'Media', 'No'),
-];
-  
+
+const client = axios.create({
+    baseURL: "http://localhost:5000" 
+});
 
 export function Administracion() {
+    const [estudiantes, setEstudiantes] = useState([]);
+    const [organizadores, setOrganizadores] = useState([]);
+    var rows_estudiantes = [];
+    var rows_organizadores = [];
 
-    /* peticion de todos los usuarios */
+    // peticion para obtener todos los usuarios
+    React.useEffect(() => {
+        async function getInfo() {
+          const response = await client.get("/api/admin/getAllUsers");
+          setEstudiantes(response.data.estudiantes);
+          setOrganizadores(response.data.organizadores);
+        }
+        getInfo();
+    }, []);
+
+
+    // se formatean los datos para la tabla estudiantes
+    for (let i = 0; i < estudiantes.length; i++){
+        rows_estudiantes.push(
+            createData(
+                estudiantes[i].nombre,
+                estudiantes[i].apellidos,
+                estudiantes[i].email,
+                estudiantes[i].nacimiento,
+                estudiantes[i].genero,
+                estudiantes[i].nivel_educacion,
+                estudiantes[i].Departamento,
+                estudiantes[i].telefono,
+                estudiantes[i].act
+            )
+        );
+    }
+
+    // se formatean los datos para la tabla organizadores
+    for (let i = 0; i < organizadores.length; i++){
+        rows_organizadores.push(
+            createDataOrga(
+                organizadores[i].nombre,
+                organizadores[i].apellido,
+                organizadores[i].email,
+                organizadores[i].nacimiento,
+                organizadores[i].genero,
+                organizadores[i].empresa,
+                organizadores[i].descrip_empresa,
+                organizadores[i].direc_empresa,
+                organizadores[i].tel_empresa,
+                organizadores[i].act
+            )
+        );
+    }
+    console.log(rows_organizadores)
 
     return (
         <>
@@ -167,25 +268,34 @@ export function Administracion() {
                     </SideHeader>
                 </Header>
                 <Container>
-                    <TableContainer component={Paper }  style={{ width: 1100}} sx={{ mt: '5rem', mb: '2.5rem' }}>
-                        <Table aria-label="collapsible table">
-                            <TableHead>
-                            <TableRow>
-                                <TableCell />
-                                    <TableCell className='titulos'>Nombre</TableCell>
-                                    <TableCell align="center" className='titulos'>Correo</TableCell>
-                                    <TableCell align="center" className='titulos'>Bloqueado</TableCell>
-                                    <TableCell align="center" className='titulos'>Desbloquear</TableCell>
-                                    <TableCell align="center" className='titulos'>Bloquear</TableCell>
-                            </TableRow>
-                            </TableHead>
-                            <TableBody>
-                            {rows.map((row) => (
-                                <Row key={row.correo} row={row} />
-                            ))}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
+                    <ContainerTitulo>
+                        <h5 className='titulos'> USUARIOS </h5>
+                    </ContainerTitulo>
+                    <ContainerTabla>
+                        <TableContainer component={Paper }  style={{ width: 1100}} sx={{ mt: '1rem', mb: '2.5rem' }}>
+                            <Table aria-label="collapsible table">
+                                <TableHead>
+                                <TableRow>
+                                    <TableCell />
+                                    <TableCell className='titulos'><h7 className='titulos'>Nombre</h7></TableCell>
+                                    <TableCell className='titulos'><h7 className='titulos'>Apellido</h7></TableCell>
+                                    <TableCell align="center" className='titulos'><h7 className='titulos'>Correo</h7></TableCell>
+                                    <TableCell align="center" className='titulos'><h7 className='titulos'>Bloqueado</h7></TableCell>
+                                    <TableCell align="center" className='titulos'><h7 className='titulos'>Desbloquear</h7></TableCell>
+                                    <TableCell align="center" className='titulos'><h7 className='titulos'>Bloquear</h7></TableCell>
+                                </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                {rows_estudiantes.map((row) => (
+                                    <Row key={row.email} type={'estudiante'} row={row} />
+                                ))}
+                                {rows_organizadores.map((row) => (
+                                    <Row key={row.email} type={'organizador'} row={row} />
+                                ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                    </ContainerTabla>
                 </Container>
             </Body>
         </>
@@ -199,6 +309,14 @@ Bloquear y desbloquear, al proceder a bloquear o desbloquear el usuario se deber
 diálogo para confirmar la acción
 */
 
+const ContainerTitulo = styled.div`
+color: white;
+`
+
+const ContainerTabla = styled.div`
+display: flex;
+justify-content: center;
+`
 
 const Header = styled.div`
 position: fixed;
@@ -232,11 +350,13 @@ margin-right: 15px;
 
 const Container = styled.div`
 display: flex;
+flex-direction: column;
 justify-content: center;
-height: 100vh;
-min-height: 100%;
+height: 100%;
+min-height: 100vh;
 width: 100vh;
 min-width: 100%;
+padding-top: 55px;
 background: rgb(0,0,0);
 background: linear-gradient(30deg, rgba(0,0,0,1) 0%, rgba(43,43,43,1) 43%, rgba(49,49,49,1) 45%, rgba(54,54,54,1) 52%, rgba(124,124,124,1) 100%);
 
