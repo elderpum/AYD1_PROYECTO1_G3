@@ -1,25 +1,25 @@
-const servicesAdmin = require('../Services/serviceAdmin');
-const servicesEstudinte = require('../Services/serviceEstudiante');
+const servicesAdmin = require("../Services/serviceAdmin");
+const servicesEstudinte = require("../Services/serviceEstudiante");
 
 //GETS
-function ejemplo(req, res){
-    const result = servicesAdmin.ejemploAdmin();
-    res.json({
-        mensaje: result
-    });
+function ejemplo(req, res) {
+  const result = servicesAdmin.ejemploAdmin();
+  res.json({
+    mensaje: result,
+  });
 }
 
-function getAllEstudiantes(req, res){
-    const resultEstudiante = servicesEstudinte.getAll()
-    const resultOrganizadores = servicesAdmin.getOrganizadores()
+async function getAllEstudiantes(req, res) {
+  const resultEstudiante = await servicesEstudinte.getAll();
+  const resultOrganizadores = await servicesAdmin.getOrganizadores();
 
-    res.json({
-        estudiantes: resultEstudiante,
-        organizadores: resultOrganizadores
-    })
+  res.json({
+    estudiantes: resultEstudiante,
+    organizadores: resultOrganizadores,
+  });
 }
 
 module.exports = {
-    ejemplo,
-    getAllEstudiantes
+  ejemplo,
+  getAllEstudiantes,
 };
