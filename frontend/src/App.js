@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter, Route, Routes } from "react-router-dom"; // import de la libreria para el ruteo de la pagina
-import { InicioSesion } from './pages/InicioSesion/InicioSesion';
+// import { InicioSesion } from './pages/InicioSesion/InicioSesion';
 import { RegistroEstudiante } from './pages/RegistroEstudiante/RegistroEstudiante';
 import { RegistroOrganizacion } from './pages/RegistroOrganizacion/RegistroOrganizacion';
 import { Administracion } from './pages/Admin/Admin';
@@ -20,10 +20,11 @@ function App() {
             Aqui se definen todas las rutas que va a tener la pagina web
             como plantilla inicial de momento puse el inicio de sesion 
           */}
-          <Route path="/" element={<InicioSesion />} />
+          {/* <Route path="/" element={<InicioSesion />} /> */}
           <Route path="/admin" element={<Administracion />} />
           <Route path="/registroEstudiante" element={<RegistroEstudiante />} />
-          <Route path="/registroOrganizacion" element={<RegistroOrganizacion />} />
+          {/* <Route path="/registroOrganizacion" element={<RegistroOrganizacion />} /> */}
+          <Route path="/" element={<RegistroOrganizacion />} />
           <Route path="/crear-evento" element={<CrearEvento />} />
         </Routes>
       </BrowserRouter>
