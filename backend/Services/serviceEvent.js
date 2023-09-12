@@ -11,7 +11,7 @@ create.exports = async (data, idOrganizador) => {
         imageLink = s3Response.link;
     }
 
-    let query = 'INSERT INTO Evento (titulo, descripcion, fechaHora, duracion, ubicacion, costo, imagen, FormatoEvento, idOrganizador) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);';
+    let query = 'INSERT INTO Evento (titulo, descripcion, fechaHora, duracion, ubicacion, costo, imagen, FormatoEvento, idOrganizador, categoria) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);';
     let values =[
         data.titulo,
         data.descripcion,
@@ -21,7 +21,8 @@ create.exports = async (data, idOrganizador) => {
         data.costo,
         imageLink,
         data.formatoEvento,
-        idOrganizador
+        idOrganizador,
+        data.categoria
     ];
 
     let row, fields
@@ -47,18 +48,6 @@ create.exports = async (data, idOrganizador) => {
             db.execute('INSERT INTO MaterialAdicional (nombre, descripcion, link, idEvento) VALUES (?, ?, ?, ?);', values);
         }
     });
-
-    query = ('INSERT INTO CategoriaEvento (idEvento, idCategoria) VALUES (?, ?);');
-    values = [row.insertId, data.categoria];
-
-    try{
-        await db.execute(query, values);
-    }catch (error){
-        return{
-            err: true,
-            message: error.message,
-        }
-    }
 
     return {
         err: false,
