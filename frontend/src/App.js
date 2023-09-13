@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter, Route, Routes } from "react-router-dom"; // import de la libreria para el ruteo de la pagina
-import { InicioSesion } from './pages/InicioSesion/InicioSesion';
+// import { InicioSesion } from './pages/InicioSesion/InicioSesion';
 import { RegistroEstudiante } from './pages/RegistroEstudiante/RegistroEstudiante';
 import { RegistroOrganizacion } from './pages/RegistroOrganizacion/RegistroOrganizacion';
 import { Administracion } from './pages/Admin/Admin';
