@@ -59,7 +59,7 @@ export function InicioSesion() {
             navigate("/foros");
           } else {
             setConteo(res.contador);
-            
+            setMensaje(res.message);
             setOpen(true);
           }
         });
