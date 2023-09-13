@@ -71,7 +71,7 @@ export function CrearEvento() {
       const base64File = await convertToBase64(m);
       materiales.push({ contenido: base64File, nombre: m.name });
     }
-    const url = `http://${ip}:5000/crear-evento`;
+    const url = `http://${ip}:3001/api/events/create`;
     const token = localStorage.getItem("auth");
     let data = {
       titulo: titulo,
@@ -184,8 +184,9 @@ export function CrearEvento() {
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <TimePicker
                     label="Hora"
+                    views={["hours","minutes", "seconds"]}
                     onChange={(newValue) =>
-                      setHora(`${newValue.$H}:${newValue.$m}`)
+                      setHora(`${newValue.$H}:${newValue.$m}:${newValue.$s}`)
                     }
                   />
                 </LocalizationProvider>
@@ -200,10 +201,10 @@ export function CrearEvento() {
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <TimePicker
                     label="Duracion (horas)"
-                    views={["minutes", "seconds"]}
-                    format="mm:ss"
+                    views={["hours","minutes", "seconds"]}
+                    format="HH:mm:ss"
                     onChange={(newValue) =>
-                      setDuracion(`${newValue.$m}:${newValue.$s}`)
+                      setDuracion(`${newValue.$H}:${newValue.$m}:${newValue.$s}`)
                     }
                   />
                 </LocalizationProvider>

@@ -40,7 +40,7 @@ export function InicioSesion() {
     console.log(correo);
     console.log(password);
     console.log(tipo);
-    const url = `http://${ip}:5000/login`;
+    const url = `http://${ip}:3001/api/auth/login`;
     let data = { correo: correo, password: password, tipo: tipo };
     const fetchData = async () => {
       fetch(url, {
@@ -59,7 +59,7 @@ export function InicioSesion() {
             navigate("/foros");
           } else {
             setConteo(res.contador);
-            
+            setMensaje(res.message);
             setOpen(true);
           }
         });
