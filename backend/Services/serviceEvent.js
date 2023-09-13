@@ -1,7 +1,7 @@
 const db = require('../Config/databaseConfig');
 const controllerS3 = require('../Controllers/controllerS3');
 
-create.exports = async (data, idOrganizador) => {
+exports.create = async (data, idOrganizador) => {
     let imageLink = "";
     if(data.imagenPromocional){
         const s3Response = await controllerS3.uploadFile(data.imagenPromocional.nombre, Buffer.from(data.imagenPromocional.contenido, 'base64'));
