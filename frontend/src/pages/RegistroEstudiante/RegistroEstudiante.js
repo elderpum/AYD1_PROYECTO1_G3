@@ -57,7 +57,7 @@ export function RegistroEstudiante() {
 
     const registrarse = () => {
         if (isChecked) {
-            axios.post('http://localhost:5000/api/estudiantes/add', {
+            axios.post("http://localhost:" + process.env.BACKEND_PORT+'/api/estudiantes/add', {
                 estudiante: {
                     nombre: nombre,
                     apellidos: apellido,
