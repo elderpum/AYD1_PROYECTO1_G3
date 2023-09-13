@@ -5,7 +5,7 @@ const app = express();
 const router = require('./Routes/router');
 
 // OPTIONS
-app.set('port', 5000);
+app.set('port', 3001);
 app.set('json spaces', 2);
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
