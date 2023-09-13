@@ -20,11 +20,10 @@ function App() {
             Aqui se definen todas las rutas que va a tener la pagina web
             como plantilla inicial de momento puse el inicio de sesion 
           */}
-          {/* <Route path="/" element={<InicioSesion />} /> */}
+          <Route path="/" element={<InicioSesion />} />
           <Route path="/admin" element={<Administracion />} />
           <Route path="/registroEstudiante" element={<RegistroEstudiante />} />
-          {/* <Route path="/registroOrganizacion" element={<RegistroOrganizacion />} /> */}
-          <Route path="/" element={<RegistroOrganizacion />} />
+          <Route path="/registroOrganizacion" element={<RegistroOrganizacion />} />
           <Route path="/crear-evento" element={<CrearEvento />} />
         </Routes>
       </BrowserRouter>
