@@ -48,9 +48,9 @@ export const AgregarMaterial = () => {
 
             <div className="content-material">
 
-                <div className="logo-content">
+                <div className="content-logo">
                     <img src={white_logo} alt="logo" width="210" height="75" />
-                    <h1 style={{marginTop: 20}}> - Agregar Material </h1>
+                    <h1 style={{marginTop: 25}}> - Agregar Material </h1>
                 </div>
 
                 <div className="form-content">
