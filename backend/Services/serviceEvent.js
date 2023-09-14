@@ -49,6 +49,15 @@ exports.create = async (data, idOrganizador) => {
         }
     });
 
+    query = 'INSERT INTO CategoriaEvento (idEvento, Categoria) VALUES (?, ?);';
+    data.categoria.forEach(async categoria => {
+        const values = [
+            row.insertId,
+            categoria
+        ];
+        await db.execute(query, values);
+    })
+
     return {
         err: false,
         message: 'Event created successfully',
