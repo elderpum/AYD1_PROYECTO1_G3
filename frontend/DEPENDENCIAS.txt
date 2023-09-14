@@ -22,3 +22,6 @@ npm i bootstrap
 
 ------------- axios ---------------------------------------
 npm install axios
+
+------------- sweetalert2 ---------------------------------------
+npm install --save sweetalert2 sweetalert2-react-content
