@@ -92,7 +92,7 @@ export const RegistroOrganizacion = () => {
 
             <div className="content-organizador">
 
-                <div className="content-logo">
+                <div className="content-logo-organizador">
                     <div>
                         <img src={withe_logo} alt="logo" width="400" height="115" />
                     </div>
