@@ -33,14 +33,20 @@ export const RegistroOrganizacion = () => {
     return (
 
         <div className="body-organizador">
+
             <div className="content-organizador">
 
-                <div className="logo-content">
-                    <img src={withe_logo} alt="logo" width="400" height="115" />
+                <div className="content-logo">
+                    <div>
+                        <img src={withe_logo} alt="logo" width="400" height="115" />
+                    </div>
                 </div>
 
-                <div className="form-content">
-                    <h1> Registro de Organizador </h1>
+                <div className="content-form">
+
+                    <div>
+                        <h1>Registro de Organización</h1>
+                    </div>
 
                     <div className="form-inputs">
                         <form>
@@ -88,9 +94,13 @@ export const RegistroOrganizacion = () => {
                                 <Button sx={{ m: 1, height: '6ch', width: '18ch' }} color="error" variant="contained">Atras</Button>
                             </div>
                         </form>
+
                     </div>
+
                 </div>
+
             </div>
+
         </div>
     );
 }

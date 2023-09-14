@@ -1,6 +1,6 @@
 .body-organizador {
     width: 100%;
-    height: 100vh;
+    height: 788px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,45 +9,41 @@
 }
 
 .content-organizador {
-    display: flex;
+    background-color: #ffffff;
     width: 1200px;
     height: 750px;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    /* background-color: #ffffff; */
 }
 
-.logo-content {
+.content-logo{
+    background-color: #000;
     float: left;
-    background-color: black;
+    width: 50%;
+    height: 753px;
+    display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.form-content {
+
+.content-form {
+    /* background-color: red; */
     float: right;
-    background-color: red;
-    width: 10px;
-    height: 200px;
+    width: 50%;
+    height: 750px;
     display: flex;
     flex-direction: column;
-
 }
 
 .form-content h1 {
+    background-color: #ffffff;
     font-size: 35px;
     font-family: 'Arimo', sans-serif;
-    background-color: #ffffff;
     margin-top: 10px;
     margin-left: 90px;
     margin-bottom: 30px;
 }
 
 
-.form-inputs {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    /* background: rebeccapurple; */
-}
+/* .form-inputs {
+    background: rebeccapurple;
+} */
