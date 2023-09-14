@@ -21,19 +21,19 @@
     background-color: aliceblue;
 }
 
-.logo-content{
+.content-logo{
     width: 100%;
     height: 130px;
-    /* background-color: rebeccapurple; */
+    background-color: #000;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.logo-content h1{
+.content-logo h1{
     font-size: 35px;
     font-family: 'Arimo', sans-serif;
-    /* background-color: #ffffff; */
+    color: #ffffff;
     margin-left: 10px;
     margin-bottom: 30px;
 }
