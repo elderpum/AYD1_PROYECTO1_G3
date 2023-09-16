@@ -6,10 +6,11 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
-import { useForm } from '../hooks/useForm'
 
-import './registroOrganizador.css';
+import { useForm } from '../hooks/useForm';
+import { setOrganizador } from './helper/setOrganizador'
 import withe_logo from '../../assets/white_logo.png';
+import './registroOrganizador.css';
 
 
 const currencies = [
@@ -77,9 +78,16 @@ export const RegistroOrganizacion = () => {
     const handleSubmit = (e) => {
         e.preventDefault(); //evita el recargo de la pagina
         // console.log(form);
-        console.log(gender);
+        // console.log(gender);
         // console.log(checked);
-        console.log(dateSelect);
+        // console.log(dateSelect);
+
+        if (checked === false) {
+            alert('Debe aceptar los terminos y condiciones');
+            return;
+        }
+
+        setOrganizador(form, gender, dateSelect);
         handleReset();
         setChecked(false);
         setGender('S');
