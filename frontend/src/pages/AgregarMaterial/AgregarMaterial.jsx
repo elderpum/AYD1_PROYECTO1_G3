@@ -10,7 +10,7 @@ import { Box } from '@mui/system';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
 
-import black_logo from '../../assets/black_logo.png';
+import white_logo from '../../assets/white_logo.png';
 import './agregarmaterial.css';
 
 
@@ -48,9 +48,9 @@ export const AgregarMaterial = () => {
 
             <div className="content-material">
 
-                <div className="logo-content">
-                    <img src={black_logo} alt="logo" width="210" height="75" />
-                    <h1> - Agregar Material </h1>
+                <div className="content-logo">
+                    <img src={white_logo} alt="logo" width="210" height="75" />
+                    <h1 style={{marginTop: 25}}> - Agregar Material </h1>
                 </div>
 
                 <div className="form-content">
