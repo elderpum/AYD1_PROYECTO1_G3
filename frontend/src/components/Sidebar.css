@@ -1,6 +1,6 @@
 .logo {
     text-align: center;
-    margin: 1rem 0;
+    margin: 1.5rem 0;
 }
 
 img {
@@ -10,6 +10,8 @@ img {
 
 .ul_sidebar {
     margin: 0;
+    margin-top: 20px;
+    margin-left: 10px;
     list-style-type: none;
     display: flex;
     flex-direction: column;
@@ -25,8 +27,18 @@ img {
     display: flex;
     gap: 1rem;
     cursor: pointer;
+    font-size: 17px;
     transition: 0.3s ease-in-out;
     &:hover {
     color: white;
     }
+}
+
+.activo {
+    color: #04BFBF;
+}
+
+
+.cerrar:hover {
+    color: #b60000;
 }

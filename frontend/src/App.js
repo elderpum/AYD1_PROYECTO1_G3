@@ -7,7 +7,9 @@ import { Administracion } from './pages/Admin/Admin';
 import { CrearEvento } from './pages/CrearEvento/CrearEvento';
 import { AgregarMaterial } from './pages/AgregarMaterial/AgregarMaterial';
 import { VerMaterial } from './pages/VerMaterial/VerMaterial';
+import { Main } from './pages/Main/Main';
 import { HistorialEvento } from './pages/HistorialEventos/HistorialEvento';
+import { MisEventos } from './pages/MisEventos/MisEventos';
 
 /*
   Les recomiendo leer la documentacion de la librería 'react-router-dom' para manejar las rutas,
@@ -25,12 +27,14 @@ function App() {
           */}
           <Route path="/" element={<InicioSesion />} />
           <Route path="/admin" element={<Administracion />} />
+          <Route path="/main" element={<Main />} />
           <Route path="/registroEstudiante" element={<RegistroEstudiante />} />
           <Route path="/registroOrganizacion" element={<RegistroOrganizacion />} />
           <Route path="/crear-evento" element={<CrearEvento />} />
           <Route path="/agregarMaterial" element={<AgregarMaterial />} />
           <Route path="/ver-material" element={<VerMaterial />} />
           <Route path="/historial-eventos" element={<HistorialEvento />} />
+          <Route path="/misEventos" element={<MisEventos />} />
         </Routes>
       </BrowserRouter>
     </div>
