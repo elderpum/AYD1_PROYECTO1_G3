@@ -193,13 +193,13 @@ const Container = styled.div`
   );
 `;
 
-const ContainerContent = styled.div`
-  justify-content: center;
-  height: 80%;
-  min-height: 80%;
-  width: 80%;
-  min-width: 80%;
-  background: white;
-  margin-top: 4rem;
-  border-radius: 0.5rem;
-`;
+// const ContainerContent = styled.div`
+//   justify-content: center;
+//   height: 80%;
+//   min-height: 80%;
+//   width: 80%;
+//   min-width: 80%;
+//   background: white;
+//   margin-top: 4rem;
+//   border-radius: 0.5rem;
+// `;

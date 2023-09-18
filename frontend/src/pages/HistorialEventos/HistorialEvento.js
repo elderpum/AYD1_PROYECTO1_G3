@@ -3,7 +3,6 @@ import { styled } from "styled-components";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./HistorialEvento.css";
 import {
-  Button,
   Grid,
   Table,
   TableBody,
@@ -11,7 +10,6 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  TextField,
   Paper,
   FormGroup,
   FormControlLabel,
@@ -37,8 +35,8 @@ export function HistorialEvento() {
         .catch((error) => console.error("Error:", error))
         .then((res) => {
           let aux = [];
-          for (const m of res.materiales) {
-            aux.push(createData(m.name, m.tipo, m.url));
+          for (const h of res.historial) {
+            aux.push(createData(h.name, h.fecha, h.tipo, h.formato, h.img));
           }
           setRows(aux);
         });
