@@ -195,7 +195,7 @@ Row.propTypes = {
 };
 
 const client = axios.create({
-    baseURL: "http://localhost:" + process.env.BACKEND_PORT
+    baseURL: "http://localhost:3001"
 });
 
 export function Administracion() {
