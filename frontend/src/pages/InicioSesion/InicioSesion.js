@@ -40,7 +40,7 @@ export function InicioSesion() {
     console.log(correo);
     console.log(password);
     console.log(tipo);
-    const url = `http://${ip}:${process.env.BACKEND_PORT}/api/auth/login`;
+    const url = `http://${ip}:3001/api/auth/login`;
     let data = { correo: correo, password: password, tipo: tipo };
     const fetchData = async () => {
       fetch(url, {

@@ -71,7 +71,7 @@ export function CrearEvento() {
       const base64File = await convertToBase64(m);
       materiales.push({ contenido: base64File, nombre: m.name });
     }
-    const url = `http://${ip}:${process.env.BACKEND_PORT}/api/events/create`;
+    const url = `http://${ip}:3001/api/events/create`;
     const token = localStorage.getItem("auth");
     let data = {
       titulo: titulo,
