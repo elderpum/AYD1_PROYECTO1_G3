@@ -20,7 +20,7 @@ import FormGroup from '@mui/material/FormGroup';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { Link } from "react-router-dom"; // import de la libreria para el ruteo de la pagina
+import { Link, useNavigate } from "react-router-dom"; // import de la libreria para el ruteo de la pagina
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './RegistroEstudiante.css';
@@ -37,6 +37,8 @@ export function RegistroEstudiante() {
     const [departamento, setDepartamento] = useState('');
     const [telefono, setTelefono] = useState('');
     const [isChecked, setIsChecked] = useState(false);
+
+    const navigate = useNavigate();
 
     const handleChangeGen = (event) => {
         setGenero(event.target.value);
@@ -58,7 +60,7 @@ export function RegistroEstudiante() {
 
     const registrarse = () => {
         if (isChecked) {
-            axios.post("http://localhost:" + process.env.BACKEND_PORT+'/api/estudiantes/add', {
+            axios.post("http://localhost:3001/api/estudiantes/add", {
                 estudiante: {
                     nombre: nombre,
                     apellidos: apellido,
@@ -78,6 +80,7 @@ export function RegistroEstudiante() {
                     icon: 'success',
                     confirmButtonText: 'Ok'
                 });
+                navigate("/main");
                 console.log(fecha);
             }).catch(function (error) {
                 Swal.fire({
