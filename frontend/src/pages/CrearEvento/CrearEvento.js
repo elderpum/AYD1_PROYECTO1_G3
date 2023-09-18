@@ -168,7 +168,7 @@ export function CrearEvento() {
                     label="Fecha"
                     onChange={(newValue) =>
                       setFecha(
-                        `${newValue.$D}/${newValue.$M + 1}/${newValue.$y}`
+                        `${newValue.$y}/${newValue.$M + 1}/${newValue.$D}`
                       )
                     }
                   />
