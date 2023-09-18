@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FormControlLabel, TextField } from '@mui/material';
+import { FormControl, FormControlLabel, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -77,10 +77,6 @@ export const RegistroOrganizacion = () => {
     //Funcion registro.
     const handleSubmit = (e) => {
         e.preventDefault(); //evita el recargo de la pagina
-        // console.log(form);
-        // console.log(gender);
-        // console.log(checked);
-        // console.log(dateSelect);
 
         if (checked === false) {
             alert('Debe aceptar los terminos y condiciones');
@@ -88,6 +84,7 @@ export const RegistroOrganizacion = () => {
         }
 
         setOrganizador(form, gender, dateSelect);
+
         handleReset();
         setChecked(false);
         setGender('S');
@@ -102,7 +99,7 @@ export const RegistroOrganizacion = () => {
 
                 <div className="content-logo-organizador">
                     <div>
-                        <img src={withe_logo} alt="logo" width="400" height="115" />
+                        <img src={withe_logo} alt="logo" width='350vh' height="115vh" />
                     </div>
                 </div>
 
@@ -115,6 +112,7 @@ export const RegistroOrganizacion = () => {
                     <div className="form-inputs">
 
                         <form onSubmit={handleSubmit}>
+                            
                             <div>
                                 <TextField sx={{ m: 1, width: '30ch' }} label="Nombre" name='nombre' value={form.nombre} onChange={handleChange} variant="filled" />
                                 <TextField sx={{ m: 1, width: '30ch' }} label="Apellido" name='apellido' value={form.apellido} onChange={handleChange} variant="filled" />
@@ -122,25 +120,23 @@ export const RegistroOrganizacion = () => {
                             </div>
 
                             <div>
+
                                 <TextField sx={{ m: 1, width: '30ch' }} label="Contraseña" type="password" name='contrasenia' value={form.contrasenia} onChange={handleChange} variant="filled" />
 
-                                <TextField
-                                    sx={{ m: 1, width: '30ch' }}
-                                    select
-                                    label="Género"
-                                    SelectProps={{
-                                        native: true,
-                                    }}
-                                    value={gender}
-                                    onChange={handleGenderChange}
-                                    variant="filled"
-                                >
-                                    {currencies.map((option) => (
-                                        <option key={option.value} value={option.value}>
-                                            {option.label}
-                                        </option>
-                                    ))}
-                                </TextField>
+                                <FormControl sx={{ m: 1, width: '30ch' }} variant="filled">
+                                    <InputLabel id="demo-simple-select-label">Género</InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        value={gender}
+                                        label="eduacion"
+                                        onChange={handleGenderChange}
+                                    >
+                                        <MenuItem value={'Ciencia'}>Masculino</MenuItem>
+                                        <MenuItem value={'Tecnología'}>Femenino</MenuItem>
+                                    </Select>
+                                </FormControl>
+
                             </div>
 
                             <div>
@@ -162,9 +158,9 @@ export const RegistroOrganizacion = () => {
 
                             <div>
                                 <Button type="submit" sx={{ m: 1, height: '6ch' }} variant="contained">Registrarse</Button>
-
                                 <Button sx={{ m: 1, height: '6ch', width: '18ch' }} color="error" variant="contained">Atras</Button>
                             </div>
+
                         </form>
 
                     </div>
