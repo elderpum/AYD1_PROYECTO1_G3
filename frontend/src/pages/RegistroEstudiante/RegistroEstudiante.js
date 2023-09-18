@@ -60,13 +60,16 @@ export function RegistroEstudiante() {
 
     const registrarse = () => {
         if (isChecked) {
+            const mont = (parseInt(fecha.$M) + 1).toString();
+            var fecha_ = fecha.$y + "-" + mont + "-" + fecha.$D;
+            console.log(fecha_)
             axios.post("http://localhost:3001/api/estudiantes/add", {
                 estudiante: {
                     nombre: nombre,
                     apellidos: apellido,
                     email: correo,
                     pass: contra,
-                    nacimiento: fecha,
+                    nacimiento: fecha_,
                     genero: genero,
                     nivel_educacion: eduacion,
                     Departamento: departamento,
