@@ -1,3 +1,5 @@
+const db = require("../Config/databaseConfig");
+
 var organizadores = [
   {
     nombre: "Organizador1",
