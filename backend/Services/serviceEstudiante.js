@@ -1,4 +1,5 @@
-var estudiantes = [];
+const db = require("../Config/databaseConfig");
+const bcrypt = require("bcrypt");
 
 function EjemploE() {
   return "Ejemplo";
