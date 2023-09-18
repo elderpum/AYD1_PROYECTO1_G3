@@ -9,6 +9,7 @@ USE aydProyecto1;
 CREATE TABLE Organizador (
     ID INT PRIMARY KEY AUTO_INCREMENT,
     Nombre VARCHAR(255) NOT NULL,
+	Apellido VARCHAR(255) NOT NULL,
     CorreoElectronico VARCHAR(255) NOT NULL UNIQUE,
     Contrasena VARCHAR(255) NOT NULL,
 	FechaNacimiento datetime NOT NULL,
