@@ -25,8 +25,25 @@ async function add(req, res) {
     });
 }
 
+async function getEvents(req, res){
+    try {
+        const data = req.body;
+        const response = await services.getAllEvents(data.idOrga)
+        if (response.err) {
+          return res.status(400).json(response);
+        }
+        return res.status(201).json(response);
+      } catch (error) {
+        return res.status(500).json({
+          err: true,
+          message: error.message,
+        });
+      }
+}
+
 module.exports = {
     ejemplo,
     add,
     getAll,
+    getEvents
 };
