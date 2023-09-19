@@ -8,7 +8,7 @@ import { styled } from 'styled-components';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Sidebar.css';
 
-export function Sidebar({ isAdmin }) {
+export function Sidebar({ isOrganizador, opcionActiva }) {
   return (
     <Container>
       <div className='menu_options'>
@@ -16,26 +16,40 @@ export function Sidebar({ isAdmin }) {
           <img src={Logo} alt='soundstream' />
         </div>
         <ul className='ul_sidebar'>
-          <li className='option d-flex align-items-center activo'>
+          <li className={`option d-flex align-items-center ${opcionActiva === 'incio' ? 'activo': ''}`}>
             <MdHomeFilled />
             <span>Inicio</span>
           </li>
-          <li className='option d-flex align-items-center'>
+          <li className={`option d-flex align-items-center ${opcionActiva === "buscar" ? "activo": " "}`}>
             <MdContentPasteSearch />
             <span>Buscar Eventos</span>
           </li>
-          <li className='option d-flex align-items-center'>
-            <HiDocumentDuplicate />
-            <span>Material Educativo</span>
-          </li>
-          <li className='option d-flex align-items-center'>
+          {isOrganizador ? (
+            <li className={`option d-flex align-items-center ${opcionActiva === "agregarmaterial" ? "activo": " "}`}>
+              <HiDocumentDuplicate />
+              <span>Material Educativo</span>
+            </li>
+          ) : (
+            <li className={`option d-flex align-items-center ${opcionActiva === "vermaterial" ? "activo": " "}`}>
+              <HiDocumentDuplicate />
+              <span>Ver Material Educativo</span>
+            </li>
+          )}
+          <li className={`option d-flex align-items-center ${opcionActiva === "foro" ? "activo": " "}`}>
             <MdForum />
             <span>Foros de Discusión</span>
           </li>
-          <li className='option d-flex align-items-center'>
-            <MdOutlineEventAvailable />
-            <span>Historial de Eventos</span>
-          </li>
+          {isOrganizador ? (
+            <li className={`option d-flex align-items-center ${opcionActiva === "miseventos" ? "activo": " "}`}>
+              <MdOutlineEventAvailable />
+              <span>Mis Eventos</span>
+            </li>
+          ) : (
+            <li className={`option d-flex align-items-center ${opcionActiva === "historial" ? "activo": " "}`}>
+              <MdOutlineEventAvailable />
+              <span>Historial de Eventos</span>
+            </li>
+          )}
           <li className='option d-flex align-items-center cerrar'>
             <MdLogout />
             <span>Cerrar Sesión</span>
@@ -52,10 +66,14 @@ top: 0;
 flex: 0.2;
 height: 100%;
 min-height: 100vh;
-background-color: #303840;
+background-color: #181818;
 color: #b3b3b3;
 min-width: 240px;
 -webkit-box-shadow: 4px 5px 20px -7px rgba(0,0,0,0.65);
 -moz-box-shadow: 4px 5px 20px -7px rgba(0,0,0,0.65);
 box-shadow: 4px 5px 20px -7px rgba(0,0,0,0.65);
+text-size-adjust:none;
+text-size-adjust:none;
+
 `
+//#303840;

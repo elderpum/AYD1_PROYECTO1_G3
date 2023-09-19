@@ -16,6 +16,8 @@ import Select from '@mui/material/Select';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import FormGroup from '@mui/material/FormGroup';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -83,8 +85,7 @@ export function RegistroEstudiante() {
                     icon: 'success',
                     confirmButtonText: 'Ok'
                 });
-                navigate("/main");
-                console.log(fecha);
+                navigate("/");
             }).catch(function (error) {
                 Swal.fire({
                     title: 'Error!',
@@ -250,13 +251,15 @@ export function RegistroEstudiante() {
                     </Grid>
                     <Grid item xs={12}>
                         <div className='container-fluid d-flex flex-row-reverse bd-highlight'>
-                            <button type="button" className="btn btn-success mrgn_left" onClick={registrarse}> Registrarse</button>
-                            <Link to="/registroOrganizador">
-                                <button type="button" className="btn btn-danger mrgn_left">Soy Una Organizacion</button>
-                            </Link>
-                            <Link to="/">
-                                <button type="button" className="btn btn-info mrgn_left">Iniciar Sesion</button>
-                            </Link>
+                            <Stack direction="row" spacing={2}>
+                                <Link to="/registroOrganizacion">
+                                    <Button variant="contained" size="small" color="error"> Soy Una Organizacion </Button>
+                                </Link>
+                                <Link to="/">
+                                <Button variant="contained" size="small"> Iniciar Sesion </Button>
+                                </Link>
+                                <Button variant="contained" size="small" onClick={registrarse} color="success"> Registrarse </Button>
+                            </Stack>
                         </div>
                     </Grid>
                 </Grid>
@@ -266,9 +269,13 @@ export function RegistroEstudiante() {
 }
 
 /*
-
-● Aceptación de Términos y Condiciones:
-
+<button type="button" className="btn btn-success mrgn_left" onClick={registrarse}> </button>
+<Link to="/registroOrganizador">
+    <button type="button" className="btn btn-danger mrgn_left">Soy Una Organizacion</button>
+</Link>
+<Link to="/">
+    <button type="button" className="btn btn-info mrgn_left">Iniciar Sesion</button>
+</Link>
 */
 
 const ContainerAlternativo = styled.div`
@@ -281,7 +288,7 @@ background-color: #181818;
 border-radius: 6px 0 0 6px;
 
 & img {
-    height: 75px;
+    margin: auto 0 auto 0;
 }
 
 & .mrgn {

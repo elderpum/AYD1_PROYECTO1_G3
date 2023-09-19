@@ -15,6 +15,7 @@ import Collapse from "@mui/material/Collapse";
 import CloseIcon from "@mui/icons-material/Close";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
+import Stack from '@mui/material/Stack';
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./InicioSesion.css";
@@ -72,12 +73,6 @@ export function InicioSesion() {
       <ContainerAlternativo>
         <div className="d-flex flex-column align-items-center justify-content-center">
           <img src={logo} alt="logo" />
-          <br />
-          <Link to="/registroEstudiante">
-            <Button variant="contained" color="warning">
-              Registrarse
-            </Button>
-          </Link>
         </div>
       </ContainerAlternativo>
       <ContainerLogin>
@@ -166,13 +161,21 @@ export function InicioSesion() {
                   { mensaje }. Intentos: {conteo}
                 </Alert>
               </Collapse>
-              <Button
-                variant="contained"
-                color="success"
-                onClick={iniciarSesion}
-              >
-                Iniciar sesion
-              </Button>
+              <Stack direction="row" spacing={2}>
+                <Link to="/registroEstudiante">
+                  <Button variant="contained" color="error" size="small">
+                    Registrarse
+                  </Button>
+                </Link>
+                <Button
+                  variant="contained"
+                  color="success"
+                  size="small"
+                  onClick={iniciarSesion}
+                >
+                  Iniciar sesion
+                </Button>
+              </Stack>
             </Box>
           </Grid>
         </Grid>
@@ -197,7 +200,7 @@ const ContainerAlternativo = styled.div`
   border-radius: 6px 0 0 6px;
 
   & img {
-    height: 75px;
+    margin: auto 0 auto 0;
   }
 
   & .mrgn {
