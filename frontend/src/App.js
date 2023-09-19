@@ -10,6 +10,7 @@ import { VerMaterial } from './pages/VerMaterial/VerMaterial';
 import { Main } from './pages/Main/Main';
 import { HistorialEvento } from './pages/HistorialEventos/HistorialEvento';
 import { MisEventos } from './pages/MisEventos/MisEventos';
+import { BuscarEventos } from './pages/BuscarEventos/BuscarEventos';
 
 
 function App() {
@@ -31,8 +32,10 @@ function App() {
           <Route path="/ver-material" element={<VerMaterial />} />
           <Route path="/historial-eventos" element={<HistorialEvento />} />
           <Route path="/misEventos" element={<MisEventos />} />
+          <Route path="/buscarEvento" element={<BuscarEventos isOrganizador={false}/>}/>
+          <Route path="/foro" element={<Main isOrganizador={false}/>}/>
 
-          <Route path="/org/buscarEvento" element={<Main isOrganizador={true}/>}/>
+          <Route path="/org/buscarEvento" element={<BuscarEventos isOrganizador={true}/>}/>
           <Route path="/org/foro" element={<Main isOrganizador={true}/>}/>
         </Routes>
       </BrowserRouter>
