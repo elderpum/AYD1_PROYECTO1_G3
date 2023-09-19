@@ -65,3 +65,41 @@ exports.create = async (data, idOrganizador) => {
         message: 'Event created successfully',
     }
 }
+
+exports.getEventsByStudent = async (idEstudiante) => {
+    try{
+        const [res] = await db.execute('SELECT ev.titulo, ev.fechaHora, ev.FormatoEvento, ev.imagen FROM Evento ev INNER JOIN evento_estudiante_U eeu ON eeu.id_evento = ev.idEvento WHERE eeu.id_estudiante = ?;', [idEstudiante]);
+
+        rows = res[0];
+        let response = [];
+        rows.forEach(async row => {
+            const [res] = await db.execute('SELECT Categoria FROM CategoriaEvento WHERE idEvento = ?', [row.idEvento]);
+            let categorias = res[0];
+
+            let cats = [];
+            categorias.forEach(categoria => {
+                cats.push(categoria.Categoria);
+            });
+
+            response.push({
+                id: row.idEvento,
+                titulo: row.titulo,
+                fecha: row.fechaHora,
+                formato: row.FormatoEvento,
+                imagen: row.imagen,
+                tipo: cats
+            });
+        });
+        
+        return{
+            err: false,
+            message: "Success",
+            data: response
+        }
+    }catch(error){
+        return{
+            err: true,
+            message: error.message
+        }
+    }
+}
