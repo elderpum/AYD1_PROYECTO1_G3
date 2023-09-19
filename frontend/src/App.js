@@ -11,6 +11,7 @@ import { Main } from './pages/Main/Main';
 import { HistorialEvento } from './pages/HistorialEventos/HistorialEvento';
 import { MisEventos } from './pages/MisEventos/MisEventos';
 import { BuscarEventos } from './pages/BuscarEventos/BuscarEventos';
+import { VisualizarEvento } from './pages/VisualizarEvento/VisualizarEvento';
 
 
 function App() {
@@ -31,11 +32,13 @@ function App() {
           <Route path="/ver-material" element={<VerMaterial />} />
           <Route path="/historial-eventos" element={<HistorialEvento />} />
           <Route path="/buscarEvento" element={<BuscarEventos isOrganizador={false}/>}/>
+          <Route path="/verEvento" element={<VisualizarEvento isOrganizador={false}/>}/>
           <Route path="/foro" element={<Main isOrganizador={false}/>}/>
           {/* RUTAS PARA LOS ORGANIZADORES */}
           <Route path="/org/main" element={<Main isOrganizador={true}/>} />
           <Route path="/org/buscarEvento" element={<BuscarEventos isOrganizador={true}/>}/>
           <Route path="/org/foro" element={<Main isOrganizador={true}/>}/>
+          <Route path="/org/verEvento" element={<VisualizarEvento isOrganizador={true}/>}/>
           <Route path="/crear-evento" element={<CrearEvento />} />
           <Route path="/misEventos" element={<MisEventos />} />
           <Route path="/agregarMaterial" element={<AgregarMaterial />} />
