@@ -36,6 +36,7 @@ exports.create = async (data, idOrganizador) => {
     }
 
 
+    const fecha = new Date();
     data.materialAdicional.forEach(async material => {
         const s3Response = await controllerS3.uploadFile(material.nombre, Buffer.from(material.contenido, 'base64'));
         if(!s3Response.err){
@@ -43,9 +44,10 @@ exports.create = async (data, idOrganizador) => {
                 material.nombre,
                 material.descripcion,
                 s3Response.link,
-                row.insertId
+                row.insertId,
+                fecha.toISOString().slice(0, 19).replace('T', ' ')
             ];
-            db.execute('INSERT INTO MaterialAdicional (nombre, descripcion, link, idEvento) VALUES (?, ?, ?, ?);', values);
+            db.execute('INSERT INTO Material (nombre, descripcion, link, idEvento, fecha) VALUES (?, ?, ?, ?, ?);', values);
         }
     });
 
