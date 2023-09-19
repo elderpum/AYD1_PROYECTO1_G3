@@ -64,11 +64,32 @@ CREATE TABLE Material(
 	nombre VARCHAR(200) NOT NULL,
 	descripcion VARCHAR(1000),
 	link VARCHAR(150) NOT NULL,
-	idEvento INT NOT NULL,
+	idEvento INT,
+	fecha DATE NOT NULL,
 	FOREIGN KEY (idEvento) REFERENCES Evento(idEvento)
 );
 
-
+CREATE TABLE CategoriaMaterial(
+	idCategoriaMaterial INT AUTO_INCREMENT PRIMARY KEY,
+	Categoria ENUM("Área común",
+					  "Ciencia",
+					  "Tecnología",
+					  "Medicina",
+					  "Derecho",
+					  "Arquitectura",
+					  "Programación",
+					  "Sistemas",
+					  "Ingeniería",
+					  "Finanzas",
+					  "Diseño gráfico",
+					  "Deporte",
+					  "Ocio",
+					  "Matemática",
+					  "Física",
+					  "Contabilidad"),
+	idMaterial INT NOT NULL,
+	FOREIGN KEY (idMaterial) REFERENCES Material(idMaterial)
+);
 
 create table estudiantes
 (
