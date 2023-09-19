@@ -328,7 +328,7 @@ height: 55px;
 background-color: black;
 
 & img {
-    height: 45px;
+    max-height: 45px;
 }
 `
 
