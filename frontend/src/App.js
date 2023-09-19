@@ -11,10 +11,6 @@ import { Main } from './pages/Main/Main';
 import { HistorialEvento } from './pages/HistorialEventos/HistorialEvento';
 import { MisEventos } from './pages/MisEventos/MisEventos';
 
-/*
-  Les recomiendo leer la documentacion de la librería 'react-router-dom' para manejar las rutas,
-  es bien sencillo
-*/
 
 function App() {
   return (
@@ -35,10 +31,14 @@ function App() {
           <Route path="/ver-material" element={<VerMaterial />} />
           <Route path="/historial-eventos" element={<HistorialEvento />} />
           <Route path="/misEventos" element={<MisEventos />} />
+
+          <Route path="/org/buscarEvento" element={<Main isOrganizador={true}/>}/>
+          <Route path="/org/foro" element={<Main isOrganizador={true}/>}/>
         </Routes>
       </BrowserRouter>
     </div>
   );
 }
-
+// foro de discusion
+// busqueda de eventos
 export default App;
