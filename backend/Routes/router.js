@@ -5,6 +5,8 @@ const routerAdmin = require ('./routerAdmin.js');
 const routerAuth = require ('./routerAuth.js');
 const routerEvent = require ('./routerEvent.js');
 const routerOrganizador = require ('./routerOrganizador.js');
+const routerMaterial = require ('./routerMaterial.js');
+
 
 //Routes Estudiantes
 router.use('/estudiantes', routerEstudiante);
@@ -20,5 +22,8 @@ router.use('/events', routerEvent);
 
 //Routes Organizador
 router.use('/organizador', routerOrganizador);
+
+//Routes Materiales
+router.use('/materiales', routerMaterial);
 
 module.exports = router;
