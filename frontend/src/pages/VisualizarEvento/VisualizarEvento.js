@@ -28,7 +28,7 @@ export function VisualizarEvento({isOrganizador}) {
             <Sidebar isOrganizador={isOrganizador} opcionActiva={'buscar'}/>
             <BodyContent>
                 <div className='d-flex align-items-start flex-column my-4'>
-                    <Link to="/buscarEvento">
+                    <Link to={`${isOrganizador ? "/org/buscarEvento": "/buscarEvento"}`}>
                         <Button variant="contained" startIcon={<ArrowBackIcon />}>
                             Regresar
                         </Button>

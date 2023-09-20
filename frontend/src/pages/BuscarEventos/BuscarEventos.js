@@ -242,6 +242,13 @@ const eventos = [
                 "descripcion": "se describe cositas",
                 "link": "google.com",
                 "idEvento": 1,
+            },
+            {
+                "idMaterial": 1,
+                "nombre": "Documento 2",
+                "descripcion": "se describe cositas",
+                "link": "google.com",
+                "idEvento": 1,
             }
         ]
     },
