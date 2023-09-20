@@ -13,9 +13,11 @@ export function VisualizarEvento({isOrganizador}) {
         <Container>
             <Sidebar isOrganizador={isOrganizador} opcionActiva={'buscar'}/>
             <BodyContent>
-                <div className='d-flex align-items-start flex-column'>
-                    ATRAS
-                </div>
+                <Grid container rowSpacing={2} columnSpacing={{ xs: 4, sm: 5, md: 5 }}  columns={12}>
+                    <Grid item xs={12}>
+                        TITULO
+                    </Grid>
+                </Grid>
             </BodyContent>
         </Container>
     )
