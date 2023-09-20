@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
@@ -12,6 +12,7 @@ import { Sidebar } from '../../components/Sidebar'
 import { Link } from "react-router-dom"; // import de la libreria para el ruteo de la pagina
 
 export function MisEventos(props) {
+    const [lista_eventos, setListaEventos] = useState([]);
     /* PETICION DE TODOS LOS CREADOR POR EL ORGANIZADOR */
     const token = localStorage.getItem("auth");
     const url = `http://localhost:3001/api/organizador/getAllEvents`;
@@ -33,7 +34,8 @@ export function MisEventos(props) {
         });
     };
     fetchData();
-
+    setListaEventos(eventos)
+    /*
     var cards_list = [];
     for (let i=0;i<eventos.length;i++) {
         cards_list.push(
@@ -41,7 +43,7 @@ export function MisEventos(props) {
                 <CardEvento evento={eventos[i]}/>
             </Grid>
         );
-    }
+    }*/
     return (
         <Container>
             <Sidebar isOrganizador={true} opcionActiva={'miseventos'}/>
@@ -53,7 +55,11 @@ export function MisEventos(props) {
                     </Link>
                 </div>
                 <Grid container rowSpacing={7} columns={12} sx={{ width: 1 }}>
-                    {cards_list}
+                    {lista_eventos.map((evento) => (
+                        <Grid item xs={12}>
+                            <CardEvento evento={evento}/>
+                        </Grid>
+                    ))}
                 </Grid>
             </BodyContent>
         </Container>
