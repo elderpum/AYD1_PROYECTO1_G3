@@ -56,6 +56,10 @@ border-radius: 9px 9px 9px 9px;
 -webkit-border-radius: 9px 9px 9px 9px;
 border: 2px solid #e4e4e4;
 
+& .content {
+    text-align: left;
+}
+
 & h5 {
     margin-bottom: 20px;
 }
