@@ -1,20 +1,32 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
-import {Grid} from '@mui/material';
-import Chip from '@mui/material/Chip';
-import Stack from '@mui/material/Stack';
+import { Grid, Chip, Stack } from '@mui/material';
+import { useEventContext } from '../../contexts/eventsContext';
+import { useNavigate } from "react-router-dom";
 
-export function CardBusqueda({ evento }) {
+export function CardBusqueda({ isOrganizador, evento }) {
+    const { setEvent } = useEventContext();
+    const navigate = useNavigate();
+
+    const verEvento = () => {
+        setEvent(evento);
+        if (isOrganizador) {
+            navigate('/org/verEvento');
+        } else {
+            navigate('/verEvento');
+        }
+    }
+
     var categorias_evento = []
     for (let i=0;i<evento.categorias.length;i++) {
         categorias_evento.push(
-            <Chip label={evento.categorias[i]}/>
+            <Chip label={evento.categorias[i]} key={i}/>
         );
     }
 
     return (
-        <Card>
+        <Card onClick={verEvento}>
             <Grid container rowSpacing={2} columnSpacing={{ xs: 4, sm: 5, md: 5 }}  columns={12}>
                 <Grid item xs={12}>
                     <div className='d-flex align-items-start flex-column content'>
