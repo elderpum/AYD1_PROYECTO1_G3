@@ -12,7 +12,6 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { CardBusqueda } from './CardBusqueda'
 
-
 export function BuscarEventos({isOrganizador}) {
     const [categoria, setCategoria] = useState([]);
     const [fechaInicio, setFechaInicio] = useState('');
@@ -20,7 +19,31 @@ export function BuscarEventos({isOrganizador}) {
     const [palabra, setPalabra] = useState('');
     const [resultado, setResultado] = useState([]);
     var busqueda = []
+
     /* PETICION DE TODOS LOS EVENTOS */
+    const token = localStorage.getItem("auth");
+    const url = `http://localhost:3001/api/events/getAvailables`;
+
+    const fetchData = async () => {
+        fetch(url, {
+            method: "GET",
+            //body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        })
+        .then((res) => res.json())
+        .catch((error) => console.error("Error:", error))
+        .then((res) => {
+            eventos = res.data
+            console.log(res)
+        });
+    };
+    fetchData();
+    
+
+    /* FUNCION PARA FILTRAR */
     const filtrar = () => {
         busqueda = []
         
@@ -223,7 +246,7 @@ const categorias = [
     "Contabilidad",
 ];
 
-const eventos = [
+var eventos = [
     {
         "titulo": "Taller de programación 1",
         "descripcion": "Taller para estudiantes principiantes en POO.",

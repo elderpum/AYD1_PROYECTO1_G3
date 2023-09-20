@@ -100,6 +100,7 @@ export function VisualizarEvento({isOrganizador}) {
                         </Grid>
                         <Grid item xs={12}>
                             <div className='d-flex align-items-start'>
+                            <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
                             {event.materiales.map((material) => (
                                 <ContainerMaterial>
                                     <h6>{material.nombre}</h6>
@@ -109,6 +110,7 @@ export function VisualizarEvento({isOrganizador}) {
                                     </Button>
                                 </ContainerMaterial>
                             ))}
+                            </Stack>
                             </div>
                         </Grid>
                     </Grid>
