@@ -79,7 +79,7 @@ async function getAllEvents(idOrga) {
           img: evento.imagen,
           formato: evento.FormatoEvento,
           categorias: categ,
-          metariales: materiales
+          materiales: materiales
         }
 
       // Agrega el objeto al array.

@@ -12,7 +12,7 @@ router.get(
 );
 
 //POST
-router.post("/block", controllerAccess.isAnAdmin ,controllerAdmin.blockUser);
-router.post("/unblock", controllerAccess.isAnAdmin , controllerAdmin.unblockUser);
+router.post("/block" ,controllerAccess.isAnAdmin,controllerAdmin.blockUser);
+router.post("/unblock", controllerAccess.isAnAdmin,controllerAdmin.unblockUser);
 
 module.exports = router;

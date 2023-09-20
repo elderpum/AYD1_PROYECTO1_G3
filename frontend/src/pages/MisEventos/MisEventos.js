@@ -16,25 +16,26 @@ export function MisEventos(props) {
     /* PETICION DE TODOS LOS CREADOR POR EL ORGANIZADOR */
     const token = localStorage.getItem("auth");
     const url = `http://localhost:3001/api/organizador/getAllEvents`;
-
-    const fetchData = async () => {
-        fetch(url, {
-            method: "POST",
-            body: JSON.stringify({idOrga: '1'}),
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-            },
-        })
-        .then((res) => res.json())
-        .catch((error) => console.error("Error:", error))
-        .then((res) => {
-            eventos = res.data
-            console.log(res)
-        });
-    };
-    fetchData();
-    setListaEventos(eventos)
+    React.useEffect(() => {
+        async function getInfo() {
+            fetch(url, {
+                method: "POST",
+                body: JSON.stringify({idOrga: '1'}),
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+            .then((res) => res.json())
+            .catch((error) => console.error("Error:", error))
+            .then((res) => {
+                eventos = res.data
+                console.log(eventos)
+            });
+        }
+        
+        getInfo();
+    }, []);
     /*
     var cards_list = [];
     for (let i=0;i<eventos.length;i++) {
@@ -55,7 +56,7 @@ export function MisEventos(props) {
                     </Link>
                 </div>
                 <Grid container rowSpacing={7} columns={12} sx={{ width: 1 }}>
-                    {lista_eventos.map((evento) => (
+                    {eventos.map((evento) => (
                         <Grid item xs={12}>
                             <CardEvento evento={evento}/>
                         </Grid>

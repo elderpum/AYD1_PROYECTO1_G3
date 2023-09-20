@@ -16,13 +16,13 @@ async function getOrganizadores() {
 async function blockUser(data) {
   try {
     //Organizador
-    if ((data.type = 1)) {
+    if ((data.type === 1)) {
       [result] = await db.execute("SELECT * from Organizador where ID = ?;", [
         data.id,
       ]);
       query = "UPDATE Organizador SET errores = 5 where CorreoElectronico = ?;";
       //Estudiante
-    } else if ((data.type = 2)) {
+    } else if ((data.type === 2)) {
       [result] = await db.execute(
         "SELECT * from estudiantes where id_estudiante = ?;",
         [data.id]
@@ -35,10 +35,10 @@ async function blockUser(data) {
     }
 
 
-    if (data.type = 1) {
+    if (data.type === 1) {
       await db.execute(query, [result[0].CorreoElectronico]);
-    } else if (data.type = 2){
-      await db.execute(query, [result[0].emal]);
+    } else if (data.type === 2){
+      await db.execute(query, [result[0].email]);
     }
     
 
@@ -57,13 +57,13 @@ async function blockUser(data) {
 async function unblockUser(data) {
   try {
     //Organizador
-    if ((data.type = 1)) {
+    if ((data.type === 1)) {
       [result] = await db.execute("SELECT * from Organizador where ID = ?;", [
         data.id,
       ]);
       query = "UPDATE Organizador SET errores = 0 where CorreoElectronico = ?;";
       //Estudiante
-    } else if ((data.type = 2)) {
+    } else if ((data.type === 2)) {
       [result] = await db.execute(
         "SELECT * from estudiantes where id_estudiante = ?;",
         [data.id]
@@ -75,10 +75,10 @@ async function unblockUser(data) {
       return { err: true, message: "User don't exist" };
     }
 
-    if (data.type = 1) {
+    if (data.type === 1) {
       await db.execute(query, [result[0].CorreoElectronico]);
-    } else if (data.type = 2){
-      await db.execute(query, [result[0].emal]);
+    } else if (data.type === 2){
+      await db.execute(query, [result[0].email]);
     }
 
     return {
