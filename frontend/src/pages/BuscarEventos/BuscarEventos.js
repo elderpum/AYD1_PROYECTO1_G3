@@ -235,7 +235,15 @@ const eventos = [
         "costo": "0.00",
         "img": "https://images.unsplash.com/photo-1619410283995-43d9134e7656?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fHByb2dyYW1taW5nfGVufDB8fDB8fHww&w=1000&q=80",
         "formato": "Virtual",
-        "materiales": "" 
+        "materiales": [
+            {
+                "idMaterial": 1,
+                "nombre": "Documento 1",
+                "descripcion": "se describe cositas",
+                "link": "google.com",
+                "idEvento": 1,
+            }
+        ]
     },
     {
         "titulo": "Taller de programación 2",
@@ -248,7 +256,22 @@ const eventos = [
         "costo": "0.00",
         "img": "https://empresas.blogthinkbig.com/wp-content/uploads/2019/11/Imagen3-245003649.jpg?w=800",
         "formato": "Virtual",
-        "materiales": "" 
+        "materiales": [
+            {
+                "idMaterial": 1,
+                "nombre": "Documento 1",
+                "descripcion": "se describe cositas",
+                "link": "google.com",
+                "idEvento": 1,
+            },
+            {
+                "idMaterial": 1,
+                "nombre": "Documento 1",
+                "descripcion": "se describe cositas",
+                "link": "www.google.com",
+                "idEvento": 1,
+            }
+        ]
     },
     {
         "titulo": "Taller de programación 3",
@@ -261,7 +284,22 @@ const eventos = [
         "costo": "0.00",
         "img": "https://i.pinimg.com/736x/ae/ca/bb/aecabbb80f83af71ad05737e2ae2a483.jpg",
         "formato": "Virtual",
-        "materiales": "" 
+        "materiales": [
+            {
+                "idMaterial": 1,
+                "nombre": "Documento 1",
+                "descripcion": "se describe cositas",
+                "link": "google.com",
+                "idEvento": 1,
+            },
+            {
+                "idMaterial": 1,
+                "nombre": "Documento 1",
+                "descripcion": "se describe cositas",
+                "link": "www.google.com",
+                "idEvento": 1,
+            }
+        ]
     },
     {
         "titulo": "Taller de programación 4",
@@ -274,7 +312,22 @@ const eventos = [
         "costo": "0.00",
         "img": "https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/media/image/2023/06/ia-3056634.jpg?tf=3840x",
         "formato": "Virtual",
-        "materiales": "" 
+        "materiales": [
+            {
+                "idMaterial": 1,
+                "nombre": "Documento 1",
+                "descripcion": "se describe cositas",
+                "link": "https://empresas.blogthinkbig.com/wp-content/uploads/2019/11/Imagen3-245003649.jpg?w=800",
+                "idEvento": 1,
+            },
+            {
+                "idMaterial": 1,
+                "nombre": "Documento 1",
+                "descripcion": "se describe cositas",
+                "link": "https://empresas.blogthinkbig.com/wp-content/uploads/2019/11/Imagen3-245003649.jpg?w=800",
+                "idEvento": 1,
+            }
+        ]
     },
 ]
 
