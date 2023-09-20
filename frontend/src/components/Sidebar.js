@@ -4,6 +4,7 @@ import Logo from '../assets/logo.png';
 import { MdHomeFilled, MdLogout, MdOutlineEventAvailable, MdForum, MdContentPasteSearch } from "react-icons/md";
 import { HiDocumentDuplicate } from "react-icons/hi";
 import { styled } from 'styled-components';
+import { Link } from "react-router-dom";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Sidebar.css';
@@ -16,14 +17,18 @@ export function Sidebar({ isOrganizador, opcionActiva }) {
           <img src={Logo} alt='soundstream' />
         </div>
         <ul className='ul_sidebar'>
-          <li className={`option d-flex align-items-center ${opcionActiva === 'incio' ? 'activo': ''}`}>
-            <MdHomeFilled />
-            <span>Inicio</span>
-          </li>
-          <li className={`option d-flex align-items-center ${opcionActiva === "buscar" ? "activo": " "}`}>
-            <MdContentPasteSearch />
-            <span>Buscar Eventos</span>
-          </li>
+          <Link to="/main" style={{ color: 'inherit', textDecoration: 'none'}}>
+            <li className={`option d-flex align-items-center ${opcionActiva === "inicio" ? "activo": " "}`}>
+              <MdHomeFilled />
+              <span>Inicio</span>
+            </li>
+          </Link>
+          <Link to={`${isOrganizador ? "/org/buscarEvento": "/buscarEvento"}`} style={{ color: 'inherit', textDecoration: 'none'}}>
+            <li className={`option d-flex align-items-center ${opcionActiva === "buscar" ? "activo": " "}`}>
+              <MdContentPasteSearch />
+              <span>Buscar Eventos</span>
+            </li>
+          </Link>
           {isOrganizador ? (
             <li className={`option d-flex align-items-center ${opcionActiva === "agregarmaterial" ? "activo": " "}`}>
               <HiDocumentDuplicate />
@@ -40,10 +45,12 @@ export function Sidebar({ isOrganizador, opcionActiva }) {
             <span>Foros de Discusión</span>
           </li>
           {isOrganizador ? (
-            <li className={`option d-flex align-items-center ${opcionActiva === "miseventos" ? "activo": " "}`}>
-              <MdOutlineEventAvailable />
-              <span>Mis Eventos</span>
-            </li>
+            <Link to="/misEventos" style={{ color: 'inherit', textDecoration: 'none'}}>
+              <li className={`option d-flex align-items-center ${opcionActiva === "miseventos" ? "activo": " "}`}>
+                <MdOutlineEventAvailable />
+                <span>Mis Eventos</span>
+              </li>
+            </Link>
           ) : (
             <li className={`option d-flex align-items-center ${opcionActiva === "historial" ? "activo": " "}`}>
               <MdOutlineEventAvailable />

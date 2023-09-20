@@ -6,4 +6,7 @@ const controllerAccess = require('../Controllers/controllerAccess');
 //POSTS
 router.post('/create', controllerAccess.isAnOrganizer, controllerEvent.create);
 
+//GETS
+router.get('/get-mis-eventos', controllerAccess.isAStudent, controllerEvent.getEventsByStudent);
+
 module.exports = router;
