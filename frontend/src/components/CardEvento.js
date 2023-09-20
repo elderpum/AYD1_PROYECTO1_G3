@@ -23,7 +23,7 @@ export function CardEvento({evento}) {
     let categorias = [];
     for (let i=0;i<evento.categorias.length;i++) {
         categorias.push(
-            <Chip label={evento.categorias[i]}/>
+            <Chip label={evento.categorias[i]} key={i}/>
         );
     }
     return (
@@ -51,7 +51,7 @@ export function CardEvento({evento}) {
                 <Grid item xs={4}>
                     <img src={evento.img} alt='IMG'/>
                 </Grid>
-                <Grid item xs={12} wrap='wrap'>
+                <Grid item xs={12}>
                     <div className='d-flex align-items-start'>
                     <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
                     {evento.materiales.map((material) => (
