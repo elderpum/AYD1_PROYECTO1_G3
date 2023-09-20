@@ -15,6 +15,7 @@ import {
   FormControlLabel,
   Checkbox,
 } from "@mui/material";
+import { Sidebar } from "../../components/Sidebar";
 
 export function HistorialEvento() {
   const [rows, setRows] = useState([]);
@@ -22,7 +23,7 @@ export function HistorialEvento() {
   const token = localStorage.getItem("auth");
 
   useEffect(() => {
-    const url = `http://${ip}:3001/get-historial`;
+    const url = `http://${ip}:3001/api/events/get-mis-eventos`;
     const fetchData = async () => {
       fetch(url, {
         method: "GET",
@@ -35,7 +36,7 @@ export function HistorialEvento() {
         .catch((error) => console.error("Error:", error))
         .then((res) => {
           let aux = [];
-          for (const h of res.historial) {
+          for (const h of res.data.historial) {
             aux.push(createData(h.name, h.fecha, h.tipo, h.formato, h.img));
           }
           setRows(aux);
@@ -63,6 +64,7 @@ export function HistorialEvento() {
 
   return (
     <Container>
+      <Sidebar />
       <ContainerContent>
         <Grid
           container
