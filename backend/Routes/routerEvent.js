@@ -9,4 +9,7 @@ router.get('/getAvailables', controllerAccess.isAStudent ,controllerEvent.getAva
 //POSTS
 router.post('/create', controllerAccess.isAnOrganizer, controllerEvent.create);
 
+//GETS
+router.get('/get-mis-eventos', controllerAccess.isAStudent, controllerEvent.getEventsByStudent);
+
 module.exports = router;

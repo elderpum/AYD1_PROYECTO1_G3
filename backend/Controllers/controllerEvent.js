@@ -36,3 +36,22 @@ exports.getAvailable = async (req, res) => {
         });
     }
 }
+
+exports.getEventsByStudent = async (req, res) => {
+    try{
+        const idEstudiante = req.id;
+
+        const response = await serviceEvent.getEventsByStudent(idEstudiante);
+
+        if(response.err){
+            return res.status(400).json(response);
+        }
+
+        return res.status(200).json(response);
+    }catch (error){
+        return res.status(500).json({
+            err: true,
+            message: error.message,
+        });
+    }
+}

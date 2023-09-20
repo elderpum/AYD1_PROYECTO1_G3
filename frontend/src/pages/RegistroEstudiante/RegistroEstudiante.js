@@ -104,20 +104,7 @@ export function RegistroEstudiante() {
             });
         }
     }
-    /*
-    const clearAll = () => {
-        setFecha('');
-        setNombre('');
-        setApellido('');
-        setCorreo('');
-        setContra('');
-        setGenero('');
-        setEducacion('');
-        setDepartamento('');
-        setTelefono('');
-        setIsChecked(false);
-    };
-    */
+
     return (
         <Container>
             <ContainerAlternativo>
