@@ -24,6 +24,7 @@ import {
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import MuiAlert from "@mui/material/Alert";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { Sidebar } from "../../components/Sidebar";
 
 export function CrearEvento() {
   const [titulo, setTitulo] = useState("");
@@ -114,6 +115,7 @@ export function CrearEvento() {
 
   return (
     <Container>
+      <Sidebar/>
       <ContainerContent component="form">
         <Grid
           container
