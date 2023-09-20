@@ -4,7 +4,7 @@ const controllerEvent = require('../Controllers/controllerEvent');
 const controllerAccess = require('../Controllers/controllerAccess');
 
 //GETS
-router.get('/getAvailables', controllerAccess.isAStudent ,controllerEvent.getAvailable)
+router.get('/getAvailables', controllerAccess.anyRole ,controllerEvent.getAvailable)
 
 //POSTS
 router.post('/create', controllerAccess.isAnOrganizer, controllerEvent.create);

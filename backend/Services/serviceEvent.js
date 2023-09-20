@@ -89,7 +89,7 @@ exports.getAvailables = async () => {
         "SELECT * from Material where idEvento= ?;",
         [evento.idEvento]
       );
-      fecha_hora_array = evento.fechaHora.toISOString().split("T");
+      fecha_hora_array = evento.fechaHora.toISOString().split("T"); 
       const event = {
         titulo: evento.titulo,
         descripcion: evento.descripcion,
