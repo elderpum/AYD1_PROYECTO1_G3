@@ -24,12 +24,13 @@ import { styled } from 'styled-components';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Admin.css';
 
-function createData(nombre, apellido, correo, fecha, genero, educacion, departamento, telefono, bloq) {
+function createData(id, nombre, apellido, correo, fecha, genero, educacion, departamento, telefono, bloq) {
     var bloqueado = 'No';
     if (bloq) {
         bloqueado = 'Si';
     }
     return {
+        id,
         nombre,
         apellido,
         correo,
@@ -59,13 +60,14 @@ function createData(nombre, apellido, correo, fecha, genero, educacion, departam
     };
 }
 
-function createDataOrga(nombre, apellido, correo, fecha, genero, empresa, descripcion, direccion, telefono, bloq) {
+function createDataOrga(id, nombre, apellido, correo, fecha, genero, empresa, descripcion, direccion, telefono, bloq) {
     var bloqueado = 'No';
     if (bloq) {
         bloqueado = 'Si';
     }
 
     return {
+        id,
         nombre,
         apellido,
         correo,
@@ -98,18 +100,58 @@ function createDataOrga(nombre, apellido, correo, fecha, genero, empresa, descri
         ],
     };
 }
-  
+
 function Row(props) {
     const { row } = props;
     const { type } = props;
     const [open, setOpen] = React.useState(false);
 
-    const desbloquear = (id) => {
-        alert("desbloquear usuario");
+    const token = localStorage.getItem("auth");
+    const url_des = `http://localhost:3001/api/admin/unblock`;
+
+    const desbloquear = async (id, tipo) => {
+        var type = 2
+        if (tipo === "estudiante") {
+            type = 2
+        } else {
+            type = 1
+        }
+        fetch(url_des, {
+            method: "POST",
+            body: JSON.stringify({type: type, id: id}),
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        })
+        .then((res) => res.json())
+        .catch((error) => console.error("Error:", error))
+        .then((res) => {
+            console.log(res)
+        });
     };
 
-    const bloquear = (id) => {
-        alert("bloquear usuario");
+    const url_bloq = `http://localhost:3001/api/admin/block`;
+    const bloquear = (id, tipo) => {
+        var type = 2
+        if (tipo === "estudiante") {
+            type = 2
+        } else {
+            type = 1
+        }
+        fetch(url_bloq, {
+            method: "POST",
+            body: JSON.stringify({type: type, id: id}),
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        })
+        .then((res) => res.json())
+        .catch((error) => console.error("Error:", error))
+        .then((res) => {
+            console.log(res)
+        });
     };
     
     return (
@@ -133,12 +175,12 @@ function Row(props) {
             <TableCell align="center">{row.correo}</TableCell>
             <TableCell align="center">{row.bloqueado}</TableCell>
             <TableCell align="center">
-                <Button variant="outlined" color="success" onClick={() => {desbloquear(row.correo)}}>
+                <Button variant="outlined" color="success" onClick={() => {desbloquear(row.id, type)}}>
                     Desbloquear
                 </Button>
             </TableCell> 
             <TableCell align="center">
-                <Button va riant="outlined" color="error" onClick={() => {bloquear(row.correo)}}>
+                <Button va riant="outlined" color="error" onClick={() => {bloquear(row.id, type)}}>
                     Bloquear
                 </Button>
             </TableCell>
@@ -219,6 +261,7 @@ export function Administracion() {
     for (let i = 0; i < estudiantes.length; i++){
         rows_estudiantes.push(
             createData(
+                estudiantes[i].id,
                 estudiantes[i].nombre,
                 estudiantes[i].apellidos,
                 estudiantes[i].email,
@@ -236,6 +279,7 @@ export function Administracion() {
     for (let i = 0; i < organizadores.length; i++){
         rows_organizadores.push(
             createDataOrga(
+                organizadores[i].id,
                 organizadores[i].nombre,
                 organizadores[i].apellido,
                 organizadores[i].email,

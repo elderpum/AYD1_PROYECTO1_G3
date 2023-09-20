@@ -28,7 +28,7 @@ export function CardEvento({evento}) {
     }
     return (
         <Container>
-            <Grid container rowSpacing={2} columnSpacing={{ xs: 4, sm: 5, md: 5 }}  columns={12}>
+            <Grid container rowSpacing={2} justify="space-between" columns={12}>
                 <Grid item xs={4}>
                     <div className='d-flex align-items-start flex-column content'>
                         <h5 className='heads'> {evento.titulo} </h5>
@@ -51,8 +51,9 @@ export function CardEvento({evento}) {
                 <Grid item xs={4}>
                     <img src={evento.img} alt='IMG'/>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={12} wrap='wrap'>
                     <div className='d-flex align-items-start'>
+                    <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
                     {evento.materiales.map((material) => (
                         <ContainerMaterial key={Math.random()}>
                             <h6>{material.nombre}</h6>
@@ -62,6 +63,7 @@ export function CardEvento({evento}) {
                             </Button>
                         </ContainerMaterial>
                     ))}
+                    </Stack>
                     </div>
                 </Grid>
             </Grid>

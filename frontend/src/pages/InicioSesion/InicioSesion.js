@@ -56,6 +56,7 @@ export function InicioSesion() {
         .then((res) => {
           if (res.authExitoso) {
             // auntenticaion exitosa
+            console.log(res)
             localStorage.setItem("auth", res.tokenAuth);
             navigate("/foros");
           } else {
