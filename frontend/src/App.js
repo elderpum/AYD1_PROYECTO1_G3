@@ -11,6 +11,7 @@ import { Main } from './pages/Main/Main';
 import { HistorialEvento } from './pages/HistorialEventos/HistorialEvento';
 import { MisEventos } from './pages/MisEventos/MisEventos';
 import { BuscarEventos } from './pages/BuscarEventos/BuscarEventos';
+import { AsistirEvento } from './pages/AsistirEvento/AsistirEvento';
 import { VisualizarEvento } from './pages/VisualizarEvento/VisualizarEvento';
 
 
@@ -28,16 +29,17 @@ function App() {
           <Route path="/registroEstudiante" element={<RegistroEstudiante />} />
           <Route path="/registroOrganizacion" element={<RegistroOrganizacion />} />
           {/* RUTAS PARA LOS ESTUDIANTES */}
-          <Route path="/main" element={<Main  isOrganizador={false}/>} />
+          <Route path="/main" element={<Main isOrganizador={false} />} />
           <Route path="/ver-material" element={<VerMaterial />} />
           <Route path="/historial-eventos" element={<HistorialEvento />} />
-          <Route path="/buscarEvento" element={<BuscarEventos isOrganizador={false}/>}/>
+          <Route path="/buscarEvento" element={<BuscarEventos isOrganizador={false} />} />
+          <Route path="/foro" element={<Main isOrganizador={false} />} />
+          <Route path="/asistirEvento" element={<AsistirEvento cost={0} />} />
           <Route path="/verEvento" element={<VisualizarEvento isOrganizador={false}/>}/>
-          <Route path="/foro" element={<Main isOrganizador={false}/>}/>
           {/* RUTAS PARA LOS ORGANIZADORES */}
-          <Route path="/org/main" element={<Main isOrganizador={true}/>} />
-          <Route path="/org/buscarEvento" element={<BuscarEventos isOrganizador={true}/>}/>
-          <Route path="/org/foro" element={<Main isOrganizador={true}/>}/>
+          <Route path="/org/main" element={<Main isOrganizador={true} />} />
+          <Route path="/org/buscarEvento" element={<BuscarEventos isOrganizador={true} />} />
+          <Route path="/org/foro" element={<Main isOrganizador={true} />} />
           <Route path="/org/verEvento" element={<VisualizarEvento isOrganizador={true}/>}/>
           <Route path="/crear-evento" element={<CrearEvento />} />
           <Route path="/misEventos" element={<MisEventos />} />
