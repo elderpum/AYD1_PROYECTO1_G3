@@ -3,11 +3,22 @@ import styled from 'styled-components';
 import Grid from '@mui/material/Grid';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
-
+import Button from '@mui/material/Button';
 import './Titulo.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export function CardEvento({evento}) {
+
+    async function VerMaterial(url) {
+        const newWindow = window.open(url, "_blank");
+        if (newWindow) {
+            newWindow.focus();
+        } else {
+            alert(
+                "El bloqueo de ventanas emergentes está habilitado en su navegador. Habilite las ventanas emergentes para ver el contenido."
+            );
+        }
+    }
 
     let categorias = [];
     for (let i=0;i<evento.categorias.length;i++) {
@@ -40,10 +51,36 @@ export function CardEvento({evento}) {
                 <Grid item xs={4}>
                     <img src={evento.img} alt='IMG'/>
                 </Grid>
+                <Grid item xs={12}>
+                    <div className='d-flex align-items-start'>
+                    {evento.materiales.map((material) => (
+                        <ContainerMaterial key={Math.random()}>
+                            <h6>{material.nombre}</h6>
+                            <p>{material.descripcion}</p>
+                            <Button variant="contained" size="small" onClick={() => VerMaterial(material.link)}>
+                                Ver Material
+                            </Button>
+                        </ContainerMaterial>
+                    ))}
+                    </div>
+                </Grid>
             </Grid>
         </Container>
     )
 }
+
+const ContainerMaterial = styled.div`
+display: inline-block;
+padding: 20px;
+background-color: #e4e4e4;
+text-align: left;
+margin: 15px;
+min-width: 250px;
+
+border-radius: 7px 7px 7px 7px;
+-moz-border-radius: 7px 7px 7px 7px;
+-webkit-border-radius: 7px 7px 7px 7px;
+`
 
 const Container = styled.div`
 display: flex;
