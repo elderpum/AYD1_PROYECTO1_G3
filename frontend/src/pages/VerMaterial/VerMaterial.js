@@ -14,6 +14,7 @@ import {
   TextField,
   Paper,
 } from "@mui/material";
+import { Sidebar } from "../../components/Sidebar";
 
 export function VerMaterial() {
   const [rows, setRows] = useState([]);
@@ -22,7 +23,7 @@ export function VerMaterial() {
   const token = localStorage.getItem("auth");
 
   useEffect(() => {
-    const url = `http://${ip}:3001/get-materiales`;
+    const url = `http://${ip}:3001/api/materiales/get-materiales`;
     const fetchData = async () => {
       fetch(url, {
         method: "GET",
@@ -35,8 +36,12 @@ export function VerMaterial() {
         .catch((error) => console.error("Error:", error))
         .then((res) => {
           let aux = [];
-          for (const m of res.materiales) {
-            aux.push(createData(m.name, m.tipo, m.url))
+          for (const m of res.data.materiales) {
+            let tipos = '';
+            for (const c of m.tipo) {
+              tipos += categorias[c - 1] + ', ';
+            }
+            aux.push(createData(m.name, tipos, m.url));
           }
           setRows(aux);
         });
@@ -70,7 +75,7 @@ export function VerMaterial() {
   // ];
 
   async function buscarCategoria() {
-    const url = `http://${ip}:${process.env.BACKEND_PORT}/material-categoria`;
+    const url = `http://${ip}:3001/api/materiales/materiales-categoria`;
     const token = localStorage.getItem("auth");
     let data = { categoria: categoria };
     const fetchData = async () => {
@@ -86,8 +91,8 @@ export function VerMaterial() {
         .catch((error) => console.error("Error:", error))
         .then((res) => {
           let aux = [];
-          for (const m of res.materiales) {
-            aux.push(createData(m.name, m.tipo, m.url))
+          for (const m of res.data.materiales) {
+            aux.push(createData(m.name, m.tipo, m.url));
           }
           setRows(aux);
         });
@@ -108,6 +113,8 @@ export function VerMaterial() {
 
   return (
     <Container>
+      <Sidebar />
+      <ContainerContent>
         <Grid
           container
           direction="row"
@@ -163,7 +170,10 @@ export function VerMaterial() {
                       </TableCell>
                       <TableCell align="right">{row.tipo}</TableCell>
                       <TableCell align="right">
-                        <Button variant="contained" onClick={() => VerMaterial(row.url)}>
+                        <Button
+                          variant="contained"
+                          onClick={() => VerMaterial(row.url)}
+                        >
                           Ver
                         </Button>
                       </TableCell>
@@ -174,11 +184,13 @@ export function VerMaterial() {
             </TableContainer>
           </Grid>
         </Grid>
+      </ContainerContent>
     </Container>
   );
 }
 
 const Container = styled.div`
+  display: flex;
   justify-content: center;
   height: 100%;
   min-height: 100vh;
@@ -193,13 +205,32 @@ const Container = styled.div`
   );
 `;
 
-// const ContainerContent = styled.div`
-//   justify-content: center;
-//   height: 80%;
-//   min-height: 80%;
-//   width: 80%;
-//   min-width: 80%;
-//   background: white;
-//   margin-top: 4rem;
-//   border-radius: 0.5rem;
-// `;
+const ContainerContent = styled.div`
+  justify-content: center;
+  height: 80%;
+  min-height: 80%;
+  width: 80%;
+  min-width: 80%;
+  background: white;
+  margin-top: 4rem;
+  border-radius: 0.5rem;
+`;
+
+const categorias = [
+  "Área común",
+  "Ciencia",
+  "Tecnología",
+  "Medicina",
+  "Derecho",
+  "Arquitectura",
+  "Programación",
+  "Sistemas",
+  "Ingeniería",
+  "Finanzas",
+  "Diseño gráfico",
+  "Deporte",
+  "Ocio",
+  "Matemática",
+  "Física",
+  "Contabilidad",
+];

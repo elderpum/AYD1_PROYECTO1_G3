@@ -20,6 +20,23 @@ exports.create = async (req, res) => {
     }
 }
 
+exports.getAvailable = async (req, res) => {
+    try{
+        const response = await serviceEvent.getAvailables();
+
+        if(response.err){
+            return res.status(400).json(response);
+        }
+
+        return res.status(201).json(response);
+    }catch (error){
+        return res.status(500).json({
+            err: true,
+            message: error.message,
+        });
+    }
+}
+
 exports.getEventsByStudent = async (req, res) => {
     try{
         const idEstudiante = req.id;

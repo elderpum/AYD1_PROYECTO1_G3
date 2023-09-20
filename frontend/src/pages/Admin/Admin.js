@@ -26,7 +26,7 @@ import './Admin.css';
 
 function createData(id, nombre, apellido, correo, fecha, genero, educacion, departamento, telefono, bloq) {
     var bloqueado = 'No';
-    if (bloq) {
+    if (bloq >= 5) {
         bloqueado = 'Si';
     }
     return {
@@ -62,7 +62,7 @@ function createData(id, nombre, apellido, correo, fecha, genero, educacion, depa
 
 function createDataOrga(id, nombre, apellido, correo, fecha, genero, empresa, descripcion, direccion, telefono, bloq) {
     var bloqueado = 'No';
-    if (bloq) {
+    if (bloq >= 5) {
         bloqueado = 'Si';
     }
 
@@ -105,7 +105,7 @@ function Row(props) {
     const { row } = props;
     const { type } = props;
     const [open, setOpen] = React.useState(false);
-
+    console.log(row)
     const token = localStorage.getItem("auth");
     const url_des = `http://localhost:3001/api/admin/unblock`;
 
@@ -139,6 +139,7 @@ function Row(props) {
         } else {
             type = 1
         }
+        console.log(id)
         fetch(url_bloq, {
             method: "POST",
             body: JSON.stringify({type: type, id: id}),
@@ -261,16 +262,16 @@ export function Administracion() {
     for (let i = 0; i < estudiantes.length; i++){
         rows_estudiantes.push(
             createData(
-                estudiantes[i].id,
+                estudiantes[i].id_estudiante,
                 estudiantes[i].nombre,
-                estudiantes[i].apellidos,
+                estudiantes[i].apellido,
                 estudiantes[i].email,
-                estudiantes[i].nacimiento,
+                estudiantes[i].fecha_nacimiento,
                 estudiantes[i].genero,
                 estudiantes[i].nivel_educacion,
-                estudiantes[i].Departamento,
+                estudiantes[i].departamento,
                 estudiantes[i].telefono,
-                estudiantes[i].act
+                estudiantes[i].errores
             )
         );
     }
@@ -279,17 +280,17 @@ export function Administracion() {
     for (let i = 0; i < organizadores.length; i++){
         rows_organizadores.push(
             createDataOrga(
-                organizadores[i].id,
-                organizadores[i].nombre,
-                organizadores[i].apellido,
-                organizadores[i].email,
-                organizadores[i].nacimiento,
-                organizadores[i].genero,
-                organizadores[i].empresa,
-                organizadores[i].descrip_empresa,
-                organizadores[i].direc_empresa,
-                organizadores[i].tel_empresa,
-                organizadores[i].act
+                organizadores[i].ID,
+                organizadores[i].Nombre,
+                organizadores[i].Apellido,
+                organizadores[i].CorreoElectronico,
+                organizadores[i].FechaNacimiento,
+                organizadores[i].Genero,
+                organizadores[i].NombreInstitucionEmpresa,
+                organizadores[i].Descripcion,
+                organizadores[i].DireccionEmpresa,
+                organizadores[i].NumeroTelefono,
+                organizadores[i].errores
             )
         );
     }
