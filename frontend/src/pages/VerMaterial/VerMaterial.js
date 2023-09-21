@@ -113,7 +113,7 @@ export function VerMaterial() {
 
   return (
     <Container>
-      <Sidebar />
+      <Sidebar opcionActiva={'vermaterial'} />
       <ContainerContent>
         <Grid
           container

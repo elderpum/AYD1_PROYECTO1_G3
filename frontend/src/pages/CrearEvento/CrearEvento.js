@@ -115,7 +115,7 @@ export function CrearEvento() {
 
   return (
     <Container>
-      <Sidebar/>
+      <Sidebar isOrganizador={true} opcionActiva={'crear-evento'} />
       <ContainerContent component="form">
         <Grid
           container
