@@ -40,6 +40,8 @@ export function VisualizarEvento({isOrganizador}) {
                             <div className='d-flex align-items-start'>
                                 <h4>{event.titulo}</h4>
                                 { isOrganizador ? (
+                                    <></>
+                                ) : (
                                     <Link to={`/asistirEvento/${event.costo}`}>
                                         <Button 
                                             variant="outlined" 
@@ -51,8 +53,6 @@ export function VisualizarEvento({isOrganizador}) {
                                             Asistir
                                         </Button>
                                     </Link>
-                                ) : (
-                                    <></>
                                 )}
                             </div>
                         </Grid>
