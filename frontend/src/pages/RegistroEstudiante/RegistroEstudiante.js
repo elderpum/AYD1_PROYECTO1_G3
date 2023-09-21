@@ -240,7 +240,7 @@ export function RegistroEstudiante() {
                         <div className='container-fluid d-flex flex-row-reverse bd-highlight'>
                             <Stack direction="row" spacing={2}>
                                 <Link to="/registroOrganizacion">
-                                    <Button variant="contained" size="small" color="error"> Soy Una Organizacion </Button>
+                                    <Button variant="contained" size="small" color="error"> Soy Un Organizador </Button>
                                 </Link>
                                 <Link to="/">
                                 <Button variant="contained" size="small"> Iniciar Sesion </Button>

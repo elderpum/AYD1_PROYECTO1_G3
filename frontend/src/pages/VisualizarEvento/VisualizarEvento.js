@@ -39,18 +39,21 @@ export function VisualizarEvento({isOrganizador}) {
                         <Grid item xs={12}>
                             <div className='d-flex align-items-start'>
                                 <h4>{event.titulo}</h4>
-
-                                <Link to={`/asistirEvento/${event.costo}`}>
-                                    <Button 
-                                        variant="outlined" 
-                                        color='success' 
-                                        size='small' 
-                                        sx={{ borderRadius: 50 }} 
-                                        startIcon={<CheckIcon/>}
-                                    >
-                                        Asistir
-                                    </Button>
-                                </Link>
+                                { isOrganizador ? (
+                                    <Link to={`/asistirEvento/${event.costo}`}>
+                                        <Button 
+                                            variant="outlined" 
+                                            color='success' 
+                                            size='small' 
+                                            sx={{ borderRadius: 50 }} 
+                                            startIcon={<CheckIcon/>}
+                                        >
+                                            Asistir
+                                        </Button>
+                                    </Link>
+                                ) : (
+                                    <></>
+                                )}
                             </div>
                         </Grid>
                         <Grid item xs={12}>
