@@ -64,7 +64,7 @@ export function HistorialEvento() {
 
   return (
     <Container>
-      <Sidebar />
+      <Sidebar opcionActiva={'historial'}/>
       <ContainerContent>
         <Grid
           container
