@@ -61,7 +61,7 @@ export function Sidebar({ isOrganizador, opcionActiva }) {
               <span>Foros de Discusión</span>
             </li>
           </Link>
-          {isOrganizador ? (
+          {isOrganizador && (
             <Link to="/misEventos" style={{ color: 'inherit', textDecoration: 'none' }}>
               <li className={`option d-flex align-items-center ${opcionActiva === "miseventos" ? "activo" : " "}`}>
                 <MdOutlineEventAvailable />
