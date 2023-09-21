@@ -17,42 +17,44 @@ export function Sidebar({ isOrganizador, opcionActiva }) {
           <img src={Logo} alt='soundstream' />
         </div>
         <ul className='ul_sidebar'>
-          <Link to="/main" style={{ color: 'inherit', textDecoration: 'none'}}>
-            <li className={`option d-flex align-items-center ${opcionActiva === "inicio" ? "activo": " "}`}>
+          <Link to="/main" style={{ color: 'inherit', textDecoration: 'none' }}>
+            <li className={`option d-flex align-items-center ${opcionActiva === "inicio" ? "activo" : " "}`}>
               <MdHomeFilled />
               <span>Inicio</span>
             </li>
           </Link>
-          <Link to={`${isOrganizador ? "/org/buscarEvento": "/buscarEvento"}`} style={{ color: 'inherit', textDecoration: 'none'}}>
-            <li className={`option d-flex align-items-center ${opcionActiva === "buscar" ? "activo": " "}`}>
+          <Link to={`${isOrganizador ? "/org/buscarEvento" : "/buscarEvento"}`} style={{ color: 'inherit', textDecoration: 'none' }}>
+            <li className={`option d-flex align-items-center ${opcionActiva === "buscar" ? "activo" : " "}`}>
               <MdContentPasteSearch />
               <span>Buscar Eventos</span>
             </li>
           </Link>
           {isOrganizador ? (
-            <li className={`option d-flex align-items-center ${opcionActiva === "agregarmaterial" ? "activo": " "}`}>
+            <li className={`option d-flex align-items-center ${opcionActiva === "agregarmaterial" ? "activo" : " "}`}>
               <HiDocumentDuplicate />
               <span>Material Educativo</span>
             </li>
           ) : (
-            <li className={`option d-flex align-items-center ${opcionActiva === "vermaterial" ? "activo": " "}`}>
+            <li className={`option d-flex align-items-center ${opcionActiva === "vermaterial" ? "activo" : " "}`}>
               <HiDocumentDuplicate />
               <span>Ver Material Educativo</span>
             </li>
           )}
-          <li className={`option d-flex align-items-center ${opcionActiva === "foro" ? "activo": " "}`}>
-            <MdForum />
-            <span>Foros de Discusión</span>
-          </li>
+          <Link to={`${isOrganizador ? "/org/foro" : "/foro"}`} style={{ color: 'inherit', textDecoration: 'none' }}>
+            <li className={`option d-flex align-items-center ${opcionActiva === "foro" ? "activo" : " "}`}>
+              <MdForum />
+              <span>Foros de Discusión</span>
+            </li>
+          </Link>
           {isOrganizador ? (
-            <Link to="/misEventos" style={{ color: 'inherit', textDecoration: 'none'}}>
-              <li className={`option d-flex align-items-center ${opcionActiva === "miseventos" ? "activo": " "}`}>
+            <Link to="/misEventos" style={{ color: 'inherit', textDecoration: 'none' }}>
+              <li className={`option d-flex align-items-center ${opcionActiva === "miseventos" ? "activo" : " "}`}>
                 <MdOutlineEventAvailable />
                 <span>Mis Eventos</span>
               </li>
             </Link>
           ) : (
-            <li className={`option d-flex align-items-center ${opcionActiva === "historial" ? "activo": " "}`}>
+            <li className={`option d-flex align-items-center ${opcionActiva === "historial" ? "activo" : " "}`}>
               <MdOutlineEventAvailable />
               <span>Historial de Eventos</span>
             </li>

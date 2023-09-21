@@ -1,0 +1,11 @@
+.body-foro {
+    display: flex;
+}
+
+.foro-container {
+    flex: 0.8;
+    bottom: 0;
+    padding-left: 75px;
+    padding-right: 75px;
+    padding-bottom: 150px;
+}
