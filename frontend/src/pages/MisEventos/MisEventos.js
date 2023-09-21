@@ -34,7 +34,7 @@ export function MisEventos(props) {
             });
         }
         getInfo();
-    }, []);
+    }, [token, url]);
 
     return (
         <Container>
