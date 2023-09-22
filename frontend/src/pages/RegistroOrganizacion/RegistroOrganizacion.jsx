@@ -51,7 +51,7 @@ export const RegistroOrganizacion = () => {
         });
     }
 
-    
+
     //Control o cambio del checkbox.
     const handleCheckboxChange = (event) => {
         setChecked(event.target.checked);
@@ -114,152 +114,156 @@ export const RegistroOrganizacion = () => {
                     </div>
 
                     <div className="form-inputs">
+                        
+                        <form onSubmit={handleSubmit}>
 
-                        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 2 }} columns={12} >
+                            <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 2 }} columns={12} >
 
-                            <Grid item xs={6} >
-                                <TextField
-                                    fullWidth
-                                    required
-                                    label="Nombre"
-                                    name='nombre'
-                                    value={form.nombre}
-                                    onChange={handleChange}
-                                    variant="filled"
-                                />
-                            </Grid>
+                                <Grid item xs={6} >
+                                    <TextField
+                                        fullWidth
+                                        required
+                                        label="Nombre"
+                                        name='nombre'
+                                        value={form.nombre}
+                                        onChange={handleChange}
+                                        variant="filled"
+                                    />
+                                </Grid>
 
-                            <Grid item xs={6}>
-                                <TextField
-                                    fullWidth
-                                    required
-                                    label="Apellido"
-                                    name='apellido'
-                                    value={form.apellido}
-                                    onChange={handleChange}
-                                    variant="filled"
-                                />
-                            </Grid>
+                                <Grid item xs={6}>
+                                    <TextField
+                                        fullWidth
+                                        required
+                                        label="Apellido"
+                                        name='apellido'
+                                        value={form.apellido}
+                                        onChange={handleChange}
+                                        variant="filled"
+                                    />
+                                </Grid>
 
-                            <Grid item xs={12}>
-                                <TextField
-                                    fullWidth
-                                    required
-                                    label="@Correo"
-                                    name='correo'
-                                    value={form.correo}
-                                    onChange={handleChange}
-                                    variant="filled"
-                                />
-                            </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        fullWidth
+                                        required
+                                        label="@Correo"
+                                        name='correo'
+                                        value={form.correo}
+                                        onChange={handleChange}
+                                        variant="filled"
+                                    />
+                                </Grid>
 
-                            <Grid item xs={6}>
-                                <TextField
-                                    fullWidth
-                                    required
-                                    label="Contraseña"
-                                    type="password"
-                                    name='contrasenia'
-                                    value={form.contrasenia}
-                                    onChange={handleChange}
-                                    variant="filled"
-                                />
-                            </Grid>
+                                <Grid item xs={6}>
+                                    <TextField
+                                        fullWidth
+                                        required
+                                        label="Contraseña"
+                                        type="password"
+                                        name='contrasenia'
+                                        value={form.contrasenia}
+                                        onChange={handleChange}
+                                        variant="filled"
+                                    />
+                                </Grid>
 
-                            <Grid item xs={6}>
-                                <FormControl fullWidth variant="filled">
-                                    <InputLabel id="demo-simple-select-label">Género</InputLabel>
-                                    <Select
-                                        labelId="demo-simple-select-label"
-                                        id="demo-simple-select"
-                                        value={gender}
-                                        label="eduacion"
-                                        onChange={handleGenderChange}
+                                <Grid item xs={6}>
+                                    <FormControl fullWidth variant="filled">
+                                        <InputLabel id="demo-simple-select-label">Género</InputLabel>
+                                        <Select
+                                            labelId="demo-simple-select-label"
+                                            id="demo-simple-select"
+                                            value={gender}
+                                            label="eduacion"
+                                            onChange={handleGenderChange}
+                                        >
+                                            <MenuItem value={'Ciencia'}>Masculino</MenuItem>
+                                            <MenuItem value={'Tecnología'}>Femenino</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                </Grid>
+
+                                <Grid item xs={6}>
+                                    <TextField
+                                        fullWidth
+                                        required
+                                        label="Nombre de la institución"
+                                        name='institucion'
+                                        value={form.institucion}
+                                        onChange={handleChange}
+                                        variant="filled"
+                                    />
+                                </Grid>
+
+                                <Grid item xs={6}>
+                                    <TextField
+                                        fullWidth
+                                        required
+                                        label="Número de teléfono"
+                                        name='numero'
+                                        value={form.numero}
+                                        onChange={handleChange}
+                                        variant="filled"
+                                    />
+                                </Grid>
+
+                                <Grid item xs={6}>
+                                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                        <DemoContainer components={['DatePicker']} >
+                                            <DatePicker
+                                                label="Fecha de nacimiento"
+                                                value={dateSelect}
+                                                onChange={handleDateChange}
+                                            />
+                                        </DemoContainer>
+                                    </LocalizationProvider>
+                                </Grid>
+
+                                <Grid item xs={6}>
+                                    <TextField
+                                        fullWidth
+                                        required
+                                        label="Dirección"
+                                        name="direccion"
+                                        value={form.direccion}
+                                        onChange={handleChange}
+                                        variant="filled"
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <TextField
+                                        fullWidth
+                                        required
+                                        label=" Descripción de la institución/empresa"
+                                        name="descripcion" value={form.descripcion}
+                                        onChange={handleChange}
+                                        variant="filled"
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <FormControlLabel
+                                        control={<Checkbox checked={checked}
+                                            onChange={handleCheckboxChange} />}
+                                        label="Acepto los términos y condiciones"
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <div
+                                        className='container-fluid d-flex justify-content-center align-items-center'
+                                        style={{ gap: '20px' }}
                                     >
-                                        <MenuItem value={'Ciencia'}>Masculino</MenuItem>
-                                        <MenuItem value={'Tecnología'}>Femenino</MenuItem>
-                                    </Select>
-                                </FormControl>
+                                        <Button type='submit' variant="contained">Registrarse</Button>
+                                        <Button onClick={oneEstudianteChange} color="error" variant="contained">Atras</Button>
+                                    </div>
+                                </Grid>
+
                             </Grid>
 
-                            <Grid item xs={6}>
-                                <TextField
-                                    fullWidth
-                                    required
-                                    label="Nombre de la institución"
-                                    name='institucion'
-                                    value={form.institucion}
-                                    onChange={handleChange}
-                                    variant="filled"
-                                />
-                            </Grid>
-
-                            <Grid item xs={6}>
-                                <TextField
-                                    fullWidth
-                                    required
-                                    label="Número de teléfono"
-                                    name='numero'
-                                    value={form.numero}
-                                    onChange={handleChange}
-                                    variant="filled"
-                                />
-                            </Grid>
-
-                            <Grid item xs={6}>
-                                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                    <DemoContainer components={['DatePicker']} >
-                                        <DatePicker
-                                            label="Fecha de nacimiento"
-                                            value={dateSelect}
-                                            onChange={handleDateChange}
-                                        />
-                                    </DemoContainer>
-                                </LocalizationProvider>
-                            </Grid>
-
-                            <Grid item xs={6}>
-                                <TextField
-                                    fullWidth
-                                    required
-                                    label="Dirección"
-                                    name="direccion"
-                                    value={form.direccion}
-                                    onChange={handleChange}
-                                    variant="filled"
-                                />
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <TextField
-                                    fullWidth
-                                    required
-                                    label=" Descripción de la institución/empresa"
-                                    name="descripcion" value={form.descripcion}
-                                    onChange={handleChange}
-                                    variant="filled"
-                                />
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <FormControlLabel
-                                    control={<Checkbox checked={checked}
-                                        onChange={handleCheckboxChange} />}
-                                    label="Acepto los términos y condiciones"
-                                />
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <div
-                                    className='container-fluid d-flex justify-content-center align-items-center'
-                                    style={{ gap: '20px' }}
-                                >
-                                    <Button onClick={handleSubmit} variant="contained">Registrarse</Button>
-                                    <Button onClick={oneEstudianteChange} color="error" variant="contained">Atras</Button>
-                                </div>
-                            </Grid>
-
-                        </Grid>
+                        </form>
 
                     </div>
 
