@@ -9,6 +9,7 @@ router.get('/getAll', controllerEstudiante.getAll)
 
 //POST
 router.post('/add', controllerEstudiante.add)
+router.post('/asistirEvento', controllerEstudiante.asistirEvento)
 
 
 module.exports = router

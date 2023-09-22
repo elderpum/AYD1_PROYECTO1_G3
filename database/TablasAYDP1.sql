@@ -37,6 +37,22 @@ CREATE TABLE Evento(
 	FOREIGN KEY (idOrganizador) REFERENCES Organizador(ID)
 );
 
+CREATE TABLE AsistenciaEvento(
+	idAsistenciaEvento INT AUTO_INCREMENT PRIMARY KEY,
+	idEvento INT NOT NULL,
+	nombre VARCHAR(200) NOT NULL,
+	apellido VARCHAR(200) NOT NULL,
+	genero ENUM('masculino', 'femenino', 'otro') NOT NULL,
+	telefono VARCHAR(20) NOT NULL,
+	correo VARCHAR(200) NOT NULL,
+	nombreTarjeta VARCHAR(200),
+	numTarjeta VARCHAR(20),
+	mesTarjeta VARCHAR(2),
+	anioTarjeta VARCHAR(4),
+	cvvTarjeta VARCHAR(3),
+	FOREIGN KEY (idEvento) REFERENCES Evento(idEvento),
+);
+
 CREATE TABLE CategoriaEvento(
 	idCategoriaEvento INT AUTO_INCREMENT PRIMARY KEY,
 	Categoria ENUM("Área común",
@@ -119,8 +135,6 @@ create table evento_estudiante_U
     constraint evento_estudiante_U_estudiantes_id_estudiante_fk
         foreign key (id_estudiante) references estudiantes (id_estudiante)
 );
-
-
 
 create table Administrador
 (
