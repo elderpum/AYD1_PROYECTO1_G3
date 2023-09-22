@@ -24,7 +24,7 @@ export function MisEventos(props) {
                 body: JSON.stringify({idOrga: '1'}),
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
+                    Authorization: `${token}`,
                 },
             })
             .then((res) => res.json())

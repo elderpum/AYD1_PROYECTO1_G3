@@ -30,7 +30,7 @@ export function BuscarEventos({isOrganizador}) {
             //body: JSON.stringify(data),
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
+                Authorization: `${token}`,
             },
         })
         .then((res) => res.json())
