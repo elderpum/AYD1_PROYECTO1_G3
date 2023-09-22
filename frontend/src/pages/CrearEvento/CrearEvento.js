@@ -67,6 +67,7 @@ export function CrearEvento() {
     let imagenPromocional = { contenido: "", nombre: ""};
     if (imagen !== "") {
       const base64Image = await convertToBase64(imagen);
+      console.log(base64Image)
       imagenPromocional = { contenido: base64Image, nombre: imagen.name };
     }
     let materiales = [];

@@ -36,7 +36,11 @@ export function HistorialEvento() {
         .then((res) => {
           let aux = [];
           for (const h of res.data.historial) {
-            aux.push(createData(h.name, h.fecha, h.tipo, h.formato, h.img));
+            let tipos = '';
+            for (const c of h.tipo) {
+              tipos += categorias[c - 1] + ', ';
+            }
+            aux.push(createData(h.name, h.fecha, tipos, h.formato, h.img));
           }
           setRows(aux);
         })
@@ -162,3 +166,22 @@ const ContainerContent = styled.div`
   margin-top: 4rem;
   border-radius: 0.5rem;
 `;
+
+const categorias = [
+  "Área común",
+  "Ciencia",
+  "Tecnología",
+  "Medicina",
+  "Derecho",
+  "Arquitectura",
+  "Programación",
+  "Sistemas",
+  "Ingeniería",
+  "Finanzas",
+  "Diseño gráfico",
+  "Deporte",
+  "Ocio",
+  "Matemática",
+  "Física",
+  "Contabilidad",
+];

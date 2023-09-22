@@ -13,6 +13,7 @@ import {
   TableRow,
   TextField,
   Paper,
+  Autocomplete,
 } from "@mui/material";
 import { Sidebar } from "../../components/Sidebar";
 
@@ -32,7 +33,9 @@ export function VerMaterial() {
           Authorization: `${token}`,
         },
       })
-        .then((res) => {return res.json()})
+        .then((res) => {
+          return res.json();
+        })
         .then((res) => {
           let aux = [];
           for (const m of res.data) {
@@ -71,6 +74,7 @@ export function VerMaterial() {
   // ];
 
   async function buscarCategoria() {
+    console.log("categoria: ",categoria)
     const url = `http://${ip}:3001/api/materiales/materiales-categoria`;
     const token = localStorage.getItem("auth");
     let data = { categoria: categoria };
@@ -83,7 +87,9 @@ export function VerMaterial() {
           Authorization: `${token}`,
         },
       })
-        .then((res) => {return res.json()})
+        .then((res) => {
+          return res.json();
+        })
         .then((res) => {
           let aux = [];
           for (const m of res.data) {
@@ -109,7 +115,7 @@ export function VerMaterial() {
 
   return (
     <Container>
-      <Sidebar opcionActiva={'vermaterial'} />
+      <Sidebar opcionActiva={"vermaterial"} />
       <ContainerContent>
         <Grid
           container
@@ -118,13 +124,13 @@ export function VerMaterial() {
           alignItems="flex-start"
         >
           <Grid item>
-            <TextField
-              id="standard-search"
-              label="Buscar categoría"
-              type="search"
-              variant="standard"
-              onChange={(newValue) => setCategoria(newValue.target.value)}
-              columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+            <Autocomplete
+              disablePortal
+              id="combo-box-demo"
+              options={categorias}
+              sx={{ width: 300 }}
+              onChange={(event, newValue) => setCategoria(newValue)}
+              renderInput={(params) => <TextField {...params} label="Categoría" />}
             />
           </Grid>
           <Grid item>
