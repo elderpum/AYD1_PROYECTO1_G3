@@ -27,8 +27,8 @@ async function add(req, res) {
 
 async function getEvents(req, res){
     try {
-        const data = req.body;
-        const response = await services.getAllEvents(data.idOrga)
+        const id_orga = req.id;
+        const response = await services.getAllEvents(id_orga)
         if (response.err) {
           return res.status(400).json(response);
         }

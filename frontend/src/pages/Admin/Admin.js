@@ -121,7 +121,7 @@ function Row(props) {
             body: JSON.stringify({type: type, id: id}),
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
+                Authorization: `${token}`,
             },
         })
         .then((res) => res.json())
@@ -145,7 +145,7 @@ function Row(props) {
             body: JSON.stringify({type: type, id: id}),
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
+                Authorization: `${token}`,
             },
         })
         .then((res) => res.json())
@@ -249,13 +249,25 @@ export function Administracion() {
 
     // peticion para obtener todos los usuarios
     React.useEffect(() => {
+        const token = localStorage.getItem("auth");
         async function getInfo() {
-          const response = await client.get("/api/admin/getAllUsers");
-          setEstudiantes(response.data.estudiantes);
-          setOrganizadores(response.data.organizadores);
+            fetch("http://localhost:3001/api/admin/getAllUsers", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `${token}`,
+                },
+            })
+            .then((res) => res.json())
+            .catch((error) => console.error("Error:", error))
+            .then((res) => {
+                console.log(res)
+                setEstudiantes(res.estudiantes);
+                setOrganizadores(res.organizadores);
+            });
         }
         getInfo();
-    }, []);
+    },[]);
 
 
     // se formatean los datos para la tabla estudiantes

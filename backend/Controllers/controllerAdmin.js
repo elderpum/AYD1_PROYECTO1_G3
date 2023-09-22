@@ -17,6 +17,7 @@ async function getAllEstudiantes(req, res) {
     estudiantes: resultEstudiante,
     organizadores: resultOrganizadores,
   });
+
 }
 
 async function blockUser(req, res) {
