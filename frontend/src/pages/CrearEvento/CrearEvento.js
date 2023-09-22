@@ -37,7 +37,7 @@ export function CrearEvento() {
   const [costo, setCosto] = useState("");
   const [imagen, setImagen] = useState("");
   const [formatoEvento, setFormatoEvento] = useState("");
-  const [materialesEdu, setMaterialesEdu] = useState("");
+  const [materialesEdu, setMaterialesEdu] = useState([]);
   const [mensaje, setMensaje] = useState("");
   const [open, setOpen] = React.useState(false);
   const ip = "localhost";
@@ -64,9 +64,10 @@ export function CrearEvento() {
   }
 
   async function crearEvento() {
-    const base64Image = await convertToBase64(imagen);
-
-    console.log("imagen ", base64Image);
+    let base64Image = "";
+    if (imagen !== "") {
+      base64Image = await convertToBase64(imagen);
+    }
     let materiales = [];
     for (const m of materialesEdu) {
       const base64File = await convertToBase64(m);
