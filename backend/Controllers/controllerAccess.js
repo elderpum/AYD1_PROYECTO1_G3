@@ -100,14 +100,14 @@ exports.anyRole = (req, res, next) => {
     try{
         const decoded = jwt.verify(token, process.env.JWT_SECRET_PW);
 
-        if(decoded.tipo === 2 || decoded.tipo === 1 || decoded.tipo === 3){
-            next();
+        if(decoded.tipo !== 2 && decoded.tipo !== 1 && decoded.tipo !== 3){
+          return res.status(401).json({
+              err: true,
+              message: 'Invalid token'
+          });
         }
         
-        return res.status(401).json({
-            err: true,
-            message: 'Invalid token'
-        });
+        next();
     }catch (error){
         return res.status(401).json({
             err: true,

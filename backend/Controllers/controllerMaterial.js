@@ -4,10 +4,10 @@ exports.getMaterials = async (req, res) => {
     const response = await serviceMaterial.getMaterials();
     
     if(response.err){
-        res.status(500).json(response);
+        return res.status(500).json(response);
     }
-
-    res.status(200).json(response);
+    
+    return res.json(response);
 }
 
 exports.getMaterialsByCategory = async (req, res) => {

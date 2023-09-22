@@ -35,12 +35,8 @@ export function VerMaterial() {
         .then((res) => {return res.json()})
         .then((res) => {
           let aux = [];
-          for (const m of res.data.materiales) {
-            let tipos = '';
-            for (const c of m.tipo) {
-              tipos += categorias[c - 1] + ', ';
-            }
-            aux.push(createData(m.name, tipos, m.url));
+          for (const m of res.data) {
+            aux.push(createData(m.nombre, m.tipo, m.url));
           }
           setRows(aux);
         })
@@ -90,8 +86,8 @@ export function VerMaterial() {
         .then((res) => {return res.json()})
         .then((res) => {
           let aux = [];
-          for (const m of res.data.materiales) {
-            aux.push(createData(m.name, m.tipo, m.url));
+          for (const m of res.data) {
+            aux.push(createData(m.nombre, m.tipo, m.url));
           }
           setRows(aux);
         })

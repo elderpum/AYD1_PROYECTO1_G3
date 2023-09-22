@@ -3,8 +3,10 @@ const controllerS3 = require("../Controllers/controllerS3");
 
 exports.create = async (data, idOrganizador) => {
   let imageLink = "";
-  if(data.imagenPromocional){
-      const s3Response = await controllerS3.uploadFile(data.imagenPromocional.nombre, Buffer.from(data.imagenPromocional.contenido, 'base64'));
+  console.log(data);
+  if(data.imagenPromocional.contenido !== ''){
+    console.log("entro");
+      const s3Response = await controllerS3.uploadFile(data.imagenPromocional.nombre, data.imagenPromocional.contenido);
       if(s3Response.err){
           return {err: true, message: s3Response.message}
       }
@@ -35,7 +37,7 @@ exports.create = async (data, idOrganizador) => {
 
   const fecha = new Date();
   data.materialAdicional.forEach(async material => {
-      const s3Response = await controllerS3.uploadFile(material.nombre, Buffer.from(material.contenido, 'base64'));
+      const s3Response = await controllerS3.uploadFile(material.nombre, material.contenido);
       if(!s3Response.err){
           const values =[
               material.nombre,

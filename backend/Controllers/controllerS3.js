@@ -14,11 +14,13 @@ function generateName(oldName){
 
 exports.uploadFile = async (key, body) => {
     try{
+        console.log(body)
+        const b = Buffer.from(body.split(',')[1], 'base64')
         const name = generateName(key)
         const params = {
         Bucket: bucketName,
         Key: name,
-        Body: body,
+        Body: b,
         };
     
         const res = await s3.upload(params).promise();

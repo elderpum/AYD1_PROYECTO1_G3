@@ -3,8 +3,7 @@ const path = require('path');
 
 exports.getMaterials = async () => {
     try{
-        const [res] = await db.execute('SELECT idMaterial, nombre, link FROM Material');
-        let rows = res[0];
+        const [rows] = await db.execute('SELECT idMaterial, nombre, link FROM Material');
 
         let response = [];
         rows.forEach(row => {
@@ -22,6 +21,7 @@ exports.getMaterials = async () => {
             data: response
         }
     }catch(error){
+        console.log(error.message);
         return{
             err: true,
             message: error.message
