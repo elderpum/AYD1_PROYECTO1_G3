@@ -39,8 +39,33 @@ async function getAll() {
   }
 }
 
+async function asistirEvento(AsistenciaEvento) {
+  const query =
+    "insert into AsistenciaEvento(idEvento, nombre, apellido, genero, telefono, correo, nombreTarjeta, numTarjeta, mesTarjeta, anioTarjeta, cvvTarjeta) values (?,?,?,?,?,?,?,?,?,?,?);";
+  const values = [
+    AsistenciaEvento.idEvento,
+    AsistenciaEvento.nombre,
+    AsistenciaEvento.apellido,
+    AsistenciaEvento.genero,
+    AsistenciaEvento.telefono,
+    AsistenciaEvento.correo,
+    AsistenciaEvento.nombreTarjeta,
+    AsistenciaEvento.numTarjeta,
+    AsistenciaEvento.mesTarjeta,
+    AsistenciaEvento.anioTarjeta,
+    AsistenciaEvento.cvvTarjeta,
+  ];
+  try {
+    await db.query(query, values);
+    return "Se agrego correctamente";
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   EjemploE,
   add,
   getAll,
+  asistirEvento,
 };
