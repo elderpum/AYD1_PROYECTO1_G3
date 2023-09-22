@@ -8,4 +8,5 @@ router.get('/get-materiales', controllerAccess.anyRole, controllerMaterial.getMa
 
 //POSTS
 router.post('/materiales-categoria', controllerAccess.anyRole, controllerMaterial.getMaterialsByCategory);
+router.post('/addMaterial', controllerAccess.anyRole, controllerMaterial.addMaterial);
 module.exports = router;
