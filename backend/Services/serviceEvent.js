@@ -10,8 +10,7 @@ exports.create = async (data, idOrganizador) => {
       }
       imageLink = s3Response.link;
   }
-
-  let query = 'INSERT INTO Evento (titulo, descripcion, fechaHora, duracion, ubicacion, costo, imagen, FormatoEvento, idOrganizador, categoria) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);';
+  let query = 'INSERT INTO Evento (titulo, descripcion, fechaHora, duracion, ubicacion, costo, imagen, FormatoEvento, idOrganizador) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);';
   let values =[
       data.titulo,
       data.descripcion,
@@ -22,12 +21,11 @@ exports.create = async (data, idOrganizador) => {
       imageLink,
       data.formatoEvento,
       idOrganizador,
-      data.categoria
   ];
-
+  
   let row, fields
   try{
-      [row, fields] = await db.execute(query, values);
+    [row, fields] = await db.execute(query, values);
   }catch (error){
       return{
           err: true,
@@ -35,19 +33,17 @@ exports.create = async (data, idOrganizador) => {
       }
   }
 
-
   const fecha = new Date();
   data.materialAdicional.forEach(async material => {
       const s3Response = await controllerS3.uploadFile(material.nombre, Buffer.from(material.contenido, 'base64'));
       if(!s3Response.err){
           const values =[
               material.nombre,
-              material.descripcion,
               s3Response.link,
               row.insertId,
               fecha.toISOString().slice(0, 19).replace('T', ' ')
           ];
-          db.execute('INSERT INTO Material (nombre, descripcion, link, idEvento, fecha) VALUES (?, ?, ?, ?, ?);', values);
+          db.execute('INSERT INTO Material (nombre, link, idEvento, fecha) VALUES (?, ?, ?, ?);', values);
       }
   });
 
@@ -59,12 +55,14 @@ exports.create = async (data, idOrganizador) => {
       ];
       await db.execute(query, values);
   })
-
+  
   return {
       err: false,
       message: 'Event created successfully',
   }
 }
+
+
 exports.getAvailables = async () => {
   try {
     const [eventos] = await db.execute("SELECT * FROM Evento WHERE fechaHora >= NOW();");

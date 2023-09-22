@@ -11,7 +11,7 @@ exports.create = async (req, res) => {
             return res.status(400).json(response);
         }
 
-        return res.status(201).json(response);
+        return res.json(response);
     }catch (error){
         return res.status(500).json({
             err: true,
