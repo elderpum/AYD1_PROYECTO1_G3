@@ -29,18 +29,18 @@ export function HistorialEvento() {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `${token}`,
         },
       })
-        .then((res) => res.json())
-        .catch((error) => console.error("Error:", error))
+        .then((res) => {return res.json()})
         .then((res) => {
           let aux = [];
           for (const h of res.data.historial) {
             aux.push(createData(h.name, h.fecha, h.tipo, h.formato, h.img));
           }
           setRows(aux);
-        });
+        })
+        .catch((error) => console.error("Error:", error));
     };
     fetchData();
   }, []);
