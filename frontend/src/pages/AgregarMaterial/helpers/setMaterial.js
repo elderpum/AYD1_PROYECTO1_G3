@@ -1,3 +1,4 @@
+const Swal = require('sweetalert2');
 
 export const setMaterial = async (form, date, category, material) => {
 
@@ -23,7 +24,22 @@ export const setMaterial = async (form, date, category, material) => {
         body: JSON.stringify(newMaterial)
     })
         .then(res => res.json())
-        .then(data => console.log(data))
-        .catch(err => console.log(err))
+        .then(data => {
+            Swal.fire({
+                title: 'Agregar Material.',
+                text: 'El material se ha creado exitosamente.',
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            });
+        })
+        .catch(err => {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Error al crear material educativo.',
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            });
+            console.log(err)
+        })
 
 }

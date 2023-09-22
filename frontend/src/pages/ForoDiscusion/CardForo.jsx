@@ -29,7 +29,7 @@ export const CardForo = ({ foro }) => {
         // console.log(foro);
 
         //Mandar comentario al backend.
-        setComments(comment)
+        setComments(comment, foro.id)
 
         setComment('');
     }
