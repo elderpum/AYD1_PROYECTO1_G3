@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Button from '@mui/material/Button';
 import { Sidebar } from '../../components/Sidebar';
 import { Titulo } from '../../components/Titulo'
 import { useNavigate } from 'react-router-dom';
 import { CardForo } from './CardForo';
 // import { UseFetchForo } from './hooks/UseFetchForo';
+// import { UseFetchUser } from './hooks/UseFetchUser';
 
 import './css/foro.css';
 
 
-const foro = [
+const listForo = [
     {
         id: 0,
         titulo: 'Champions League',
@@ -53,7 +54,9 @@ export const Foro = ({ isOrganizador }) => {
     //Obtener lista de fotos
     // const { dataForo } = UseFetchForo();
 
-    const [listForo, setListForo] = useState(foro);
+    //Obtene usuario activo
+    // const {dataUser} = UseFetchUser();
+
 
     const navigate = useNavigate();
 
@@ -80,13 +83,13 @@ export const Foro = ({ isOrganizador }) => {
 
                     {
                         listForo.map((foro) => (
-                            <CardForo key={foro.id} foro={foro} />
+                            <CardForo key={foro.id} foro={foro}  />
                         ))
                     }
 
                     {/* {
                         dataForo.map((foro) => (
-                            <CardForo key={foro.id} foro={foro} />
+                            <CardForo key={foro.id} foro={foro} usuario={dataUser} />
                         ))
                     } */}
 

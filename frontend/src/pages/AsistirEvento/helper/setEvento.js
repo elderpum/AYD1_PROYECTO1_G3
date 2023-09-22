@@ -1,3 +1,5 @@
+const Swal = require('sweetalert2');
+
 export const setEvento = async (gender, monthTarjet, form, idEvento) => {
 
     const newCompetitor = {
@@ -25,6 +27,21 @@ export const setEvento = async (gender, monthTarjet, form, idEvento) => {
         body: JSON.stringify(newCompetitor)
     })
         .then(res => res.json())
-        .then(data => console.log(data))
-        .catch(err => console.log(err))
+        .then(data => {
+            Swal.fire({
+                title: 'Evento.',
+                text: 'tu rgistro fue exitoso.',
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            });
+        })
+        .catch(err => {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Error al inscribirse al evento.',
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            });
+            console.log(err)
+        })
 }

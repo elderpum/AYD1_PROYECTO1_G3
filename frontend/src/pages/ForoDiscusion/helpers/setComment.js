@@ -1,12 +1,12 @@
 const Swal = require('sweetalert2');
 
-export const setComments = async (comment) => {
+export const setComments = async (comment, foroId) => {
 
     const newComment = {
         comentario: comment,
         nombreUsuario: "nombreUsuario",
         correoUsuario: "correoUsuario",
-        idForo: "idForo",
+        idForo: foroId,
     }
 
 
