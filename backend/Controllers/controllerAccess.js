@@ -9,7 +9,6 @@ exports.isAnOrganizer = (req, res, next) => {
       message: "No token provided",
     });
   }
-
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET_PW);
 

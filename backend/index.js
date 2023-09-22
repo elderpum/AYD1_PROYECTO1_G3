@@ -18,8 +18,8 @@ app.use(function (req, res, next) {
 
 // MIDDLEWARES
 app.use(morgan("dev"));
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+app.use(express.urlencoded({ limit:'100mb', extended: false }));
+app.use(express.json({limit:'100mb'}));
 app.use(cors());
 
 // ROUTES
