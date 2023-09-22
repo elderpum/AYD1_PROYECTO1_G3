@@ -29,11 +29,10 @@ export function VerMaterial() {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `${token}`,
         },
       })
-        .then((res) => res.json())
-        .catch((error) => console.error("Error:", error))
+        .then((res) => {return res.json()})
         .then((res) => {
           let aux = [];
           for (const m of res.data.materiales) {
@@ -44,7 +43,8 @@ export function VerMaterial() {
             aux.push(createData(m.name, tipos, m.url));
           }
           setRows(aux);
-        });
+        })
+        .catch((error) => console.error("Error:", error));
     };
     fetchData();
   }, []);
@@ -84,7 +84,7 @@ export function VerMaterial() {
         body: JSON.stringify(data),
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `${token}`,
         },
       })
         .then((res) => {return res.json()})
