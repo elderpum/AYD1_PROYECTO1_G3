@@ -1,3 +1,5 @@
+const Swal = require('sweetalert2');
+
 export const setOrganizador = async (form, gender, date) => {
 
     const mont = (parseInt(date.$M) + 1).toString()
@@ -17,7 +19,7 @@ export const setOrganizador = async (form, gender, date) => {
         errores: 0
     }
 
-    
+
     // console.log(newOrganizador);
     // Peticion al backend.
     await fetch('http://localhost:3001/organizador/add', {
@@ -28,7 +30,21 @@ export const setOrganizador = async (form, gender, date) => {
         body: JSON.stringify(newOrganizer)
     })
         .then(res => res.json())
-        .then(data => console.log(data))
-        .catch(err => console.log(err))
+        .then(data => {
+            Swal.fire({
+                title: 'Registro Organizador.',
+                text: 'Registro exitosamente.',
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            });
+        })
+        .catch(err => {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Error al registrarse.',
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            });
+        })
 
 }

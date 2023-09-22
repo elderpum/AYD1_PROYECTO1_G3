@@ -6,6 +6,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
 
 import { useForm } from '../hooks/useForm';
 import { setOrganizador } from './helper/setOrganizador'
@@ -14,6 +15,9 @@ import './registroOrganizador.css';
 
 
 export const RegistroOrganizacion = () => {
+
+    const navigate = useNavigate(); //Hook para la navegacion.
+
 
     // Manejo de formulario.
     const { form, handleChange, handleReset } = useForm({
@@ -40,6 +44,14 @@ export const RegistroOrganizacion = () => {
     const [dateSelect, setDate] = useState(null);
 
 
+    //Funcion para el cambio de pagina.
+    const oneEstudianteChange = () => {
+        navigate('/registroEstudiante', {
+            replace: true, //No dejar que la persona regrese a la pagina anterior.
+        });
+    }
+
+    
     //Control o cambio del checkbox.
     const handleCheckboxChange = (event) => {
         setChecked(event.target.checked);
@@ -67,11 +79,11 @@ export const RegistroOrganizacion = () => {
             return;
         }
 
-        if(gender === ''){
+        if (gender === '') {
             return alert('Debe seleccionar un genero');
         }
 
-        if(dateSelect === null){
+        if (dateSelect === null) {
             return alert('Debe seleccionar una fecha');
         }
 
@@ -103,7 +115,7 @@ export const RegistroOrganizacion = () => {
 
                     <div className="form-inputs">
 
-                        <Grid container  rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 2 }} columns={12} >
+                        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 2 }} columns={12} >
 
                             <Grid item xs={6} >
                                 <TextField
@@ -242,8 +254,8 @@ export const RegistroOrganizacion = () => {
                                     className='container-fluid d-flex justify-content-center align-items-center'
                                     style={{ gap: '20px' }}
                                 >
-                                    <Button  onClick={handleSubmit} variant="contained">Registrarse</Button>
-                                    <Button color="error" variant="contained">Atras</Button>
+                                    <Button onClick={handleSubmit} variant="contained">Registrarse</Button>
+                                    <Button onClick={oneEstudianteChange} color="error" variant="contained">Atras</Button>
                                 </div>
                             </Grid>
 
