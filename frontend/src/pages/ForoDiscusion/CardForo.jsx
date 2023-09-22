@@ -10,11 +10,11 @@ import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import { TextField, Button } from '@mui/material';
 import { ListItem } from '@mui/material';
-import { setComment } from './helpers/setComment';
+import { setComments } from './helpers/setComment';
 
 
 
-export const CardForo = ({ foro, setListForo }) => {
+export const CardForo = ({ foro }) => {
 
     const [comment, setComment] = useState('');
 
@@ -29,7 +29,7 @@ export const CardForo = ({ foro, setListForo }) => {
         // console.log(foro);
 
         //Mandar comentario al backend.
-        // setComment(comment)
+        setComments(comment)
 
         setComment('');
     }

@@ -37,7 +37,7 @@ function App() {
           <Route path="/historial-eventos" element={<HistorialEvento />} />
           <Route path="/buscarEvento" element={<BuscarEventos isOrganizador={false} />} />
           <Route path="/foro" element={<Foro isOrganizador={false} />} />
-          <Route path="/asistirEvento" element={<AsistirEvento cost={0} />} />
+          <Route path="/asistirEvento" element={<AsistirEvento  />} />
           <Route path="/verEvento" element={<VisualizarEvento isOrganizador={false} />} />
           {/* RUTAS PARA LOS ORGANIZADORES */}
           <Route path="/org/main" element={<Main isOrganizador={true} />} />

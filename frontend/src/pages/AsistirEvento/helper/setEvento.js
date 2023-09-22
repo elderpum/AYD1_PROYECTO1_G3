@@ -1,6 +1,7 @@
-export const setEvento = async (gender, monthTarjet, form) => {
+export const setEvento = async (gender, monthTarjet, form, idEvento) => {
 
     const newCompetitor = {
+        idEvento: idEvento,
         nombre: form.nombre,
         apellido: form.apellido,
         genero: gender,
@@ -16,7 +17,7 @@ export const setEvento = async (gender, monthTarjet, form) => {
 
     // console.log(newOrganizador);
     // Peticion al backend.
-    await fetch('http://localhost:3001/estudiante/asistirEvento', {
+    await fetch('http://localhost:3001/estudiantes/asistirEvento', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

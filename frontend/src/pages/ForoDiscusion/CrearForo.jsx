@@ -48,12 +48,6 @@ export const CrearForo = () => {
         setForo(form, category);
         setCaegory('');
         handleReset();
-
-        return (
-            <Stack sx={{ width: '100%' }} spacing={2}>
-                <Alert severity="success">Foro creado exitosamente.</Alert>
-            </Stack>
-        );
     }
 
     return (

@@ -11,6 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import { Box } from '@mui/system';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { useNavigate } from 'react-router-dom';
 import { useForm } from '../hooks/useForm';
 import { setMaterial } from './helpers/setMaterial';
 
@@ -19,6 +20,8 @@ import './agregarmaterial.css';
 
 
 export const AgregarMaterial = () => {
+
+    const navigate = useNavigate(); //Hook para navegar entre paginas.
 
     const [material, setUploadMaterial] = useState({
         profile: '',
@@ -69,6 +72,12 @@ export const AgregarMaterial = () => {
     }
 
 
+    const onMainChange = (e) => {
+        navigate('/org/main', {
+            replace: true, //No dejar que la persona regrese a la pagina anterior.
+        });
+    }
+
     const handleSubmint = (e) => {
         e.preventDefault(); //Evita que se recargue la pagina.
 
@@ -84,7 +93,7 @@ export const AgregarMaterial = () => {
             return alert('Debe seleccionar una categoría');
         }
 
-        
+
         //LLamar al backend.
         setMaterial(form, dateSelect, category, material);
 
@@ -171,7 +180,7 @@ export const AgregarMaterial = () => {
                         </div>
 
                         <div style={{ marginTop: 15 }}>
-                            <Button sx={{ m: 1, height: '6ch', width: '18ch' }} color="error" variant="contained">Atras</Button>
+                            <Button sx={{ m: 1, height: '6ch', width: '18ch' }} onClick={onMainChange} color="error" variant="contained">Atras</Button>
                             <Button sx={{ m: 1, height: '6ch', width: '18ch', }} type="submit" variant="contained">Agregar</Button>
                         </div>
 

@@ -36,19 +36,20 @@ export function Sidebar({ isOrganizador, opcionActiva }) {
             </li>
           </Link>
           {isOrganizador ? (
-            <li className={`option d-flex align-items-center ${opcionActiva === "agregarmaterial" ? "activo" : " "}`}>
-              <HiDocumentDuplicate />
-              <span>Material Educativo</span>
-            </li>
+            <Link to="/agregarMaterial" style={{ color: 'inherit', textDecoration: 'none' }}>
+              <li className={`option d-flex align-items-center ${opcionActiva === "agregarmaterial" ? "activo" : " "}`}>
+                <HiDocumentDuplicate />
+                <span>Crear Material Educativo</span>
+              </li>
+            </Link>
           ) : (
             <Link
               to={`/ver-material`}
               style={{ color: "inherit", textDecoration: "none" }}
             >
               <li
-                className={`option d-flex align-items-center ${
-                  opcionActiva === "vermaterial" ? "activo" : " "
-                }`}
+                className={`option d-flex align-items-center ${opcionActiva === "vermaterial" ? "activo" : " "
+                  }`}
               >
                 <HiDocumentDuplicate />
                 <span>Ver Material Educativo</span>
@@ -75,9 +76,8 @@ export function Sidebar({ isOrganizador, opcionActiva }) {
               style={{ color: "inherit", textDecoration: "none" }}
             >
               <li
-                className={`option d-flex align-items-center ${
-                  opcionActiva === "crear-evento" ? "activo" : " "
-                }`}
+                className={`option d-flex align-items-center ${opcionActiva === "crear-evento" ? "activo" : " "
+                  }`}
               >
                 <MdOutlineEventAvailable />
                 <span>Crear evento</span>
@@ -89,9 +89,8 @@ export function Sidebar({ isOrganizador, opcionActiva }) {
             style={{ color: "inherit", textDecoration: "none" }}
           >
             <li
-              className={`option d-flex align-items-center ${
-                opcionActiva === "historial" ? "activo" : " "
-              }`}
+              className={`option d-flex align-items-center ${opcionActiva === "historial" ? "activo" : " "
+                }`}
             >
               <MdOutlineEventAvailable />
               <span>Historial de Eventos</span>
