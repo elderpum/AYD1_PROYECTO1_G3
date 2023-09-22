@@ -91,6 +91,7 @@ exports.getAvailables = async () => {
       );
       fecha_hora_array = evento.fechaHora.toISOString().split("T"); 
       const event = {
+        id: evento.idEvento,
         titulo: evento.titulo,
         descripcion: evento.descripcion,
         fecha: fecha_hora_array[0],
