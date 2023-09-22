@@ -87,15 +87,15 @@ export function VerMaterial() {
           Authorization: `Bearer ${token}`,
         },
       })
-        .then((res) => res.json())
-        .catch((error) => console.error("Error:", error))
+        .then((res) => {return res.json()})
         .then((res) => {
           let aux = [];
           for (const m of res.data.materiales) {
             aux.push(createData(m.name, m.tipo, m.url));
           }
           setRows(aux);
-        });
+        })
+        .catch((error) => console.error("Error:", error));
     };
     fetchData();
   }

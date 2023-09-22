@@ -64,9 +64,10 @@ export function CrearEvento() {
   }
 
   async function crearEvento() {
-    let base64Image = "";
+    let imagenPromocional = { contenido: "", nombre: ""};
     if (imagen !== "") {
-      base64Image = await convertToBase64(imagen);
+      const base64Image = await convertToBase64(imagen);
+      imagenPromocional = { contenido: base64Image, nombre: imagen.name };
     }
     let materiales = [];
     for (const m of materialesEdu) {
@@ -84,7 +85,7 @@ export function CrearEvento() {
       ubicacion: ubicacion,
       categoria: categoria,
       costo: costo,
-      imagenPromocional: { contenido: base64Image, nombre: imagen.name },
+      imagenPromocional: imagenPromocional,
       formatoEvento: formatoEvento,
       materialAdicional: materiales,
     };
@@ -94,15 +95,15 @@ export function CrearEvento() {
         body: JSON.stringify(data),
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `${token}`,
         },
       })
-        .then((res) => res.json())
-        .catch((error) => console.error("Error:", error))
+        .then((res) => {return res.json()})
         .then((res) => {
           setMensaje(res.message);
           setOpen(true);
-        });
+        })
+        .catch((error) => console.error("Error:", error));
     };
     fetchData();
   }
