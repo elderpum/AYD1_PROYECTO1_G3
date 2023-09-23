@@ -11,7 +11,7 @@ exports.getMaterials = async (req, res) => {
 }
 
 exports.getMaterialsByCategory = async (req, res) => {
-    const response = await serviceMaterial.getMaterialsByCategory(req.body.categoria);
+    const response = await serviceMaterial.getMaterialsByCategory(req.body);
     
     if(response.err){
         res.status(500).json(response);

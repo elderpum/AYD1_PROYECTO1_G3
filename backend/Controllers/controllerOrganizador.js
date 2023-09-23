@@ -18,8 +18,7 @@ async function getAll(req, res) {
 
 //POSTS
 async function add(req, res) {
-    const result = await services.add(req.body.organizador);
-    console.log(req.body.organizador);
+    const result = await services.add(req.body);
 
     res.json({
         mensaje: result,
