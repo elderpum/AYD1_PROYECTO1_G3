@@ -22,7 +22,7 @@ export const setOrganizador = async (form, gender, date) => {
 
     // console.log(newOrganizador);
     // Peticion al backend.
-    await fetch('http://localhost:3001/organizador/add', {
+    await fetch('http://localhost:3001/api/organizador/add', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

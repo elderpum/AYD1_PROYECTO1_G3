@@ -1,7 +1,14 @@
 export const getForo = async () => {
 
+    const token = localStorage.getItem("auth");
     const url = 'http://localhost:3001/obtenerForo';
-    const resp = await fetch(url);
+    const resp = await fetch(url, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `${token}`,
+        },
+    });
     const data = await resp.json();
 
     const foro = data.map(foroData => {
@@ -9,7 +16,7 @@ export const getForo = async () => {
             id: foroData.id,
             nombre: foroData.nombre,
             categoria: foroData.categoria,
-            comentarios: foroData.comentario, //esta una lita {} con los datos del comentario.
+            comentarios: foroData.comentario,
         }
     });
 
