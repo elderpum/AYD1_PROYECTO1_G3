@@ -2,6 +2,8 @@ const Swal = require('sweetalert2');
 
 export const setComments = async (comment, foroId) => {
 
+    const token = localStorage.getItem("auth");
+    
     const newComment = {
         comentario: comment,
         nombreUsuario: "nombreUsuario",
@@ -14,7 +16,8 @@ export const setComments = async (comment, foroId) => {
     await fetch('http://localhost:3001/crearComentario', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            Authorization: `${token}`,
         },
         body: JSON.stringify(newComment)
     })
