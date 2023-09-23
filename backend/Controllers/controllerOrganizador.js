@@ -19,6 +19,7 @@ async function getAll(req, res) {
 //POSTS
 async function add(req, res) {
     const result = await services.add(req.body.organizador);
+    console.log(req.body.organizador);
 
     res.json({
         mensaje: result,

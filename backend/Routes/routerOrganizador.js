@@ -9,7 +9,7 @@ router.get('/getAll', controllerOrganizador.getAll)
 
 
 //POST
-router.post('/add', controllerAccess.isAnOrganizer, controllerOrganizador.add)
+router.post('/add', controllerOrganizador.add)
 router.post('/getAllEvents', controllerAccess.isAnOrganizer ,controllerOrganizador.getEvents)
 
 module.exports = router
