@@ -9,6 +9,7 @@ export const setComments = async (comment, foroId) => {
         idForo: foroId,
     }
 
+    console.log(newComment);
 
     // Peticion al backend.
     await fetch('http://localhost:3001/api/comentarios/crearComentario', {

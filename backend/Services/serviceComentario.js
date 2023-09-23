@@ -18,9 +18,24 @@ exports.getComentarios = async () => {
     }
 }
 
-exports.addComentario = async (newComment) => {
+exports.addComentario = async (newComment, idUser, tipoUser) => {
+    let id = idUser;
+    let tipo = tipoUser;
+    
     try{
-        await db.execute('INSERT INTO Comentario(comentario, nombreUsuario, correoUsuario, idForo) VALUES(?, ?, ?, ?)', [newComment.comentario, newComment.nombreUsuario, newComment.correoUsuario, newComment.idForo]);
+        if (tipo == 2) {
+            const [rows3] = await db.execute("SELECT Nombre, CorreoElectronico FROM Organizador WHERE ID = ?",[id]);
+            if (rows3.length !== 0) {
+                userData = rows3[0]; // Usamos el primer resultado si hay varios
+            }
+            await db.execute('INSERT INTO Comentario(comentario, nombreUsuario, correoUsuario, idForo) VALUES(?, ?, ?, ?)', [newComment.comentario, userData.Nombre, userData.CorreoElectronico, newComment.idForo]);
+        } else if (tipo == 3) {
+            const [rows3] = await db.execute("SELECT nombre, email FROM estudiantes WHERE id_estudiante = ?",[id]);
+            if (rows3.length !== 0) {
+                userData = rows3[0]; // Usamos el primer resultado si hay varios
+            }
+            await db.execute('INSERT INTO Comentario(comentario, nombreUsuario, correoUsuario, idForo) VALUES(?, ?, ?, ?)', [newComment.comentario, userData.nombre, userData.email, newComment.idForo]);
+        }
         return{
             err: false,
             message: "Success"

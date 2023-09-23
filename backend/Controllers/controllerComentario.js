@@ -11,7 +11,9 @@ async function getComentarios(req, res) {
 
 //POSTS
 async function add(req, res) {
-    const result = await services.add(req.body);
+    let idUser = req.id;
+    let tipoUser = req.tipo;
+    const result = await services.addComentario(req.body, idUser, tipoUser);
 
     res.json({
         mensaje: result,
