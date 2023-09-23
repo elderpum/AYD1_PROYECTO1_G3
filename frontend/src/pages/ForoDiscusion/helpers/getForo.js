@@ -1,7 +1,7 @@
 export const getForo = async () => {
 
     const token = localStorage.getItem("auth");
-    const url = 'http://localhost:3001/obtenerForo';
+    const url = 'http://localhost:3001/api/foros/getforos';
     const resp = await fetch(url, {
         method: "GET",
         headers: {
@@ -11,12 +11,14 @@ export const getForo = async () => {
     });
     const data = await resp.json();
 
-    const foro = data.map(foroData => {
+
+    const foro = data.foros.data.map(foroData => {
         return {
             id: foroData.id,
-            nombre: foroData.nombre,
+            titulo: foroData.titulo,
+            descripcion: foroData.descripcion,
             categoria: foroData.categoria,
-            comentarios: foroData.comentario,
+            comentarios: foroData.comentarios,
         }
     });
 

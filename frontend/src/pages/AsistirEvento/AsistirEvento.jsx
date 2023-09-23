@@ -13,7 +13,7 @@ import './asistirEvento.css';
 export const AsistirEvento = () => {
 
     const { event } = useEventContext();
-
+    console.log(event)
     const [gender, setGender] = useState('');
 
     const [monthTarjet, setMonthTarjet] = useState('');
@@ -132,15 +132,15 @@ export const AsistirEvento = () => {
 
                             <div>
                                 <h4
-                                    hidden={event.costo === 0 ? true : false}
+                                    hidden={event.costo == "0.00" ? true : false}
                                 >
                                     Pago del evento
                                 </h4>
 
                                 <TextField
                                     sx={{ m: 1, width: '30ch' }}
-                                    required={event.costo === 0 ? false : true}
-                                    hidden={event.costo === 0 ? true : false}
+                                    required={event.costo == "0.00" ? false : true}
+                                    hidden={event.costo == "0.00" ? true : false}
                                     label="Nombre de la tarjeta"
                                     name='nombreTarjeta'
                                     value={form.nombreTarjeta}
@@ -150,8 +150,8 @@ export const AsistirEvento = () => {
 
                                 <TextField
                                     sx={{ m: 1, width: '30ch' }}
-                                    required={event.costo === 0 ? false : true}
-                                    hidden={event.costo === 0 ? true : false}
+                                    required={event.costo == "0.00" ? false : true}
+                                    hidden={event.costo == "0.00" ? true : false}
                                     label="Número de tarjera"
                                     name='numTarjeta'
                                     value={form.numTarjeta}
@@ -162,8 +162,8 @@ export const AsistirEvento = () => {
 
                             <div>
                                 <FormControl
-                                    hidden={event.costo === 0 ? true : false}
-                                    required={event.costo === 0 ? false : true}
+                                    hidden={event.costo == "0.00" ? true : false}
+                                    required={event.costo == "0.00" ? false : true}
                                     sx={{ m: 1, width: '15ch' }}
                                     variant="filled"
                                 >
@@ -193,8 +193,8 @@ export const AsistirEvento = () => {
 
                                 <TextField
                                     sx={{ m: 1, width: '15ch' }}
-                                    required={event.costo === 0 ? false : true}
-                                    hidden={event.costo === 0 ? true : false}
+                                    required={event.costo == "0.00" ? false : true}
+                                    hidden={event.costo == "0.00" ? true : false}
                                     label="Año"
                                     name='anioTarjeta'
                                     value={form.anioTarjeta}
@@ -204,8 +204,8 @@ export const AsistirEvento = () => {
 
                                 <TextField
                                     sx={{ m: 1, width: '15ch' }}
-                                    required={event.costo === 0 ? false : true}
-                                    hidden={event.costo === 0 ? true : false}
+                                    required={event.costo == "0.00" ? false : true}
+                                    hidden={event.costo == "0.00" ? true : false}
                                     label="CVV"
                                     name='cvvTarjeta'
                                     value={form.cvvTarjeta}

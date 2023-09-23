@@ -2,6 +2,8 @@ const Swal = require('sweetalert2');
 
 export const setEvento = async (gender, monthTarjet, form, idEvento) => {
 
+    const token = localStorage.getItem("auth");
+
     const newCompetitor = {
         idEvento: idEvento,
         nombre: form.nombre,
@@ -19,10 +21,11 @@ export const setEvento = async (gender, monthTarjet, form, idEvento) => {
 
     // console.log(newOrganizador);
     // Peticion al backend.
-    await fetch('http://localhost:3001/estudiantes/asistirEvento', {
+    await fetch('http://localhost:3001/api/estudiantes/asistirEvento', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            Authorization: `${token}`,
         },
         body: JSON.stringify(newCompetitor)
     })

@@ -178,8 +178,9 @@ export const RegistroOrganizacion = () => {
                                             label="eduacion"
                                             onChange={handleGenderChange}
                                         >
-                                            <MenuItem value={'Ciencia'}>Masculino</MenuItem>
-                                            <MenuItem value={'Tecnología'}>Femenino</MenuItem>
+                                            <MenuItem value={'masculino'}>Masculino</MenuItem>
+                                            <MenuItem value={'femenino'}>Femenino</MenuItem>
+                                            <MenuItem value={'otro'}>Otros</MenuItem>
                                         </Select>
                                     </FormControl>
                                 </Grid>

@@ -1,19 +1,76 @@
 const db = require('../Config/databaseConfig');
 const path = require('path');
 
-exports.getForos = async () => {
+exports.getForos = async (idUser, tipoUser) => {
     try{
-        const [rows] = await db.execute('SELECT idForo, nombre, descripcion FROM Foro');
-        const [rows2] = await db.execute('SELECT comentario, nombreUsuario, correoUsuario FROM Comentario WHERE idForo = ?', [rows.id]);
+        const [rows] = await db.execute("SELECT idForo, titulo, descripcion, categoria FROM Foro");
         let response = [];
-        rows.forEach(row => {
+        const id = idUser;
+        let tipo = tipoUser;
+
+        if (rows.length != 0) {
+            for (const row of rows) {
+                const [rows2] = await db.execute(
+                "SELECT idForo, comentario, nombreUsuario, correoUsuario FROM Comentario WHERE idForo = ?",
+                [row.idForo]
+                );
+
+            let comentarios = [];
+
+            // // Obtener datos del usuario (organizador o estudiante)
+            // let userData = {}; // Inicializamos como un objeto vacío
+            // if (tipo == 2) {
+            //     const [rows3] = await db.execute("SELECT Nombre, CorreoElectronico FROM Organizador WHERE ID = ?",[id]);
+            //     if (rows3.length !== 0) {
+            //         userData = rows3[0]; // Usamos el primer resultado si hay varios
+            //     }
+            //     if (rows2.length !== 0) {
+            //         rows2.forEach((commentRow) => {
+            //         // Agregar datos del usuario a cada comentario
+            //         comentarios.push({
+            //             comentario: commentRow.comentario,
+            //             nombreUsuario: userData.Nombre, // Agregar el nombre del usuario
+            //             correoUsuario: userData.CorreoElectronico, // Agregar el correo del usuario
+            //             });
+            //         });
+            //     }
+            // } else if (tipo == 3) {
+            //     const [rows3] = await db.execute("SELECT nombre, email FROM estudiantes WHERE id_estudiante = ?",[id]);
+            //     if (rows3.length !== 0) {
+            //         userData = rows3[0]; // Usamos el primer resultado si hay varios
+            //     }
+            //     if (rows2.length !== 0) {
+            //         rows2.forEach((commentRow) => {
+            //         // Agregar datos del usuario a cada comentario
+            //         comentarios.push({
+            //             comentario: commentRow.comentario,
+            //             nombreUsuario: userData.nombre, // Agregar el nombre del usuario
+            //             correoUsuario: userData.email, // Agregar el correo del usuario
+            //             });
+            //         });
+            //     }
+            // }
+
+            if (rows2.length !== 0) {
+                rows2.forEach((commentRow) => {
+                // Agregar datos del usuario a cada comentario
+                comentarios.push({
+                    comentario: commentRow.comentario,
+                    nombreUsuario: commentRow.nombreUsuario,
+                    correoUsuario: commentRow.correoUsuario,
+                    });
+                });
+            }
+
             response.push({
                 id: row.idForo,
-                nombre: row.nombre,
+                titulo: row.titulo,
                 descripcion: row.descripcion,
-                comentarios: rows2.comentario,
-            });
-        });
+                categoria: row.categoria,
+                comentarios: comentarios,
+                });
+            }
+        }
 
         return{
             err: false,
@@ -30,11 +87,14 @@ exports.getForos = async () => {
 }
 
 exports.addForo = async (newForo) => {
+    const query = 'INSERT INTO Foro (titulo, descripcion, categoria) VALUES (?,?,?)';
+    const values = [newForo.titulo, newForo.descripcion, newForo.categoria];
     try{
-        await db.execute('INSERT INTO Foro(titulo, descripcion, categoria) VALUES(?, ?)', [newForo.nombre, newForo.descripcion, newForo.categoria]);
+        const result = await db.query(query, values);
         return{
             err: false,
-            message: "Success"
+            message: "Success",
+            data: result
         }
     }catch(error){
         return{

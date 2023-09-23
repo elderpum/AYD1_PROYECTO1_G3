@@ -3,8 +3,6 @@ import Button from '@mui/material/Button';
 import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import { useForm } from '../hooks/useForm';
 import { setForo } from './helpers/setForo';
-import Alert from '@mui/material/Alert';
-import Stack from '@mui/material/Stack';
 import { useNavigate } from 'react-router-dom';
 
 import white_logo from '../../assets/white_logo.png';
@@ -86,8 +84,8 @@ export const CrearForo = () => {
                                         <MenuItem value={'Sistemas'}>Sistemas</MenuItem>
                                         <MenuItem value={'Ingeniería'}>Ingeniería</MenuItem>
                                         <MenuItem value={'Finanzas'}>Finanzas</MenuItem>
-                                        <MenuItem value={'Disño gráfico'}>Disño gráfico</MenuItem>
-                                        <MenuItem value={'Derpote'}>Derpote</MenuItem>
+                                        <MenuItem value={'Diseño gráfico'}>Diseño gráfico</MenuItem>
+                                        <MenuItem value={'Deporte'}>Deporte</MenuItem>
                                         <MenuItem value={'Matemática'}>Matemática</MenuItem>
                                         <MenuItem value={'Física'}>Física</MenuItem>
                                         <MenuItem value={'Contabilidad'}>Contabilidad</MenuItem>

@@ -12,7 +12,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 export function VisualizarEvento({isOrganizador}) {
     const {event} = useEventContext();
-
     async function VerMaterial(url) {
         const newWindow = window.open(url, "_blank");
         if (newWindow) {
@@ -42,7 +41,7 @@ export function VisualizarEvento({isOrganizador}) {
                                 { isOrganizador ? (
                                     <></>
                                 ) : (
-                                    <Link to={`/asistirEvento/${event.costo}`}>
+                                    <Link to={`/asistirEvento`}>
                                         <Button 
                                             variant="outlined" 
                                             color='success' 
