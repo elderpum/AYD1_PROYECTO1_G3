@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import Logo from '../../assets/white_logo.png';
-import axios from "axios";
 
 import Button from '@mui/material/Button';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -18,12 +17,11 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-
 import { styled } from 'styled-components';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Admin.css';
 
+const Swal = require('sweetalert2');
 function createData(id, nombre, apellido, correo, fecha, genero, educacion, departamento, telefono, bloq) {
     var bloqueado = 'No';
     if (bloq >= 5) {
@@ -110,49 +108,106 @@ function Row(props) {
     const url_des = `http://localhost:3001/api/admin/unblock`;
 
     const desbloquear = async (id, tipo) => {
-        var type = 2
-        if (tipo === "estudiante") {
-            type = 2
-        } else {
-            type = 1
-        }
-        fetch(url_des, {
-            method: "POST",
-            body: JSON.stringify({type: type, id: id}),
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `${token}`,
-            },
+        Swal.fire({
+            title: 'Estás seguro?',
+            text: "Deseas desbloquear este usuario?",
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonText: 'Cancelar',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Desbloquear.'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var type = 2
+                if (tipo === "estudiante") {
+                    type = 2
+                } else {
+                    type = 1
+                }
+                fetch(url_des, {
+                    method: "POST",
+                    body: JSON.stringify({type: type, id: id}),
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `${token}`,
+                    },
+                })
+                .then((res) => {
+                    res.json()
+                    
+                    Swal.fire(
+                        'Completado!',
+                        'Usuario Desbloqueado',
+                        'success'
+                    )
+                    window.location.reload(true);
+                })
+                .catch((error) => {
+                    console.error("Error:", error)
+                    Swal.fire(
+                        'Error!',
+                        'El usuario no se ha desbloqueado',
+                        'error'
+                    )
+                })
+                .then((res) => {
+                    console.log(res)
+                });
+            }
         })
-        .then((res) => res.json())
-        .catch((error) => console.error("Error:", error))
-        .then((res) => {
-            console.log(res)
-        });
     };
 
     const url_bloq = `http://localhost:3001/api/admin/block`;
     const bloquear = (id, tipo) => {
-        var type = 2
-        if (tipo === "estudiante") {
-            type = 2
-        } else {
-            type = 1
-        }
-        console.log(id)
-        fetch(url_bloq, {
-            method: "POST",
-            body: JSON.stringify({type: type, id: id}),
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `${token}`,
-            },
+        Swal.fire({
+            title: 'Estás seguro?',
+            text: "Deseas bloquear este usuario?",
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonText: 'Cancelar',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Bloquear.'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var type = 2
+                if (tipo === "estudiante") {
+                    type = 2
+                } else {
+                    type = 1
+                }
+                console.log(id)
+                fetch(url_bloq, {
+                    method: "POST",
+                    body: JSON.stringify({type: type, id: id}),
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `${token}`,
+                    },
+                })
+                .then((res) => {
+                    res.json()
+                    Swal.fire(
+                        'Completado!',
+                        'Usuario Bloqueado',
+                        'success'
+                    )
+                    window.location.reload(true);
+                })
+                .catch((error) => {
+                    console.error("Error:", error)
+                    Swal.fire(
+                        'Error!',
+                        'El usuario no se ha bloqueado',
+                        'error'
+                    )
+                })
+                .then((res) => {
+                    console.log(res)
+                });
+            }
         })
-        .then((res) => res.json())
-        .catch((error) => console.error("Error:", error))
-        .then((res) => {
-            console.log(res)
-        });
     };
     
     return (
@@ -236,10 +291,6 @@ Row.propTypes = {
         protein: PropTypes.number.isRequired,
     }).isRequired,
 };
-
-const client = axios.create({
-    baseURL: "http://localhost:3001"
-});
 
 export function Administracion() {
     const [estudiantes, setEstudiantes] = useState([]);
