@@ -75,7 +75,7 @@ export const CardForo = ({ foro}) => {
                                                     variant="body2"
                                                     color="text.primary"
                                                 >
-                                                    {comment.correoUsuario}
+                                                    {comment.correoUsuario} -
                                                 </Typography>
                                                 {comment.nombreUsuario} — "{comment.comentario}"
                                             </React.Fragment>
