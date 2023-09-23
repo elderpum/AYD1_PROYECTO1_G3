@@ -145,3 +145,19 @@ create table Administrador
     constraint Administrador_pk
         primary key (id_admin)
 );
+
+CREATE TABLE Foro(
+	idForo INT AUTO_INCREMENT PRIMARY KEY,
+	titulo VARCHAR(100) NOT NULL,
+	descripcion VARCHAR(1000),
+	categoria VARCHAR(100) NOT NULL,
+);
+
+CREATE TABLE Comentario(
+	idComentario INT AUTO_INCREMENT PRIMARY KEY,
+	idForo INT NOT NULL,
+	comentario VARCHAR(1000) NOT NULL,
+	nombreUsuario VARCHAR(100) NOT NULL,
+	correoUsuario VARCHAR(100) NOT NULL,
+	FOREIGN KEY (idForo) REFERENCES Foro(idForo),
+);

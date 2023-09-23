@@ -6,6 +6,8 @@ const routerAuth = require ('./routerAuth.js');
 const routerEvent = require ('./routerEvent.js');
 const routerOrganizador = require ('./routerOrganizador.js');
 const routerMaterial = require ('./routerMaterial.js');
+const routerForo = require ('./routerForo.js');
+const routerComentario = require ('./routerComentario.js');
 
 
 //Routes Estudiantes
@@ -25,5 +27,11 @@ router.use('/organizador', routerOrganizador);
 
 //Routes Materiales
 router.use('/materiales', routerMaterial);
+
+//Routes Foros
+router.use('/foros', routerForo);
+
+//Routes Comentarios
+router.use('/comentarios', routerComentario);
 
 module.exports = router;
