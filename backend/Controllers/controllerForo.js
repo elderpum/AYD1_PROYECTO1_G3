@@ -4,8 +4,8 @@ const services = require("../Services/serviceForo.js");
 async function getForos(req, res) {
     const result = await services.getForos();
     res.json({
-    mensaje: "Todos los foros",
-    foros: result,
+        mensaje: "Todos los foros",
+        foros: result,
     });
 }
 

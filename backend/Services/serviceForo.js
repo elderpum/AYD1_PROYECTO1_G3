@@ -3,17 +3,34 @@ const path = require('path');
 
 exports.getForos = async () => {
     try{
-        const [rows] = await db.execute('SELECT idForo, nombre, descripcion FROM Foro');
-        const [rows2] = await db.execute('SELECT comentario, nombreUsuario, correoUsuario FROM Comentario WHERE idForo = ?', [rows.id]);
+        const [rows] = await db.execute('SELECT idForo, titulo, descripcion, categoria FROM Foro');
         let response = [];
-        rows.forEach(row => {
-            response.push({
-                id: row.idForo,
-                nombre: row.nombre,
-                descripcion: row.descripcion,
-                comentarios: rows2.comentario,
-            });
-        });
+
+        if (rows.length != 0) {
+            for (const row of rows) {
+                const [rows2] = await db.execute('SELECT idForo, comentario, nombreUsuario, correoUsuario FROM Comentario WHERE idForo = ?', [row.idForo]);
+                
+                let comentarios = [];
+
+                if (rows2.length !== 0) {
+                    rows2.forEach(commentRow => {
+                        comentarios.push({
+                            comentario: commentRow.comentario,
+                            nombreUsuario: commentRow.nombreUsuario,
+                            correoUsuario: commentRow.correoUsuario
+                        });
+                    });
+                }
+
+                response.push({
+                    id: row.idForo,
+                    titulo: row.titulo,
+                    descripcion: row.descripcion,
+                    categoria: row.categoria,
+                    comentarios: comentarios
+                });
+            }
+        }
 
         return{
             err: false,
