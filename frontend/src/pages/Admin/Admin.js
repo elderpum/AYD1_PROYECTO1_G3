@@ -23,6 +23,7 @@ import { styled } from 'styled-components';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Admin.css';
+import { useNavigate } from 'react-router-dom';
 
 function createData(id, nombre, apellido, correo, fecha, genero, educacion, departamento, telefono, bloq) {
     var bloqueado = 'No';
@@ -244,8 +245,14 @@ const client = axios.create({
 export function Administracion() {
     const [estudiantes, setEstudiantes] = useState([]);
     const [organizadores, setOrganizadores] = useState([]);
+    const navigate = useNavigate();
     var rows_estudiantes = [];
     var rows_organizadores = [];
+
+    const cerrarSesion = () => {
+        localStorage.removeItem("auth");
+        navigate("/");
+      };
 
     // peticion para obtener todos los usuarios
     React.useEffect(() => {
@@ -319,7 +326,7 @@ export function Administracion() {
                         </div>
                     </CenterHeader>
                     <SideHeader>
-                        <Button variant="outlined" endIcon={<LogoutIcon />}  color="error">
+                        <Button variant="outlined" endIcon={<LogoutIcon />}  color="error" onClick={cerrarSesion}>
                             Cerrar Sesion
                         </Button>
                     </SideHeader>
