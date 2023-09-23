@@ -60,7 +60,8 @@ export function InicioSesion() {
             localStorage.setItem("auth", res.tokenAuth);
             if (tipo === 1) navigate("/admin");
             else if (tipo === 2) navigate("/org/main");
-            navigate("/main");
+            else navigate("/main"); 
+            
           } else {
             setConteo(res.contador);
             setMensaje(res.message);

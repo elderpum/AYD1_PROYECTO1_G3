@@ -35,12 +35,12 @@ export function HistorialEvento() {
         .then((res) => {return res.json()})
         .then((res) => {
           let aux = [];
-          for (const h of res.data.historial) {
+          for (const h of res.data) {
             let tipos = '';
             for (const c of h.tipo) {
-              tipos += categorias[c - 1] + ', ';
+              tipos += c + ', ';
             }
-            aux.push(createData(h.name, h.fecha, tipos, h.formato, h.img));
+            aux.push(createData(h.titulo, h.fecha, tipos, h.formato, h.imagen));
           }
           setRows(aux);
         })
