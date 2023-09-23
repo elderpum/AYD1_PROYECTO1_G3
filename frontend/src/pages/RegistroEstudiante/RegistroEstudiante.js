@@ -16,14 +16,17 @@ import Select from '@mui/material/Select';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import FormGroup from '@mui/material/FormGroup';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { Link } from "react-router-dom"; // import de la libreria para el ruteo de la pagina
+import { Link, useNavigate } from "react-router-dom"; // import de la libreria para el ruteo de la pagina
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './RegistroEstudiante.css'
+import './RegistroEstudiante.css';
+const Swal = require('sweetalert2');
 
 export function RegistroEstudiante() {
     const [fecha, setFecha] = useState('');
@@ -37,7 +40,9 @@ export function RegistroEstudiante() {
     const [telefono, setTelefono] = useState('');
     const [isChecked, setIsChecked] = useState(false);
 
-    const handleChangeDate = (event) => {
+    const navigate = useNavigate();
+
+    const handleChangeGen = (event) => {
         setGenero(event.target.value);
     };
 
@@ -57,13 +62,16 @@ export function RegistroEstudiante() {
 
     const registrarse = () => {
         if (isChecked) {
-            axios.post('http://localhost:5000/api/estudiantes/add', {
+            const mont = (parseInt(fecha.$M) + 1).toString();
+            var fecha_ = fecha.$y + "-" + mont + "-" + fecha.$D;
+            console.log(fecha_)
+            axios.post("http://localhost:3001/api/estudiantes/add", {
                 estudiante: {
                     nombre: nombre,
                     apellidos: apellido,
                     email: correo,
                     pass: contra,
-                    nacimiento: fecha,
+                    nacimiento: fecha_,
                     genero: genero,
                     nivel_educacion: eduacion,
                     Departamento: departamento,
@@ -71,29 +79,32 @@ export function RegistroEstudiante() {
                     atc: true
                 }
             }).then(function (response) {
-                console.log(response);
+                Swal.fire({
+                    title: 'Felicidades!',
+                    text: 'Registrado exitosamente!.',
+                    icon: 'success',
+                    confirmButtonText: 'Ok'
+                });
+                navigate("/");
             }).catch(function (error) {
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Hubo un error al registrarse.',
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                });
                 console.log(error);
             });
-            alert("Se ha registrado exitosamente.");
         } else {
-            alert("ERROR: debe aceptar los terminos y condiciones para registrarse.");
+            Swal.fire({
+                title: 'Error!',
+                text: 'Debe aceptar los terminos y condiciones para registrarse.',
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            });
         }
     }
-    /*
-    const clearAll = () => {
-        setFecha('');
-        setNombre('');
-        setApellido('');
-        setCorreo('');
-        setContra('');
-        setGenero('');
-        setEducacion('');
-        setDepartamento('');
-        setTelefono('');
-        setIsChecked(false);
-    };
-    */
+
     return (
         <Container>
             <ContainerAlternativo>
@@ -102,8 +113,8 @@ export function RegistroEstudiante() {
                 </div>
             </ContainerAlternativo>
             <ContainerRegistro>
-                <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 2 }}>
-                    <Grid item xs={12} direction="column">
+                <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 2 }}  columns={12}>
+                    <Grid item xs={12}>
                         <h1 className='titulo'>
                             Regístrate
                         </h1>
@@ -139,7 +150,7 @@ export function RegistroEstudiante() {
                             />
                     </Grid>
                     <Grid item xs={6}>
-                        <FormControl sx={{ width: '30ch' }} variant="filled">
+                        <FormControl     variant="filled">
                             <InputLabel htmlFor="outlined-adornment-password">Contraseña</InputLabel>
                             <OutlinedInput
                                 id="filled-adornment-password"
@@ -163,7 +174,11 @@ export function RegistroEstudiante() {
                     </Grid>
                     <Grid item xs={6}>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <DatePicker onChange={(newValue) => setFecha(newValue)}/>
+                            <DatePicker 
+                                label="Fecha de Nacimiento"
+                                onChange={(newValue) => setFecha(newValue)}
+                                views={["year", "month", "day"]}
+                                format="YYYY-MM-DD"/>
                         </LocalizationProvider>
                     </Grid>
                     <Grid item xs={4}>
@@ -174,7 +189,7 @@ export function RegistroEstudiante() {
                                 id="demo-simple-select"
                                 value={genero}
                                 label="Genero"
-                                onChange={handleChangeDate}>
+                                onChange={handleChangeGen}>
                                 <MenuItem value={'Masculino'}>Masculino</MenuItem>
                                 <MenuItem value={'Femenino'}>Femenino</MenuItem>
                             </Select>
@@ -223,13 +238,15 @@ export function RegistroEstudiante() {
                     </Grid>
                     <Grid item xs={12}>
                         <div className='container-fluid d-flex flex-row-reverse bd-highlight'>
-                            <button type="button" class="btn btn-success mrgn_left" onClick={registrarse}> Registrarse</button>
-                            <Link to="/">
-                                <button type="button" class="btn btn-danger mrgn_left">Soy Una Organizacion</button>
-                            </Link>
-                            <Link to="/">
-                                <button type="button" class="btn btn-info mrgn_left">Iniciar Sesion</button>
-                            </Link>
+                            <Stack direction="row" spacing={2}>
+                                <Link to="/registroOrganizacion">
+                                    <Button variant="contained" size="small" color="error"> Soy Un Organizador </Button>
+                                </Link>
+                                <Link to="/">
+                                <Button variant="contained" size="small"> Iniciar Sesion </Button>
+                                </Link>
+                                <Button variant="contained" size="small" onClick={registrarse} color="success"> Registrarse </Button>
+                            </Stack>
                         </div>
                     </Grid>
                 </Grid>
@@ -239,9 +256,13 @@ export function RegistroEstudiante() {
 }
 
 /*
-
-● Aceptación de Términos y Condiciones:
-
+<button type="button" className="btn btn-success mrgn_left" onClick={registrarse}> </button>
+<Link to="/registroOrganizador">
+    <button type="button" className="btn btn-danger mrgn_left">Soy Una Organizacion</button>
+</Link>
+<Link to="/">
+    <button type="button" className="btn btn-info mrgn_left">Iniciar Sesion</button>
+</Link>
 */
 
 const ContainerAlternativo = styled.div`
@@ -254,7 +275,7 @@ background-color: #181818;
 border-radius: 6px 0 0 6px;
 
 & img {
-    height: 75px;
+    margin: auto 0 auto 0;
 }
 
 & .mrgn {

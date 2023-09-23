@@ -24,12 +24,13 @@ import { styled } from 'styled-components';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Admin.css';
 
-function createData(nombre, apellido, correo, fecha, genero, educacion, departamento, telefono, bloq) {
+function createData(id, nombre, apellido, correo, fecha, genero, educacion, departamento, telefono, bloq) {
     var bloqueado = 'No';
-    if (bloq) {
+    if (bloq >= 5) {
         bloqueado = 'Si';
     }
     return {
+        id,
         nombre,
         apellido,
         correo,
@@ -59,13 +60,14 @@ function createData(nombre, apellido, correo, fecha, genero, educacion, departam
     };
 }
 
-function createDataOrga(nombre, apellido, correo, fecha, genero, empresa, descripcion, direccion, telefono, bloq) {
+function createDataOrga(id, nombre, apellido, correo, fecha, genero, empresa, descripcion, direccion, telefono, bloq) {
     var bloqueado = 'No';
-    if (bloq) {
+    if (bloq >= 5) {
         bloqueado = 'Si';
     }
 
     return {
+        id,
         nombre,
         apellido,
         correo,
@@ -98,18 +100,59 @@ function createDataOrga(nombre, apellido, correo, fecha, genero, empresa, descri
         ],
     };
 }
-  
+
 function Row(props) {
     const { row } = props;
     const { type } = props;
     const [open, setOpen] = React.useState(false);
+    console.log(row)
+    const token = localStorage.getItem("auth");
+    const url_des = `http://localhost:3001/api/admin/unblock`;
 
-    const desbloquear = (id) => {
-        alert("desbloquear usuario");
+    const desbloquear = async (id, tipo) => {
+        var type = 2
+        if (tipo === "estudiante") {
+            type = 2
+        } else {
+            type = 1
+        }
+        fetch(url_des, {
+            method: "POST",
+            body: JSON.stringify({type: type, id: id}),
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `${token}`,
+            },
+        })
+        .then((res) => res.json())
+        .catch((error) => console.error("Error:", error))
+        .then((res) => {
+            console.log(res)
+        });
     };
 
-    const bloquear = (id) => {
-        alert("bloquear usuario");
+    const url_bloq = `http://localhost:3001/api/admin/block`;
+    const bloquear = (id, tipo) => {
+        var type = 2
+        if (tipo === "estudiante") {
+            type = 2
+        } else {
+            type = 1
+        }
+        console.log(id)
+        fetch(url_bloq, {
+            method: "POST",
+            body: JSON.stringify({type: type, id: id}),
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `${token}`,
+            },
+        })
+        .then((res) => res.json())
+        .catch((error) => console.error("Error:", error))
+        .then((res) => {
+            console.log(res)
+        });
     };
     
     return (
@@ -133,12 +176,12 @@ function Row(props) {
             <TableCell align="center">{row.correo}</TableCell>
             <TableCell align="center">{row.bloqueado}</TableCell>
             <TableCell align="center">
-                <Button variant="outlined" color="success" onClick={() => {desbloquear(row.correo)}}>
+                <Button variant="outlined" color="success" onClick={() => {desbloquear(row.id, type)}}>
                     Desbloquear
                 </Button>
             </TableCell> 
             <TableCell align="center">
-                <Button va riant="outlined" color="error" onClick={() => {bloquear(row.correo)}}>
+                <Button va riant="outlined" color="error" onClick={() => {bloquear(row.id, type)}}>
                     Bloquear
                 </Button>
             </TableCell>
@@ -195,7 +238,7 @@ Row.propTypes = {
 };
 
 const client = axios.create({
-    baseURL: "http://localhost:5000" 
+    baseURL: "http://localhost:3001"
 });
 
 export function Administracion() {
@@ -206,28 +249,41 @@ export function Administracion() {
 
     // peticion para obtener todos los usuarios
     React.useEffect(() => {
+        const token = localStorage.getItem("auth");
         async function getInfo() {
-          const response = await client.get("/api/admin/getAllUsers");
-          setEstudiantes(response.data.estudiantes);
-          setOrganizadores(response.data.organizadores);
+            fetch("http://localhost:3001/api/admin/getAllUsers", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `${token}`,
+                },
+            })
+            .then((res) => res.json())
+            .catch((error) => console.error("Error:", error))
+            .then((res) => {
+                console.log(res)
+                setEstudiantes(res.estudiantes);
+                setOrganizadores(res.organizadores);
+            });
         }
         getInfo();
-    }, []);
+    },[]);
 
 
     // se formatean los datos para la tabla estudiantes
     for (let i = 0; i < estudiantes.length; i++){
         rows_estudiantes.push(
             createData(
+                estudiantes[i].id_estudiante,
                 estudiantes[i].nombre,
-                estudiantes[i].apellidos,
+                estudiantes[i].apellido,
                 estudiantes[i].email,
-                estudiantes[i].nacimiento,
+                estudiantes[i].fecha_nacimiento,
                 estudiantes[i].genero,
                 estudiantes[i].nivel_educacion,
-                estudiantes[i].Departamento,
+                estudiantes[i].departamento,
                 estudiantes[i].telefono,
-                estudiantes[i].act
+                estudiantes[i].errores
             )
         );
     }
@@ -236,16 +292,17 @@ export function Administracion() {
     for (let i = 0; i < organizadores.length; i++){
         rows_organizadores.push(
             createDataOrga(
-                organizadores[i].nombre,
-                organizadores[i].apellido,
-                organizadores[i].email,
-                organizadores[i].nacimiento,
-                organizadores[i].genero,
-                organizadores[i].empresa,
-                organizadores[i].descrip_empresa,
-                organizadores[i].direc_empresa,
-                organizadores[i].tel_empresa,
-                organizadores[i].act
+                organizadores[i].ID,
+                organizadores[i].Nombre,
+                organizadores[i].Apellido,
+                organizadores[i].CorreoElectronico,
+                organizadores[i].FechaNacimiento,
+                organizadores[i].Genero,
+                organizadores[i].NombreInstitucionEmpresa,
+                organizadores[i].Descripcion,
+                organizadores[i].DireccionEmpresa,
+                organizadores[i].NumeroTelefono,
+                organizadores[i].errores
             )
         );
     }
@@ -328,7 +385,7 @@ height: 55px;
 background-color: black;
 
 & img {
-    height: 45px;
+    max-height: 45px;
 }
 `
 

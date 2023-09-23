@@ -1,21 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import './Styles.css'
+import './Titulo.css'
 
-export function Head(props) {
+export function Titulo(props) {
     return (
         <Container>
-            <h1 className='heads'> {props.titulo} </h1>
+            <h2 className='heads'> {props.titulo} </h2>
         </Container>
     )
 }
 
 const Container = styled.div`
 display: flex;
-color: white;
+color: #04BFBF;
 justify-content: space-between;
-padding: 0px 50px;
-margin-top: 15px;
-margin-bottom: 15px;
+margin-top: 50px;
+margin-bottom: 40px;
 `

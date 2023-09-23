@@ -1,25 +1,63 @@
-const servicesAdmin = require('../Services/serviceAdmin');
-const servicesEstudinte = require('../Services/serviceEstudiante');
+const servicesAdmin = require("../Services/serviceAdmin");
+const servicesEstudinte = require("../Services/serviceEstudiante");
 
 //GETS
-function ejemplo(req, res){
-    const result = servicesAdmin.ejemploAdmin();
-    res.json({
-        mensaje: result
+function ejemplo(req, res) {
+  const result = servicesAdmin.ejemploAdmin();
+  res.json({
+    mensaje: result,
+  });
+}
+
+async function getAllEstudiantes(req, res) {
+  const resultEstudiante = await servicesEstudinte.getAll();
+  const resultOrganizadores = await servicesAdmin.getOrganizadores();
+
+  res.json({
+    estudiantes: resultEstudiante,
+    organizadores: resultOrganizadores,
+  });
+
+}
+
+async function blockUser(req, res) {
+  try {
+    const data = req.body;
+
+    const response = await servicesAdmin.blockUser(data);
+
+    if (response.err) {
+      return res.status(400).json(response);
+    }
+    return res.status(201).json(response);
+  } catch (error) {
+    return res.status(500).json({
+      err: true,
+      message: error.message,
     });
+  }
 }
 
-function getAllEstudiantes(req, res){
-    const resultEstudiante = servicesEstudinte.getAll()
-    const resultOrganizadores = servicesAdmin.getOrganizadores()
+async function unblockUser(req, res) {
+  try {
+    const data = req.body;
 
-    res.json({
-        estudiantes: resultEstudiante,
-        organizadores: resultOrganizadores
-    })
+    const response = await servicesAdmin.unblockUser(data);
+
+    if (response.err) {
+      return res.status(400).json(response);
+    }
+    return res.status(201).json(response);
+  } catch (error) {
+    return res.status(500).json({
+      err: true,
+      message: error.message,
+    });
+  }
 }
-
 module.exports = {
-    ejemplo,
-    getAllEstudiantes
+  ejemplo,
+  getAllEstudiantes,
+  blockUser,
+  unblockUser,
 };

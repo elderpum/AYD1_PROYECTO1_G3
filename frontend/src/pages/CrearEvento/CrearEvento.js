@@ -13,6 +13,8 @@ import {
   InputAdornment,
   Select,
   MenuItem,
+  Stack,
+  Snackbar,
 } from "@mui/material";
 import {
   DatePicker,
@@ -20,7 +22,9 @@ import {
   TimePicker,
 } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import MuiAlert from "@mui/material/Alert";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { Sidebar } from "../../components/Sidebar";
 
 export function CrearEvento() {
   const [titulo, setTitulo] = useState("");
@@ -33,7 +37,14 @@ export function CrearEvento() {
   const [costo, setCosto] = useState("");
   const [imagen, setImagen] = useState("");
   const [formatoEvento, setFormatoEvento] = useState("");
-  const [materialesEdu, setMaterialesEdu] = useState("");
+  const [materialesEdu, setMaterialesEdu] = useState([]);
+  const [mensaje, setMensaje] = useState("");
+  const [open, setOpen] = React.useState(false);
+  const ip = "localhost";
+
+  const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
 
   async function convertToBase64(file) {
     return new Promise((resolve, reject) => {
@@ -53,29 +64,61 @@ export function CrearEvento() {
   }
 
   async function crearEvento() {
-    console.log("titulo ", titulo);
-    console.log("descripcion ", descripcion);
-    console.log("fecha ", fecha);
-    console.log("hora ", hora);
-    console.log("duracion ", duracion);
-    console.log("ubicacion ", ubicacion);
-    console.log("categoria ", categoria);
-    console.log("costo ", costo);
-    console.log("formatoEvento ", formatoEvento);
-    console.log("materialesEdu ", materialesEdu);
-    const base64Image = await convertToBase64(imagen);
-
-    console.log("imagen ", base64Image);
-    let i = 0;
+    let imagenPromocional = { contenido: "", nombre: ""};
+    if (imagen !== "") {
+      const base64Image = await convertToBase64(imagen);
+      console.log(base64Image)
+      imagenPromocional = { contenido: base64Image, nombre: imagen.name };
+    }
+    let materiales = [];
     for (const m of materialesEdu) {
       const base64File = await convertToBase64(m);
-      console.log(`${i}: `, base64File);
-      i++;
+      materiales.push({ contenido: base64File, nombre: m.name });
     }
+    const url = `http://${ip}:3001/api/events/create`;
+    const token = localStorage.getItem("auth");
+    let data = {
+      titulo: titulo,
+      descripcion: descripcion,
+      fecha: fecha,
+      hora: hora,
+      duracion: duracion,
+      ubicacion: ubicacion,
+      categoria: categoria,
+      costo: costo,
+      imagenPromocional: imagenPromocional,
+      formatoEvento: formatoEvento,
+      materialAdicional: materiales,
+    };
+    const fetchData = async () => {
+      fetch(url, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${token}`,
+        },
+      })
+        .then((res) => {return res.json()})
+        .then((res) => {
+          setMensaje(res.message);
+          setOpen(true);
+        })
+        .catch((error) => console.error("Error:", error));
+    };
+    fetchData();
   }
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
 
   return (
     <Container>
+      <Sidebar isOrganizador={true} opcionActiva={'crear-evento'} />
       <ContainerContent component="form">
         <Grid
           container
@@ -130,7 +173,7 @@ export function CrearEvento() {
                     label="Fecha"
                     onChange={(newValue) =>
                       setFecha(
-                        `${newValue.$D}/${newValue.$M + 1}/${newValue.$y}`
+                        `${newValue.$y}/${newValue.$M + 1}/${newValue.$D}`
                       )
                     }
                   />
@@ -146,8 +189,9 @@ export function CrearEvento() {
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <TimePicker
                     label="Hora"
+                    views={["hours","minutes", "seconds"]}
                     onChange={(newValue) =>
-                      setHora(`${newValue.$H}:${newValue.$m}`)
+                      setHora(`${newValue.$H}:${newValue.$m}:${newValue.$s}`)
                     }
                   />
                 </LocalizationProvider>
@@ -162,10 +206,10 @@ export function CrearEvento() {
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <TimePicker
                     label="Duracion (horas)"
-                    views={["minutes", "seconds"]}
-                    format="mm:ss"
+                    views={["hours","minutes", "seconds"]}
+                    format="HH:mm:ss"
                     onChange={(newValue) =>
-                      setDuracion(`${newValue.$m}:${newValue.$s}`)
+                      setDuracion(`${newValue.$H}:${newValue.$m}:${newValue.$s}`)
                     }
                   />
                 </LocalizationProvider>
@@ -283,11 +327,31 @@ export function CrearEvento() {
                 </Button>
               </FormControl>
             </Grid>
-
+            <br />
+            <br />
             <Grid item xs={8}>
-              <Button variant="contained" color="success" onClick={crearEvento}>
-                Crear Evento
-              </Button>
+              <Stack spacing={2} sx={{ width: "100%" }}>
+                <Button
+                  variant="contained"
+                  color="success"
+                  onClick={crearEvento}
+                >
+                  Crear Evento
+                </Button>
+                <Snackbar
+                  open={open}
+                  autoHideDuration={6000}
+                  onClose={handleClose}
+                >
+                  <Alert
+                    onClose={handleClose}
+                    severity="info"
+                    sx={{ width: "100%" }}
+                  >
+                    { mensaje }
+                  </Alert>
+                </Snackbar>
+              </Stack>
             </Grid>
           </Grid>
         </Grid>
@@ -341,6 +405,6 @@ const ContainerContent = styled.div`
   width: 80%;
   min-width: 80%;
   background: white;
-  margin-top: 6.5rem;
+  margin-top: 4rem;
   border-radius: 0.5rem;
 `;
