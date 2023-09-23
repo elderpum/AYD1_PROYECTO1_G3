@@ -10,17 +10,17 @@ export const getForo = async () => {
         },
     });
     const data = await resp.json();
-    console.log(data);
 
-    //const foro = data.map(foroData => {
-        //return {
-            //id: foroData.idForo,
-            //nombre: foroData.nombre,
-            //descripcion: foroData.descripcion,
-            //categoria: foroData.categoria,
-            //comentarios: foroData.comentario,
-        //}
-    //});
 
-    //return foro;
+    const foro = data.foros.data.map(foroData => {
+        return {
+            id: foroData.id,
+            titulo: foroData.titulo,
+            descripcion: foroData.descripcion,
+            categoria: foroData.categoria,
+            comentarios: foroData.comentarios,
+        }
+    });
+
+    return foro;
 }

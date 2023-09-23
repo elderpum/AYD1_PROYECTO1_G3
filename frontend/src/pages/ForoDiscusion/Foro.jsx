@@ -53,8 +53,8 @@ export const Foro = ({ isOrganizador }) => {
 
     //Obtener lista de fotos
     const { dataForo } = UseFetchForo();
-
     console.log(dataForo);
+
     //Obtene usuario activo
     // const {dataUser} = UseFetchUser();
 
@@ -88,11 +88,11 @@ export const Foro = ({ isOrganizador }) => {
                         ))
                     } */}
 
-                    {/* {
+                    {
                         dataForo.map((foro) => (
-                            <CardForo key={foro.id} foro={foro} usuario={dataUser} />
+                            <CardForo key={foro.id} foro={foro} usuario={"elder"} />
                         ))
-                    } */}
+                    }
 
                 </div>
 

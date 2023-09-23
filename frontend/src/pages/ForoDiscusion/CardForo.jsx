@@ -14,7 +14,7 @@ import { setComments } from './helpers/setComment';
 
 
 
-export const CardForo = ({ foro }) => {
+export const CardForo = ({ foro, usuario }) => {
 
     const [comment, setComment] = useState('');
 
@@ -77,7 +77,7 @@ export const CardForo = ({ foro }) => {
                                                 >
                                                     Nombre usuario
                                                 </Typography>
-                                                — "{comment}"
+                                                — "{comment.comentario}"
                                             </React.Fragment>
                                         }
                                     />

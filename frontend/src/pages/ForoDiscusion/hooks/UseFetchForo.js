@@ -7,16 +7,16 @@ export const UseFetchForo = () => {
         dataForo: []
     });
 
-    // useEffect(() => {
+    useEffect(() => {
 
-    //     getForo()
-    //     .then(listData => {
-    //         setForo({
-    //             dataForo: listData
-    //         })
-    //     });
+        getForo()
+        .then(listData => {
+            setForo({
+                dataForo: listData
+            })
+        });
     
-    // }, [foro]);
-    getForo()
+    }, [foro]);
+
     return foro;
 }
