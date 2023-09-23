@@ -6,9 +6,10 @@ function EjemploE() {
 }
 
 async function add(organizador) {
+  console.log(organizador)
   const query =
     "insert into Organizador(Nombre, Apellido, CorreoElectronico, Contrasena, FechaNacimiento, Genero, NombreInstitucionEmpresa, Descripcion, DireccionEmpresa, NumeroTelefono, AceptacionTerminosCondiciones, errores) values (?,?,?,?,?,?,?,?,?,?,?,?);";
-  const hash = await bcrypt.hash(organizador.pass, 10);
+  const hash = await bcrypt.hash(organizador.Contrasena, 10);
   const values = [
     organizador.Nombre,
     organizador.Apellido,
