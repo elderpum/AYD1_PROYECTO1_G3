@@ -6,8 +6,6 @@ export const setComments = async (comment, foroId) => {
     
     const newComment = {
         comentario: comment,
-        nombreUsuario: "nombreUsuario",
-        correoUsuario: "correoUsuario",
         idForo: foroId,
     }
 
