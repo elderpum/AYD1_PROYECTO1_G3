@@ -75,6 +75,9 @@ export function VerMaterial() {
 
   async function buscarCategoria() {
     console.log("categoria: ",categoria)
+    for (let i = 0; i < categorias.length; i++) {
+      if (categoria == categorias[i]) console.log('i;', i, 'categoria: ', categorias[i])
+    }
     const url = `http://${ip}:3001/api/materiales/materiales-categoria`;
     const token = localStorage.getItem("auth");
     let data = { categoria: categoria };
@@ -99,7 +102,7 @@ export function VerMaterial() {
         })
         .catch((error) => console.error("Error:", error));
     };
-    fetchData();
+    // fetchData();
   }
 
   async function VerMaterial(url) {
