@@ -53,7 +53,6 @@ export const Foro = ({ isOrganizador }) => {
 
     //Obtener lista de fotos
     const { dataForo } = UseFetchForo();
-    console.log(dataForo);
 
     //Obtene usuario activo
     // const {dataUser} = UseFetchUser();

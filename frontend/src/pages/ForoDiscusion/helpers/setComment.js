@@ -13,7 +13,7 @@ export const setComments = async (comment, foroId) => {
 
 
     // Peticion al backend.
-    await fetch('http://localhost:3001/crearComentario', {
+    await fetch('http://localhost:3001/api/comentarios/crearComentario', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
