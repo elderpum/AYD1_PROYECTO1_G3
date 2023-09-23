@@ -21,7 +21,7 @@ export const setEvento = async (gender, monthTarjet, form, idEvento) => {
 
     // console.log(newOrganizador);
     // Peticion al backend.
-    await fetch('http://localhost:3001/estudiantes/asistirEvento', {
+    await fetch('http://localhost:3001/api/estudiantes/asistirEvento', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

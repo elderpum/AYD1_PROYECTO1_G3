@@ -26,7 +26,7 @@ async function add(req, res) {
 }
 
 async function asistirEvento(req, res) {
-  const result = await services.asistirEvento(req.body.AsistenciaEvento);
+  const result = await services.asistirEvento(req.body);
 
   res.json({
     mensaje: result,
