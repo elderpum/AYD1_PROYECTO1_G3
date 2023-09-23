@@ -60,10 +60,8 @@ export const AgregarMaterial = () => {
             reader.onload = () => {
                 if (reader.readyState === 2) {
                     const base64 = reader.result;
-                    var arrayB64 = base64.split(',');
                     setUploadMaterial({
-                        profile: base64,
-                        base64: arrayB64[1],
+                        base64: base64,
                         name: e.target.files[0].name,
                     });
                 }

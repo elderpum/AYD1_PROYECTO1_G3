@@ -2,6 +2,8 @@ const Swal = require('sweetalert2');
 
 export const setMaterial = async (form, date, category, material) => {
 
+    const token = localStorage.getItem("auth");
+
     const mont = (parseInt(date.$M) + 1).toString();
     const fecha = date.$y + "/" + mont + "/" + date.$D;
 
@@ -19,7 +21,8 @@ export const setMaterial = async (form, date, category, material) => {
     await fetch('http://localhost:3001/api/materiales/addMaterial', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            Authorization: `${token}`,
         },
         body: JSON.stringify(newMaterial)
     })
