@@ -58,7 +58,9 @@ export function InicioSesion() {
             // auntenticaion exitosa
             console.log(res)
             localStorage.setItem("auth", res.tokenAuth);
-            navigate("/foros");
+            if (tipo === 1) navigate("/admin");
+            else if (tipo === 2) navigate("/org/main");
+            navigate("/main");
           } else {
             setConteo(res.contador);
             setMensaje(res.message);
