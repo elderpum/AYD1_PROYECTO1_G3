@@ -10,12 +10,19 @@ import {
 } from "react-icons/md";
 import { HiDocumentDuplicate } from "react-icons/hi";
 import { styled } from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Sidebar.css";
 
 export function Sidebar({ isOrganizador, opcionActiva }) {
+  const navigate = useNavigate();
+
+  const cerrarSesion = () => {
+    localStorage.removeItem("auth");
+    navigate("/");
+  };
+  
   return (
     <Container>
       <div className="menu_options">
@@ -96,7 +103,7 @@ export function Sidebar({ isOrganizador, opcionActiva }) {
               <span>Historial de Eventos</span>
             </li>
           </Link>
-          <li className="option d-flex align-items-center cerrar">
+          <li className="option d-flex align-items-center cerrar" onClick={cerrarSesion}>
             <MdLogout />
             <span>Cerrar Sesión</span>
           </li>

@@ -124,19 +124,18 @@ exports.getAvailables = async () => {
 
 exports.getEventsByStudent = async (idEstudiante) => {
   try{
-      const [res] = await db.execute('SELECT ev.titulo, ev.fechaHora, ev.FormatoEvento, ev.imagen FROM Evento ev INNER JOIN evento_estudiante_U eeu ON eeu.id_evento = ev.idEvento WHERE eeu.id_estudiante = ?;', [idEstudiante]);
+      const [rows] = await db.execute('SELECT ev.idEvento, ev.titulo, ev.fechaHora, ev.FormatoEvento, ev.imagen FROM Evento ev INNER JOIN evento_estudiante_U eeu ON eeu.id_evento = ev.idEvento WHERE eeu.id_estudiante = ?;', [idEstudiante]);
 
-      rows = res[0];
       let response = [];
-      rows.forEach(async row => {
-          const [res] = await db.execute('SELECT Categoria FROM CategoriaEvento WHERE idEvento = ?', [row.idEvento]);
-          let categorias = res[0];
 
+      for(const row of rows){
+        const [categorias] = await db.execute('SELECT Categoria FROM CategoriaEvento WHERE idEvento = ?', [row.idEvento]);
+          console.log(categorias)
           let cats = [];
           categorias.forEach(categoria => {
               cats.push(categoria.Categoria);
           });
-
+          console.log(cats)
           response.push({
               id: row.idEvento,
               titulo: row.titulo,
@@ -145,8 +144,8 @@ exports.getEventsByStudent = async (idEstudiante) => {
               imagen: row.imagen,
               tipo: cats
           });
-      });
-      
+      }
+      console.log(response)
       return{
           err: false,
           message: "Success",
