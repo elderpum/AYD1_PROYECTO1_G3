@@ -11,7 +11,7 @@ async function getForos(req, res) {
 
 //POSTS
 async function add(req, res) {
-    const result = await services.add(req.body);
+    const result = await services.addForo(req.body);
 
     res.json({
     mensaje: result,

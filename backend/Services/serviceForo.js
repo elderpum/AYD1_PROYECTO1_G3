@@ -30,11 +30,14 @@ exports.getForos = async () => {
 }
 
 exports.addForo = async (newForo) => {
+    const query = 'INSERT INTO Foro (titulo, descripcion, categoria) VALUES (?,?,?)';
+    const values = [newForo.titulo, newForo.descripcion, newForo.categoria];
     try{
-        await db.execute('INSERT INTO Foro(titulo, descripcion, categoria) VALUES(?, ?)', [newForo.nombre, newForo.descripcion, newForo.categoria]);
+        const result = await db.query(query, values);
         return{
             err: false,
-            message: "Success"
+            message: "Success",
+            data: result
         }
     }catch(error){
         return{
