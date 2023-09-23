@@ -1,0 +1,27 @@
+------------- MATERIAL UI ---------------------------------
+npm install @mui/material @emotion/react @emotion/styled
+
+------------- MUI icons -----------------------------------
+npm install @mui/material @mui/icons-material
+
+------------- MUI dates -----------------------------------
+npm install @mui/x-date-pickers
+npm install dayjs
+
+------------- react-router-dom ----------------------------
+npm i react-router-dom
+
+------------- styled-components ---------------------------
+npm i styled-components
+
+------------- raect-icons ---------------------------------
+npm i react-icons
+
+------------- bootstrap -----------------------------------
+npm i bootstrap
+
+------------- axios ---------------------------------------
+npm install axios
+
+------------- sweetalert2 ---------------------------------------
+npm install --save sweetalert2 sweetalert2-react-content
