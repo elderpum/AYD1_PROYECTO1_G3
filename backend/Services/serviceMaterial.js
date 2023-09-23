@@ -59,16 +59,11 @@ exports.getMaterialsByCategory = async (category) => {
 
 exports.addMaterial = async (newMaterial) => {
     try{
-        let imageLink = "";
-        image = newMaterial.url;
-        const s3Response = await controllerS3.uploadFile(image.nombre, image.contenido);
-        if (s3Response.err) {
-            return { err: true, message: s3Response.message };
-        }
-        imageLink = s3Response.link;
+        const s3Response = await controllerS3.uploadFile(newMaterial.nombreArchivo, newMaterial.archivoBase64);
+        let imageLink = s3Response.link;
 
-        const [res] = await db.execute('INSERT INTO Material (nombre, descripcion, link, idEvento, fecha) VALUES (?,?,?,?,?)', [newMaterial.nombre, newMaterial.descripcion, imageLink, newMaterial.idEvento, newMaterial.fecha]);
-        const [res2] = await db.execute('INSERT INTO CategoriaMaterial (idMaterial, categoria) VALUES (?,?)', [res.idMaterial, newMaterial.categoria]);
+        const res = await db.execute('INSERT INTO Material (nombre, descripcion, link, idEvento, fecha) VALUES (?,?,?,?,?)', [newMaterial.nombre, newMaterial.url, imageLink, newMaterial.idEvento, newMaterial.fecha]);
+        const res2 = await db.execute('INSERT INTO CategoriaMaterial (idMaterial, categoria) VALUES (?,?)', [res.idMaterial, newMaterial.categoria]);
         return{
             err: false,
             message: "Success"

@@ -16,7 +16,7 @@ export const setMaterial = async (form, date, category, material) => {
     }
 
     // Peticion al backend.
-    await fetch('http://localhost:3001/organizador/addMaterial', {
+    await fetch('http://localhost:3001/api/materiales/addMaterial', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
