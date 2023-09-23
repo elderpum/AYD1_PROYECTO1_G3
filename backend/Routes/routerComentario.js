@@ -7,6 +7,6 @@ const controllerAccess = require('../Controllers/controllerAccess');
 router.get('/getComentarios', controllerComentario.getComentarios);
 
 //POSTS
-router.post('/crearComentario', controllerAccess.anyRole, controllerComentario.add);
+router.post('/crearComentario', controllerAccess.isOrganizerOrStudent, controllerComentario.add);
 
 module.exports = router;

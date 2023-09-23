@@ -19,5 +19,4 @@ export const UseFetchForo = () => {
     }, [foro]);
 
     return foro;
-    
 }

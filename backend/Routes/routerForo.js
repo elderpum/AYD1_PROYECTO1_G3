@@ -4,7 +4,7 @@ const controllerForo = require('../Controllers/controllerForo');
 const controllerAccess = require('../Controllers/controllerAccess');
 
 //GETS
-router.get('/getForos', controllerForo.getForos);
+router.get('/getForos', controllerAccess.isOrganizerOrStudent, controllerForo.getForos);
 
 //POSTS
 router.post('/crearForo', controllerAccess.anyRole, controllerForo.add);

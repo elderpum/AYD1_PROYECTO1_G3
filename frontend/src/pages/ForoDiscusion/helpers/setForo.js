@@ -2,6 +2,8 @@ const Swal = require('sweetalert2');
 
 export const setForo = async (form, category) => {
 
+    const token = localStorage.getItem("auth");
+
     const newForo = {
         titulo: form.nombre,
         descripcion: form.descripcion,
@@ -11,10 +13,11 @@ export const setForo = async (form, category) => {
     // console.log(newForo);
 
     // Peticion al backend.
-    await fetch('http://localhost:3001/crearForo', {
+    await fetch('http://localhost:3001/api/foros/crearForo', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            Authorization: `${token}`,
         },
         body: JSON.stringify(newForo)
     })
